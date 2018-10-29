@@ -1,5 +1,3 @@
-# Unwelch node api
-
 ## Quick start
 
 ### Requirements:
