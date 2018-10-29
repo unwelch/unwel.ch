@@ -1,0 +1,2 @@
+export const SHOW_ANNOUNCE = 'SHOW_ANNOUNCE'
+export const POP_ANNOUNCE = 'POP_ANNOUNCE'
