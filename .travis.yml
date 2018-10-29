@@ -1,0 +1,51 @@
+language: node_js
+
+node_js:
+  - "10"
+
+services:
+  - docker
+
+branches:
+  only:
+    - master
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
+env:
+  API_HOST: "https://api.unwel.ch"
+
+matrix:
+  include:
+    - env: PACKAGE=frontend
+    - env: PACKAGE=backend
+
+before_install:
+  - "curl -o- -L https://yarnpkg.com/install.sh | bash"
+  - export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+install:
+  - cd $PACKAGE
+  - yarn
+  - cd ..
+
+script:
+  - cd $PACKAGE
+  - yarn test
+  - yarn build
+  - cd ..
+
+before_deploy:
+  - docker login -u="$DOCKERHUB_USERNAME" -p="$DOCKERHUB_PASSWORD"
+  - docker build -t $PACKAGE ./$PACKAGE
+  - docker tag $PACKAGE unwelch/$PACKAGE
+
+deploy:
+  provider: script
+  script:
+    - docker push unwelch/$PACKAGE
+  on:
+    branch: master
