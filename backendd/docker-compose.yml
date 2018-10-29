@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  db:
+    image: cockroachdb/cockroach:v1.1.3
+    ports:
+      - 26257:26257
+
+  backend:
+    image: registry.gitlab.com/unwelch/backend:latest
+    env_file:
+      - .env
+    links:
+      - db
+    ports:
+      - 3000:3000
+
+  frontend:
+    image: registry.gitlab.com/unwelch/frontend:latest
+    links:
+      - backend
+    ports:
+      - 80:80
+    environment:
+      - API_HOST=backend
