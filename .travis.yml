@@ -25,7 +25,6 @@ before_install:
 install:
   - cd backend
   - yarn
-  - yarn test
   - cd ..
   - cd frontend
   - yarn
@@ -36,6 +35,7 @@ script:
   - yarn build
   - cd ..
   - cd backend
+  - yarn test
   - yarn build
   - cd ..
 
