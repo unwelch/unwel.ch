@@ -17,8 +17,8 @@ cache:
 
 env:
   API_HOST: "https://api.unwel.ch"
-  PACKAGE: frontend
-  PACKAGE: backend
+  - PACKAGE=frontend
+  - PACKAGE=backend
 
 before_install:
   - "curl -o- -L https://yarnpkg.com/install.sh | bash"
