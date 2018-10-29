@@ -1,6 +1,7 @@
 {
   "name": "@unwelch/backend",
   "version": "0.0.1",
+  "license": "BSD-3-Clause",
   "main": "src/server.js",
   "scripts": {
     "build": "babel src --out-dir lib",

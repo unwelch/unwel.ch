@@ -1,11 +1,12 @@
 {
   "name": "@unwelch/unwel.ch",
+  "version": "0.1.0",
   "description": "unwel.ch application",
+  "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
     "url": "https://github.com/unwelch/unwel.ch"
   },
-  "version": "0.1.0",
   "scripts": {
     "start:frontend": "cd frontend; yarn start",
     "start:backend": "cd backend; yarn dev",

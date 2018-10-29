@@ -1,8 +1,7 @@
 {
   "name": "@unwelch/frontend",
-  "license": "Private",
   "version": "0.1.0",
-  "private": true,
+  "license": "BSD-3-Clause",
   "scripts": {
     "clean": "rm -rf build",
     "test": "echo 'No tests'; echo ''",
@@ -11,25 +10,6 @@
     "start:prod": "webpack-dev-server --mode production",
     "build": "webpack --mode production",
     "test:e2e": "testcafe chrome ./e2e"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.1.0",
-    "@babel/plugin-proposal-class-properties": "^7.1.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
-    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-    "@babel/polyfill": "^7.0.0",
-    "@babel/preset-env": "^7.1.0",
-    "@babel/preset-react": "^7.0.0",
-    "babel-loader": "8.0.4",
-    "clean-webpack-plugin": "^0.1.17",
-    "dotenv": "^4.0.0",
-    "file-loader": "^1.1.11",
-    "html-webpack-plugin": "^3.0.4",
-    "testcafe": "^0.22.0",
-    "webpack": "4.0.1",
-    "webpack-cli": "^2.0.6",
-    "webpack-dev-server": "^3.1.0",
-    "webpack-pwa-manifest": "^3.7.1"
   },
   "dependencies": {
     "@nivo/pie": "^0.49.0",
@@ -66,5 +46,24 @@
     "styled-normalize": "^2.2.1",
     "uuid": "^3.2.1",
     "webfontloader": "^1.6.28"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.0",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "8.0.4",
+    "clean-webpack-plugin": "^0.1.17",
+    "dotenv": "^4.0.0",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.0.4",
+    "testcafe": "^0.22.0",
+    "webpack": "4.0.1",
+    "webpack-cli": "^2.0.6",
+    "webpack-dev-server": "^3.1.0",
+    "webpack-pwa-manifest": "^3.7.1"
   }
 }
