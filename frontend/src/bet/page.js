@@ -91,13 +91,11 @@ class BetPage extends Component {
       case betStatuses.WAITING_FOR_OPONENT:
         return (
           <Distribute space={1} align='center'>
-            <Button type='level2' onClick={this.copyLink}>
-              Copy the URL
-            </Button>
-            <Button type='warning' onClick={this.deleteBet}>
-              Delete
-            </Button>
-            <SharingButtons url={`${BET_PAGE}/${this.props.betId}`} />
+            <SharingButtons
+              url={`${BET_PAGE}/${this.props.betId}`}
+              copyLink={this.copyLink}
+              deleteBet={this.deleteBet}
+            />
           </Distribute>
         )
       case betStatuses.AVAILABLE_BET:
