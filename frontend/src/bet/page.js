@@ -45,9 +45,25 @@ class BetPage extends Component {
   }
 
   copyLink () {
-    this.props.showAnnounce('Copied! Go find a friend to accept it')
-    copy(`${BET_PAGE}/${this.props.betId}`)
-    trackEvent(events.betLinkCopied, { betId: this.props.betId })
+    const isWebAPIShareSupported = window.navigator.share
+    if (isWebAPIShareSupported) {
+      navigator
+        .share({
+          title,
+          text,
+          url
+        })
+        .then(() => console.log('Successful share'))
+        .catch(error => console.log('Error sharing', error))
+    } else {
+      this.props.showAnnounce('Copied! Go find a friend to accept it')
+      copy(`${BET_PAGE}/${this.props.betId}`)
+    }
+
+    trackEvent(events.betLinkCopied, {
+      betId: this.props.betId,
+      isWebAPIShareSupported: !!isWebAPIShareSupported
+    })
   }
 
   acceptBet () {
@@ -93,6 +109,8 @@ class BetPage extends Component {
           <Distribute space={1} align='center'>
             <SharingButtons
               url={`${BET_PAGE}/${this.props.betId}`}
+              text={'Are you accepting this bet?'}
+              title={'unwel.ch - Friendly betting'}
               copyLink={this.copyLink}
               deleteBet={this.deleteBet}
             />
