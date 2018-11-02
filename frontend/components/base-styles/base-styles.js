@@ -8,8 +8,10 @@ import CeraMediumEot from '../../src/assets/fonts/Cera/Cera-Medium.eot'
 import CeraMediumWoff from '../../src/assets/fonts/Cera/Cera-Medium.woff'
 import CeraBlackEot from '../../src/assets/fonts/Cera/Cera-Black.eot'
 import CeraBlackWoff from '../../src/assets/fonts/Cera/Cera-Black.woff'
-import CeraBlackItalicEot from '../../src/assets/fonts/Cera/Cera-BlackItalic.eot'
-import CeraBlackItalicWoff from '../../src/assets/fonts/Cera/Cera-BlackItalic.woff'
+import CeraBlackItalicEot
+  from '../../src/assets/fonts/Cera/Cera-BlackItalic.eot'
+import CeraBlackItalicWoff
+  from '../../src/assets/fonts/Cera/Cera-BlackItalic.woff'
 
 injectGlobal`
   ${styledNormalize}
@@ -72,7 +74,6 @@ const BaseStyles = styled.div`
   color: ${colors.body};
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
-  overflow: hidden;
   height: 100%;
 
   *,
