@@ -29,7 +29,7 @@ module.exports = {
     }
   },
   rules: {
-    complexity: ['warn', { max: 7 }],
+    // complexity: ['warn', { max: 7 }],
     'react/jsx-sort-props': 0,
     'react/jsx-handler-names': 'warn',
     'react/jsx-no-bind': 'warn',

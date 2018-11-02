@@ -1,26 +1,27 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
+
 import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import { compose } from 'ramda'
 
-import { checkTempStatement, checkTempAccept } from './../bet/services'
-import * as mutations from './../bet/mutations'
-
 import DefaultContainer from 'components/default-container'
 import Spacer from 'components/spacer'
 import Link from 'components/link'
+import Text from 'components/text'
 import Content from 'components/content'
 import Distribute from 'components/distribute'
 import { withBreakpoint } from 'components/responsive-provider'
-import withNavigate from './../navigation/withNavigate'
-import withIsLoggedIn from './../user/auth/withIsLoggedIn'
-
 import Button from 'components/button'
 import Logo from 'components/logo'
-import styled from 'styled-components'
 import { colors } from 'components/variables'
 
+import withNavigate from './../navigation/withNavigate'
+import withIsLoggedIn from './../user/auth/withIsLoggedIn'
+import { checkTempStatement, checkTempAccept } from './../bet/services'
+import * as mutations from './../bet/mutations'
 import { trackEvent, events } from '../tracking'
+import { canInstall, promptInstall } from './../pwa'
 import WaypointAnimate from './waypoint-animate'
 
 import IPHONE_NEW_BET from './assets/iphone-x-new-bet@2x.png'
@@ -43,7 +44,7 @@ const DistributeWrapper = styled.div`
 
 const Hero = styled.div`
   width: 100%;
-  background-color: ${colors.grey2};
+  background-color: ${props => props.color || colors.grey2};
   padding-top: 16px;
   padding-bottom: 40px;
 `
@@ -62,6 +63,7 @@ const ConversationWrapper = styled.div`
     }
   }
 `
+
 const Image = styled.img`
   width: 100%;
   min-width: 150px;
@@ -72,12 +74,22 @@ const Half = styled.div`
   flex: 1;
 `
 
+const Root = styled.div`
+  background-color: ${colors.tint.blue};
+`
+
 const Footer = styled.footer`
   width: 100%;
   padding: 32px;
-  min-height: 350px;
+  min-height: 200px;
   position: relative;
-  background-color: black;
+  background-color: ${colors.body};
+`
+
+const SubFooter = styled.div`
+  width: 100%;
+  padding: 20px 32px;
+  background-color: ${colors.black};
 `
 
 class Home extends Component {
@@ -120,7 +132,7 @@ class Home extends Component {
     const isBigScreen = breakpoint === 'lg'
 
     return (
-      <div>
+      <Root>
         <Hero>
           <DefaultContainer>
             <DistributeWrapper>
@@ -342,17 +354,49 @@ class Home extends Component {
 
         <Footer>
           <DefaultContainer>
-            <Content color={colors.grey3}>
-              We hate sport's betting online but we love it doing it with a
-              friend. We are creating this small Web Application to easy
-              manage them.
-            </Content>
-            <Spacer top={5}>
-              <Link color={colors.grey3}>Send us your thoughts</Link>
-            </Spacer>
+            <Distribute vertical>
+              <Spacer bottom={4}>
+                <Logo color={colors.grey8} />
+              </Spacer>
+              <Text size={'size0'} color={colors.grey3}>
+                We hate sport's betting online but we love it doing it with a
+                friend.
+                <br />
+                We are creating this small Web Application to easy
+                manage them.
+              </Text>
+              {canInstall()
+                ? <Spacer top={3} bottom={3}>
+                  <Button
+                    onClick={() => {
+                      promptInstall()
+                    }}
+                    size='small'
+                    type='level2'
+                    >
+                      Add to your Homescreen
+                    </Button>
+                </Spacer>
+                : null}
+
+              <Spacer top={2} bottom={1}>
+                <Text size={'size0'} color={colors.grey3}>
+                  Send us your thoughts
+                </Text>
+                <Link size={'size0'} color={colors.grey3}>Contact us</Link>
+              </Spacer>
+            </Distribute>
           </DefaultContainer>
         </Footer>
-      </div>
+
+        <SubFooter>
+          <DefaultContainer>
+            <Text size='size0' color={colors.grey3} fontWeight='light'>
+              Created by <b>Gerard Abello</b> and <b>David Sancho</b>
+            </Text>
+          </DefaultContainer>
+        </SubFooter>
+      </Root>
     )
   }
 }
