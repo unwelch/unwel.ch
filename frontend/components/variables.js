@@ -42,7 +42,7 @@ const variables = {
     overlay: '#7C8B9A'
   },
 
-  fontFamily: "'Cera', -apple-system, BlinkMacSystemFont, sans-serif",
+  fontFamily: 'Cera, -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
 
   widths: {
     xsm: 8,
