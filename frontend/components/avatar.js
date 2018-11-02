@@ -4,7 +4,7 @@ import Placeholder from 'components/placeholder'
 
 import { unit, colors } from './variables'
 
-const Avatar = styled.img`
+const Image = styled.img`
   display: block;
   border: none;
   object-fit: cover;
@@ -60,7 +60,7 @@ const Letter = styled.span`
   margin-top: 1px;
 `
 
-export default ({ placeholder, size = 8, user }) => {
+const Avatar = ({ placeholder, size = 8, user }) => {
   if (placeholder) {
     return <Placeholder shape='circle' width={size} height={size} />
   }
@@ -81,5 +81,9 @@ export default ({ placeholder, size = 8, user }) => {
     )
   }
 
-  return <Avatar width={size} height={size} src={user.avatar} alt={user.name} />
+  return <Image width={size} height={size} src={user.avatar} alt={user.name} />
 }
+
+Avatar.displayName = 'Avatar'
+
+export default Avatar

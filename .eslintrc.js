@@ -1,13 +1,13 @@
 module.exports = {
   parser: 'babel-eslint',
   extends: [
-    // 'standard',
+    'standard',
     'standard-jsx',
     'plugin:react/recommended',
     'prettier/react',
-    'prettier/standard'
+    'prettier-standard'
   ],
-  plugins: ['react'],
+  plugins: ['react', 'prettier'],
   settings: {
     react: {
       version: '16'
