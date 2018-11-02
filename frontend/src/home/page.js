@@ -362,6 +362,7 @@ class Home extends Component {
                 We hate sport's betting online but we love it doing it with a
                 friend.
                 <br />
+                {!isBigScreen ? <br /> : null}
                 We are creating this small Web Application to easy
                 manage them.
               </Text>
