@@ -26,7 +26,20 @@ const variables = {
     darkBackground: '#F6F6F6',
     body: '#0e0f17',
     primary: '#3047FF',
-    error: '#E63946'
+    error: '#E63946',
+
+    tint: {
+      1: '#F9F9FB',
+      2: '#F5F6F7',
+      yellow: '#FEF8E7',
+      green: '#F1FAF5',
+      orange: '#FDF8F3',
+      red: '#FEF6F6',
+      blue: '#F7F9FD',
+      purple: '#F8F7FC',
+      teal: '#F1FBFC'
+    },
+    overlay: '#7C8B9A'
   },
 
   fontFamily: "'Cera', -apple-system, BlinkMacSystemFont, sans-serif",
