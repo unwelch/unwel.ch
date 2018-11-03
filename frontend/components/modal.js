@@ -1,7 +1,7 @@
-import React from 'react'
-import styled, { keyframes } from 'styled-components'
+import React from "react";
+import styled, { keyframes } from "styled-components";
 
-import { colors } from 'components/variables'
+import { colors } from "components/variables";
 
 const appear = keyframes`
   0% {
@@ -11,7 +11,7 @@ const appear = keyframes`
   100% {
     transform: translateY(0px);
   }
-`
+`;
 
 const disolve = keyframes`
   0% {
@@ -21,7 +21,7 @@ const disolve = keyframes`
   100% {
     opacity: 1;
   }
-`
+`;
 
 const Root = styled.div`
   background: rgba(100, 100, 100, 0.5);
@@ -35,7 +35,7 @@ const Root = styled.div`
   justify-content: center;
   z-index: 1000;
   animation: ${disolve} 1s ease;
-`
+`;
 
 const ModalWrapper = styled.div`
   padding: 16px;
@@ -49,10 +49,14 @@ const ModalWrapper = styled.div`
   animation: ${appear} 1s ease;
   border-radius: 6px;
   box-shadow: 0px 4px 80px rgba(0, 0, 0, 0.35);
-`
+`;
 
-export default ({ children, onClose }) => (
+const Modal = ({ children, onClose }) => (
   <Root onClick={onClose}>
     <ModalWrapper>{children}</ModalWrapper>
   </Root>
-)
+);
+
+Modal.displayName = "Modal";
+
+export default Modal;

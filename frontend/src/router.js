@@ -53,11 +53,11 @@ const Router = () => (
         path='/profiles/:id'
         component={props => <AsyncProfile userId={props.match.params.id} />}
       />
-      <Route path='/settings' component={props => <AsyncSettings />} />
-      <Route path='/login' component={props => <AsyncLoginPage />} />
+      <Route path='/settings' component={() => <AsyncSettings />} />
+      <Route path='/login' component={() => <AsyncLoginPage />} />
       <Route
         path='/anonymous-login'
-        component={props => <AsyncLoginPage anonymous />}
+        component={() => <AsyncLoginPage anonymous />}
       />
       <Route path='/save-account' component={() => <AsyncSaveAccountPage />} />
       <Route component={() => <NotFoundPage />} />

@@ -1,164 +1,164 @@
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
-import Animate from '../animate'
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import styled, { css } from "styled-components";
+import Animate from "../animate";
 
 const placements = {
-  'top-left': css`
+  "top-left": css`
     left: 0;
     bottom: 100%;
     ${props => `margin-bottom: ${props.space * 8}px`};
   `,
-  'top-center': css`
+  "top-center": css`
     left: 50%;
     transform: translateX(-50%);
     bottom: 100%;
     ${props => `margin-bottom: ${props.space * 8}px`};
   `,
-  'top-right': css`
+  "top-right": css`
     right: 0;
     bottom: 100%;
     ${props => `margin-bottom: ${props.space * 8}px`};
   `,
-  'bottom-left': css`
+  "bottom-left": css`
     left: 0;
     top: 100%;
     ${props => `margin-top: ${props.space * 8}px`};
   `,
-  'bottom-center': css`
+  "bottom-center": css`
     left: 50%;
     transform: translateX(-50%);
     top: 100%;
     ${props => `margin-top: ${props.space * 8}px`};
   `,
-  'bottom-right': css`
+  "bottom-right": css`
     right: 0;
     top: 100%;
     ${props => `margin-top: ${props.space * 8}px`};
   `,
-  'right-top': css`
+  "right-top": css`
     top: 0;
     left: 100%;
     ${props => `margin-left: ${props.space * 8}px`};
   `,
-  'right-center': css`
+  "right-center": css`
     left: 100%;
     transform: translateY(-50%);
     top: 50%;
     ${props => `margin-left: ${props.space * 8}px`};
   `,
-  'right-bottom': css`
+  "right-bottom": css`
     bottom: 0;
     left: 100%;
     ${props => `margin-left: ${props.space * 8}px`};
   `,
-  'left-top': css`
+  "left-top": css`
     right: 100%;
     top: 0;
     ${props => `margin-right: ${props.space * 8}px`};
   `,
-  'left-center': css`
+  "left-center": css`
     right: 100%;
     transform: translateY(-50%);
     top: 50%;
     ${props => `margin-right: ${props.space * 8}px`};
   `,
-  'left-bottom': css`
+  "left-bottom": css`
     right: 100%;
     bottom: 0;
     ${props => `margin-right: ${props.space * 8}px`};
   `
-}
+};
 
 const Wrapper = styled.div`
   position: relative;
-  ${props => (props.triggerInline ? 'display: inline-block' : '')};
-`
+  ${props => (props.triggerInline ? "display: inline-block" : "")};
+`;
 const Trigger = styled.div`
   cursor: pointer;
   user-select: none;
-`
+`;
 const Content = styled.div`
   position: absolute;
   display: inline-block;
   z-index: 1200;
   ${props => placements[props.placement]};
-`
+`;
 
 class Popover extends Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
 
     this.state = {
       open: false
-    }
+    };
 
-    this.handleMouseLeave = this.handleMouseLeave.bind(this)
-    this.handleMouseOver = this.handleMouseOver.bind(this)
-    this.handleClickOutside = this.handleClickOutside.bind(this)
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
+    this.handleMouseOver = this.handleMouseOver.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 
-  componentDidMount () {
-    if (typeof window === 'undefined') return
-    window.addEventListener('click', this.handleClickOutside)
+  componentDidMount() {
+    if (typeof window === "undefined") return;
+    window.addEventListener("click", this.handleClickOutside);
   }
 
-  componentWillUnmount () {
-    if (typeof window === 'undefined') return
-    window.removeEventListener('click', this.handleClickOutside)
+  componentWillUnmount() {
+    if (typeof window === "undefined") return;
+    window.removeEventListener("click", this.handleClickOutside);
   }
 
-  toggleContent () {
-    this.setState({ open: !this.state.open })
+  toggleContent() {
+    this.setState({ open: !this.state.open });
   }
 
-  openContent () {
+  openContent() {
     this.setState({
       open: true
-    })
+    });
   }
 
-  closeContent () {
+  closeContent() {
     this.setState({
       open: false
-    })
+    });
   }
 
-  handleClickOutside (evt) {
-    if (ReactDOM.findDOMNode(this).contains(evt.target)) return
+  handleClickOutside(evt) {
+    if (ReactDOM.findDOMNode(this).contains(evt.target)) return; // eslint-disable-line
     if (this.state.open) {
-      this.closeContent()
+      this.closeContent();
     }
   }
 
-  handleMouseLeave () {
+  handleMouseLeave() {
     if (!this.props.openOnHover) {
-      return
+      return;
     }
 
     this.closeTimeout = setTimeout(() => {
-      this.closeContent()
-    }, 200)
+      this.closeContent();
+    }, 200);
   }
 
-  handleMouseOver () {
+  handleMouseOver() {
     if (this.closeTimeout) {
-      clearTimeout(this.closeTimeout)
+      clearTimeout(this.closeTimeout);
     }
     if (this.props.openOnHover) {
-      this.openContent()
+      this.openContent();
     }
   }
 
-  render () {
-    const { triggerInline, openOnHover, ...rest } = this.props
+  render() {
+    const { triggerInline, openOnHover, ...rest } = this.props;
 
-    const ContentWrapper = this.props.animate ? Animate : 'div'
+    const ContentWrapper = this.props.animate ? Animate : "div";
 
     const contentWrapperProps = this.props.animate
-      ? { isVisible: true, type: 'fade' }
-      : {}
+      ? { isVisible: true, type: "fade" }
+      : {};
     return (
       <Wrapper
         triggerInline={triggerInline}
@@ -170,21 +170,18 @@ class Popover extends Component {
           {this.props.trigger}
         </Trigger>
         <ContentWrapper {...contentWrapperProps}>
-          {this.state.open
-            ? <Content
-              placement={this.props.placement}
-              space={this.props.space}
-              >
+          {this.state.open ? (
+            <Content placement={this.props.placement} space={this.props.space}>
               {this.props.content}
             </Content>
-            : null}
+          ) : null}
         </ContentWrapper>
       </Wrapper>
-    )
+    );
   }
 }
 
-export const availablePlacements = Object.keys(placements)
+export const availablePlacements = Object.keys(placements);
 
 Popover.propTypes = {
   triggerInline: PropTypes.bool,
@@ -192,12 +189,12 @@ Popover.propTypes = {
   trigger: PropTypes.node,
   content: PropTypes.node,
   animate: PropTypes.bool
-}
+};
 
 Popover.defaultProps = {
   triggerInline: true,
-  placement: 'bottom-left',
+  placement: "bottom-left",
   animate: false
-}
+};
 
-export default Popover
+export default Popover;

@@ -11,7 +11,8 @@
   "scripts": {
     "start:frontend": "cd frontend; yarn start",
     "start:backend": "cd backend; yarn dev",
-    "start": "concurrently -k 'yarn start:backend' 'yarn start:frontend'"
+    "start": "concurrently -k 'yarn start:backend' 'yarn start:frontend'",
+    "lint": "eslint . --quiet"
   },
   "husky": {
     "hooks": {

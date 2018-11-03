@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
-import styled, { keyframes } from 'styled-components'
-import { last } from 'ramda'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import React, { Component } from "react";
+import styled, { keyframes } from "styled-components";
+import { last } from "ramda";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-import { popAnnounce } from './actions'
+import { popAnnounce } from "./actions";
 
-import Text from 'components/text'
-import { colors } from 'components/variables'
+import Text from "components/text";
+import { colors } from "components/variables";
 
 const appear = keyframes`
   0% {
@@ -29,7 +29,7 @@ const appear = keyframes`
     transform: translateY(120px);
     opacity: 0;
   }
-`
+`;
 
 const Root = styled.div`
   position: fixed;
@@ -39,11 +39,11 @@ const Root = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const Announce = styled.div`
   width: fit-content;
-  background: #6610f2;
+  background: ${colors.lila};
   color: white;
   display: flex;
   align-items: center;
@@ -54,49 +54,49 @@ const Announce = styled.div`
 
   animation: ${appear} 3.5s forwards ease;
   border-radius: 6px;
-`
+`;
 
 class Announcer extends Component {
-  render () {
-    const { announce } = this.props
+  render() {
+    const { announce } = this.props;
 
-    if (!announce) return null
+    if (!announce) return null;
 
     if (this.lastAnnounceKey !== announce.key) {
-      setTimeout(() => this.props.popAnnounce(), 4000)
-      this.lastAnnounceKey = announce.key
+      setTimeout(() => this.props.popAnnounce(), 4000);
+      this.lastAnnounceKey = announce.key;
     }
 
     return (
       <Root>
         {announce && (
           <Announce key={announce.key}>
-            <Text size='size2' color={colors.background}>
+            <Text size="size2" color={colors.background}>
               {announce.message}
             </Text>
           </Announce>
         )}
       </Root>
-    )
+    );
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     announce: last(state.announces)
-  }
-}
+  };
+};
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       popAnnounce
     },
     dispatch
-  )
-}
+  );
+};
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Announcer)
+)(Announcer);

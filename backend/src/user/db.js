@@ -1,57 +1,57 @@
-import { squel, queryOne, query } from './../db'
-import { keysToUnderscore } from './../db/helpers'
+import { squel, queryOne, query } from "./../db";
+import { keysToUnderscore } from "./../db/helpers";
 
 export default {
   insert: async user => {
     let newUser = {
       ...user,
       createdAt: new Date()
-    }
+    };
 
     return queryOne(
       squel
         .insert()
-        .into('users')
+        .into("users")
         .setFields(keysToUnderscore(newUser))
-        .returning('*')
+        .returning("*")
         .toParam()
-    )
+    );
   },
 
   update: async user => {
     let newUser = {
       ...user,
       updatedAt: new Date()
-    }
+    };
 
     return queryOne(
       squel
         .update()
-        .table('users')
+        .table("users")
         .setFields(keysToUnderscore(newUser))
         .where(`'${user.id}' = users.id`)
-        .returning('*')
+        .returning("*")
         .toParam()
-    )
+    );
   },
 
   get: async id => {
     return queryOne(
       squel
         .select()
-        .from('users')
-        .where('id = ?', id)
+        .from("users")
+        .where("id = ?", id)
         .toParam()
-    )
+    );
   },
 
-  getAll: async id => {
+  getAll: async () => {
     return query(
       squel
         .select()
-        .from('users')
+        .from("users")
         .toParam()
-    )
+    );
   },
 
   getBy: {
@@ -59,10 +59,10 @@ export default {
       return queryOne(
         squel
           .select()
-          .from('users')
-          .where('google_id = ?', id)
+          .from("users")
+          .where("google_id = ?", id)
           .toParam()
-      )
+      );
     }
   }
-}
+};
