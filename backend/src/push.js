@@ -1,7 +1,7 @@
+import webpush from 'web-push'
+
 import UserDB from './user/db'
 import { getUser } from './user'
-
-const webpush = require('web-push')
 
 // This keys are temporal, they should be secret
 const VAPID_PUBLIC =
@@ -26,23 +26,21 @@ export const sendPushToUser = async (userId, title, body, link) => {
   }
 }
 
-export const setupPush = app => {
-  app.post('/push-subscribe', async function (req, res) {
-    const pushSubscription = req.body
+export const pushSubscribeMiddleware = async (req, res) => {
+  const pushSubscription = req.body
 
-    const user = await getUser(req)
+  const user = await getUser(req)
 
-    if (!user) {
-      res.status(400)
-      res.send('Invalid token')
-      return
-    }
+  if (!user) {
+    res.status(400)
+    res.send('Invalid token')
+    return
+  }
 
-    await UserDB.update({
-      id: user.id,
-      pushSubscription: JSON.stringify(pushSubscription)
-    })
-
-    res.send()
+  await UserDB.update({
+    id: user.id,
+    pushSubscription: JSON.stringify(pushSubscription)
   })
+
+  res.send()
 }

@@ -21,74 +21,66 @@ const googleOauth = process.env.NODE_ENV === 'production'
     redirect: 'http://localhost:9000'
   }
 
-export default app => {
-  passport.use(
-    new GoogleStrategy(
-      {
-        clientID: googleOauth.id,
-        clientSecret: googleOauth.secret,
-        callbackURL: googleOauth.callback
-      },
-      function (accessToken, refreshToken, profile, cb) {
-        const id = profile.id
+export const googleAuthCallbackMiddleware = async (req, res) => {
+  const userData = req.user
 
-        const photos = prop('photos', profile)
-        const avatar = (photos ? prop('value', head(photos)) : null) || null
-        const name = prop('displayName', profile)
+  const oldToken = req.query.state
 
-        const user = {
-          googleId: id,
-          name,
-          avatar
-        }
+  let user
+  if (oldToken) {
+    // Existing anonymous user trying to save account
+    const decodedToken = jwt.verify(oldToken, SECRET)
+    user = await UserDB.get(decodedToken.userId)
+    user.googleId = userData.googleId
+    user.avatar = userData.avatar
 
-        return cb(null, user)
-      }
-    )
-  )
+    // TODO this will fail if the google account is already asociated with another unwelch account
+    user = await UserDB.update(user)
+  } else {
+    user = await UserDB.getBy.googleId(userData.googleId)
 
-  app.get('/auth/google', function (req, res) {
-    passport.authenticate('google', {
-      scope: ['profile', 'email'],
-      state: req.query.token
-    })(req, res)
-  })
-
-  app.get(
-    '/auth/google/callback',
-    passport.authenticate('google', { failureRedirect: '/' }),
-    async function (req, res) {
-      const userData = req.user
-
-      const oldToken = req.query.state
-
-      let user
-      if (oldToken) {
-        // Existing anonymous user trying to save account
-        const decodedToken = jwt.verify(oldToken, SECRET)
-        user = await UserDB.get(decodedToken.userId)
-        user.googleId = userData.googleId
-        user.avatar = userData.avatar
-
-        // TODO this will fail if the google account is already asociated with another unwelch account
-        user = await UserDB.update(user)
-      } else {
-        user = await UserDB.getBy.googleId(userData.googleId)
-
-        if (!user) {
-          // New user creating saved account from the start
-          user = await UserDB.insert({
-            ...userData
-          })
-        }
-      }
-
-      const token = jwt.sign(
-        { userId: user.id, logged_at: Math.floor(Date.now() / 1000) },
-        SECRET
-      )
-
-      res.redirect(googleOauth.redirect + '?token=' + token)
+    if (!user) {
+      // New user creating saved account from the start
+      user = await UserDB.insert({
+        ...userData
+      })
     }
+  }
+
+  const token = jwt.sign(
+    { userId: user.id, logged_at: Math.floor(Date.now() / 1000) },
+    SECRET
   )
+
+  res.redirect(googleOauth.redirect + '?token=' + token)
 }
+
+export const googleAuthMiddleware = (req, res) => {
+  passport.authenticate('google', {
+    scope: ['profile', 'email'],
+    state: req.query.token
+  })(req, res)
+}
+
+export const googleStrategy = new GoogleStrategy(
+  {
+    clientID: googleOauth.id,
+    clientSecret: googleOauth.secret,
+    callbackURL: googleOauth.callback
+  },
+  (accessToken, refreshToken, profile, cb) => {
+    const id = profile.id
+
+    const photos = prop('photos', profile)
+    const avatar = (photos ? prop('value', head(photos)) : null) || null
+    const name = prop('displayName', profile)
+
+    const user = {
+      googleId: id,
+      name,
+      avatar
+    }
+
+    return cb(null, user)
+  }
+)

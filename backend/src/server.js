@@ -1,15 +1,19 @@
+import express from 'express'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+import graphqlHTTP from 'express-graphql'
+import passport from 'passport'
+
 import * as db from './db'
 import myGraphQLSchema from './schema'
 import { getUser } from './user'
-import setupGoogleAuth from './auth/google'
-import setupTestAuth from './auth/test-login'
-import { setupPush } from './push'
-import passport from 'passport'
-
-const express = require('express')
-var bodyParser = require('body-parser')
-var cors = require('cors')
-const graphqlHTTP = require('express-graphql')
+import {
+  googleAuthMiddleware,
+  googleAuthCallbackMiddleware,
+  googleStrategy
+} from './auth/google'
+import { pushSubscribeMiddleware } from './push'
+import anonymousAuthMiddleware from './auth/test-login'
 
 require('dotenv').config()
 
@@ -45,10 +49,17 @@ passport.deserializeUser((user, done) => {
   done(null, user)
 })
 
-setupGoogleAuth(app)
-setupTestAuth(app)
+passport.use(googleStrategy)
 
-setupPush(app)
+app.get('/auth/google', googleAuthMiddleware)
+
+app.get(
+  '/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/' }),
+  googleAuthCallbackMiddleware
+)
+app.post('/auth/anonymous', anonymousAuthMiddleware)
+app.post('/push-subscribe', pushSubscribeMiddleware)
 
 app.use(
   '/graphql',
