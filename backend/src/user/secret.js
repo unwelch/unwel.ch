@@ -1,2 +1,2 @@
 export default 'supersecret'
-// const secret = fs.readFileSync('private.key');
+// const secret = fs.readFileSync('private.key')

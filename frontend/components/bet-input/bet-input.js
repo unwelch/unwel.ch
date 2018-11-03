@@ -92,6 +92,7 @@ class Bet extends Component {
     } = this.state
 
     if (this.canSubmit(this.state)) {
+      console.log('log: ', { quantity, statement, isPrivate })
       this.props.onConfirm({ quantity, statement, isPrivate })
     }
   }

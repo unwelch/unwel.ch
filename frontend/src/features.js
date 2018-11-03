@@ -1,1 +1,1 @@
-export const PRIVATE_BET_FEATURE_TOGGLE = true
+export const PRIVATE_BET_FEATURE_TOGGLE = false

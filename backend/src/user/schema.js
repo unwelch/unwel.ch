@@ -1,44 +1,44 @@
-import { GraphQLObjectType, GraphQLString, GraphQLBoolean } from "graphql";
-import { complement, prop } from "ramda";
+import { GraphQLObjectType, GraphQLString, GraphQLBoolean } from 'graphql'
+import { complement, prop } from 'ramda'
 
-import db from "./db";
-import BetDB from "../bet/db";
-import { StatsType } from "./../stats/schema";
+import db from './db'
+import BetDB from '../bet/db'
+import { StatsType } from './../stats/schema'
 
 import {
   calculateGlobalStats,
   calculateAgainstStats
-} from "./../stats/calculator";
+} from './../stats/calculator'
 
 export const UserType = new GraphQLObjectType({
-  name: "User",
-  description: "...",
+  name: 'User',
+  description: '...',
 
   fields: () => ({
     isAnonymous: {
       type: GraphQLBoolean,
-      resolve: complement(prop("googleId"))
+      resolve: complement(prop('googleId'))
     },
     avatar: {
       type: GraphQLString,
-      resolve: prop("avatar")
+      resolve: prop('avatar')
     },
     name: {
       type: GraphQLString,
-      resolve: prop("name")
+      resolve: prop('name')
     },
     id: {
       type: GraphQLString,
-      resolve: prop("id")
+      resolve: prop('id')
     },
     pushEnabled: {
       type: GraphQLBoolean,
-      resolve: prop("pushEnabled")
+      resolve: prop('pushEnabled')
     },
     stats: {
       type: StatsType,
       resolve: async root => {
-        return calculateGlobalStats(await BetDB.getBy.userId(root.id), root.id);
+        return calculateGlobalStats(await BetDB.getBy.userId(root.id), root.id)
       }
     },
     statsAgainstYou: {
@@ -48,11 +48,11 @@ export const UserType = new GraphQLObjectType({
           await BetDB.getBy.userId(root.id),
           root.id,
           user.id
-        );
+        )
       }
     }
   })
-});
+})
 
 export const UserQuery = {
   user: {
@@ -62,7 +62,7 @@ export const UserQuery = {
     },
     resolve: (root, args) => {
       if (args.id) {
-        return db.get(args.id);
+        return db.get(args.id)
       }
     }
   },
@@ -73,10 +73,10 @@ export const UserQuery = {
       id: { type: GraphQLString }
     },
     resolve: async (root, args, { user }) => {
-      return user;
+      return user
     }
   }
-};
+}
 
 export const UserMutation = {
   changeName: {
@@ -86,12 +86,12 @@ export const UserMutation = {
     },
     resolve: async (root, { name }, { user }) => {
       if (user) {
-        let dbUser = await db.get(user.id);
-        dbUser.name = name;
+        let dbUser = await db.get(user.id)
+        dbUser.name = name
 
-        return db.update(dbUser);
+        return db.update(dbUser)
       } else {
-        throw new Error("Not logged in");
+        throw new Error('Not logged in')
       }
     }
   },
@@ -102,12 +102,12 @@ export const UserMutation = {
     },
     resolve: async (root, args, { user }) => {
       if (user) {
-        let dbUser = await db.get(user.id);
-        dbUser.pushEnabled = true;
+        let dbUser = await db.get(user.id)
+        dbUser.pushEnabled = true
 
-        return db.update(dbUser);
+        return db.update(dbUser)
       } else {
-        throw new Error("Not logged in");
+        throw new Error('Not logged in')
       }
     }
   },
@@ -118,13 +118,13 @@ export const UserMutation = {
     },
     resolve: async (root, args, { user }) => {
       if (user) {
-        let dbUser = await db.get(user.id);
-        dbUser.pushEnabled = false;
+        let dbUser = await db.get(user.id)
+        dbUser.pushEnabled = false
 
-        return db.update(dbUser);
+        return db.update(dbUser)
       } else {
-        throw new Error("Not logged in");
+        throw new Error('Not logged in')
       }
     }
   }
-};
+}
