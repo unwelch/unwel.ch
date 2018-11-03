@@ -1,21 +1,21 @@
-import React, { Component } from "react";
-import { graphql } from "react-apollo";
-import gql from "graphql-tag";
-import { compose } from "ramda";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import React, { Component } from 'react'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+import { compose } from 'ramda'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-import { googleLogin } from "../user/login";
+import { googleLogin } from '../user/login'
 
-import { getIsAnonymous } from "./../user/auth/selectors";
-import { goToPage } from "./../navigation/actions";
+import { getIsAnonymous } from './../user/auth/selectors'
+import { goToPage } from './../navigation/actions'
 
-import DefaultContainer from "components/default-container";
-import Spacer from "components/spacer";
-import Text from "components/text";
-import ProviderButtons from "components/login-provider-buttons";
+import DefaultContainer from 'components/default-container'
+import Spacer from 'components/spacer'
+import Text from 'components/text'
+import ProviderButtons from 'components/login-provider-buttons'
 
-import { trackEvent, events } from "../tracking";
+import { trackEvent, events } from '../tracking'
 
 export const QUERY = gql`
   query {
@@ -24,27 +24,27 @@ export const QUERY = gql`
       isAnonymous
     }
   }
-`;
+`
 
 class SaveAccount extends Component {
-  componentDidMount() {
-    trackEvent(events.pageLoaded, { page: "saveAccount" });
+  componentDidMount () {
+    trackEvent(events.pageLoaded, { page: 'saveAccount' })
   }
 
-  render() {
-    const { currentUser, loading } = this.props.data;
+  render () {
+    const { currentUser, loading } = this.props.data
 
     if (loading) {
-      return null;
+      return null
     }
 
     if (!currentUser.isAnonymous) {
-      this.props.goToPage("/bets");
+      this.props.goToPage('/bets')
     }
 
     return (
       <DefaultContainer>
-        <Text size="size4" fontWeight="regular">
+        <Text size='size4' fontWeight='regular'>
           Save your account and bets.
         </Text>
         <Spacer top={2}>
@@ -56,23 +56,23 @@ class SaveAccount extends Component {
           <ProviderButtons
             onClickGoogle={() => {
               trackEvent(events.saveAccountRequest, {
-                type: "oauth",
-                provider: "google"
-              });
-              googleLogin();
+                type: 'oauth',
+                provider: 'google'
+              })
+              googleLogin()
             }}
           />
         </Spacer>
       </DefaultContainer>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => {
   return {
     isAnonymous: getIsAnonymous(state)
-  };
-};
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
@@ -80,13 +80,10 @@ const mapDispatchToProps = dispatch => {
       goToPage
     },
     dispatch
-  );
-};
+  )
+}
 
 export default compose(
   graphql(QUERY),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
-)(SaveAccount);
+  connect(mapStateToProps, mapDispatchToProps)
+)(SaveAccount)

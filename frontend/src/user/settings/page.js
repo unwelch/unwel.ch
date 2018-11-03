@@ -1,30 +1,30 @@
-import React, { Component, Fragment } from "react";
-import Switch from "react-switch";
-import styled from "styled-components";
-import { connect } from "react-redux";
-import { graphql } from "react-apollo";
-import gql from "graphql-tag";
-import { compose } from "ramda";
+import React, { Component, Fragment } from 'react'
+import Switch from 'react-switch'
+import styled from 'styled-components'
+import { connect } from 'react-redux'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+import { compose } from 'ramda'
 
-import DefaultContainer from "components/default-container";
-import Input from "components/input";
-import Distribute from "components/distribute";
-import Button from "components/button";
-import Text from "components/text";
-import Spacer from "components/spacer";
-import { colors } from "components/variables";
+import DefaultContainer from 'components/default-container'
+import Input from 'components/input'
+import Distribute from 'components/distribute'
+import Button from 'components/button'
+import Text from 'components/text'
+import Spacer from 'components/spacer'
+import { colors } from 'components/variables'
 
-import { trackEvent } from "../../tracking";
+import { trackEvent } from '../../tracking'
 import {
   CHANGE_NAME,
   ENABLE_PUSH_NOTIFICATIONS,
   DISABLE_PUSH_NOTIFICATIONS
-} from "./mutations";
+} from './mutations'
 
-import { getToken } from "../auth/selectors";
+import { getToken } from '../auth/selectors'
 
-import { setupPush, isPushSupported } from "../../service-worker";
-import { promptInstall, canInstall } from "../../pwa";
+import { setupPush, isPushSupported } from '../../service-worker'
+import { promptInstall, canInstall } from '../../pwa'
 
 export const QUERY = gql`
   query {
@@ -36,152 +36,144 @@ export const QUERY = gql`
       pushEnabled
     }
   }
-`;
+`
 
 const Split = styled.div`
   background: ${colors.grey3};
   height: 1px;
   margin: 16px 0;
-`;
+`
 
-const Root = styled(DefaultContainer)``;
+const Root = styled(DefaultContainer)``
 
 class Settings extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
     this.state = {
       name: null
-    };
+    }
 
-    this.handleChangeName = this.handleChangeName.bind(this);
-    this.handleNameInputBlur = this.handleNameInputBlur.bind(this);
-    this.logoutHandler = this.logoutHandler.bind(this);
-    this.handlePushNotificationsChange = this.handlePushNotificationsChange.bind(
-      this
-    );
+    this.handleChangeName = this.handleChangeName.bind(this)
+    this.handleNameInputBlur = this.handleNameInputBlur.bind(this)
+    this.handleLogOut = this.handleLogOut.bind(this)
+    this.handleNotificationsChange = this.handleNotificationsChange.bind(this)
   }
 
-  componentWillUpdate(nextProps, nextState) {
+  componentWillUpdate (nextProps, nextState) {
     if (!nextProps.data.loading && nextState.name === null) {
       this.setState({
         name: nextProps.data.currentUser.name
-      });
+      })
     }
   }
 
-  componentDidMount() {
-    trackEvent("pageLoaded", { page: "settings" });
+  componentDidMount () {
+    trackEvent('pageLoaded', { page: 'settings' })
 
     if (!this.props.data.loading && this.state.name === null) {
       this.setState({
         name: this.props.data.currentUser.name
-      });
+      })
     }
   }
 
-  logoutHandler() {
-    window.localStorage.clear();
-    window.location.href = "/";
+  handleLogOut () {
+    window.localStorage.clear()
+    window.location.href = '/'
   }
 
-  handleChangeName(event) {
+  handleChangeName (event) {
     this.setState({
       name: event.target.value
-    });
+    })
   }
 
-  handleNameInputBlur() {
-    this.props.changeName(this.state.name);
+  handleNameInputBlur () {
+    this.props.changeName(this.state.name)
   }
 
-  handlePushNotificationsChange(enabled) {
+  handleNotificationsChange (enabled) {
     if (enabled) {
       setupPush(this.props.token).then(() =>
         this.props.enablePushNotifications()
-      );
+      )
     } else {
-      this.props.disablePushNotifications();
+      this.props.disablePushNotifications()
     }
   }
 
-  handleInstall() {
-    promptInstall();
+  handleInstall () {
+    promptInstall()
   }
 
-  render() {
-    const { currentUser, loading } = this.props.data;
+  render () {
+    const { currentUser, loading } = this.props.data
 
     if (loading) {
-      return null;
+      return null
     }
 
-    const isAnonymous = currentUser.isAnonymous;
+    const isAnonymous = currentUser.isAnonymous
 
     return (
       <Root>
         <Spacer inner top={3} />
-        <Text size="size3" fontWeight="light">
+        <Text size='size3' fontWeight='light'>
           Settings
         </Text>
         <Split />
-        <Distribute space={2} align="center">
-          <Text size="size2" fontWeight="light">
+        <Distribute space={2} align='center'>
+          <Text size='size2' fontWeight='light'>
             Name
           </Text>
           <Input
-            value={this.state.name ? this.state.name : ""}
+            value={this.state.name ? this.state.name : ''}
             onChange={this.handleChangeName}
             onBlur={this.handleNameInputBlur}
-            size="size2"
+            size='size2'
           />
         </Distribute>
         <Split />
-        {isPushSupported() && (
+        {isPushSupported() &&
           <Fragment>
-            <Distribute space={2} align="center">
-              <Text size="size2" fontWeight="light">
+            <Distribute space={2} align='center'>
+              <Text size='size2' fontWeight='light'>
                 Notifications
               </Text>
               <Switch
-                onChange={this.handlePushNotificationsChange}
+                onChange={this.handleNotificationsChange}
                 checked={currentUser.pushEnabled}
                 onColor={colors.primary}
               />
             </Distribute>
             <Split />
-          </Fragment>
-        )}
-        {canInstall() && (
+          </Fragment>}
+        {canInstall() &&
           <Fragment>
             <Button onClick={this.handleInstall}>Add to homescreen</Button>
             <Split />
-          </Fragment>
-        )}
-        {!isAnonymous && (
+          </Fragment>}
+        {!isAnonymous &&
           <Fragment>
-            <Button type="warning" onClick={this.logoutHandler}>
+            <Button type='warning' onClick={this.handleLogOut}>
               Log out
             </Button>
             <Split />
-          </Fragment>
-        )}
+          </Fragment>}
       </Root>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => {
   return {
     token: getToken(state)
-  };
-};
+  }
+}
 
 export default compose(
-  connect(
-    mapStateToProps,
-    null
-  ),
+  connect(mapStateToProps, null),
   graphql(QUERY),
   graphql(CHANGE_NAME, {
     props: ({ mutate }) => ({
@@ -198,4 +190,4 @@ export default compose(
       disablePushNotifications: () => mutate()
     })
   })
-)(Settings);
+)(Settings)

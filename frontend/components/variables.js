@@ -9,42 +9,41 @@ const variables = {
   },
 
   colors: {
-    black: "#070707",
-    white: "#FFFFFF",
-    grey1: "#F5F5F5",
-    grey2: "#EFEFEF",
-    grey3: "#D3D3D3",
-    grey4: "#C4C4C4",
-    grey5: "#B4B4B4",
-    grey6: "#A4A4A4",
-    grey7: "#949494",
-    grey8: "#858585",
-    grey9: "#444444",
-    grey10: "#252525",
+    black: '#070707',
+    white: '#FFFFFF',
+    grey1: '#F5F5F5',
+    grey2: '#EFEFEF',
+    grey3: '#D3D3D3',
+    grey4: '#C4C4C4',
+    grey5: '#B4B4B4',
+    grey6: '#A4A4A4',
+    grey7: '#949494',
+    grey8: '#858585',
+    grey9: '#444444',
+    grey10: '#252525',
 
-    background: "white",
-    darkBackground: "#F6F6F6",
-    body: "#0e0f17",
-    primary: "#3047FF",
-    error: "#E63946",
-    lila: "#6610F2",
+    background: 'white',
+    darkBackground: '#F6F6F6',
+    body: '#0e0f17',
+    primary: '#3047FF',
+    error: '#E63946',
+    lila: '#6610F2',
 
     tint: {
-      1: "#F9F9FB",
-      2: "#F5F6F7",
-      yellow: "#FEF8E7",
-      green: "#F1FAF5",
-      orange: "#FDF8F3",
-      red: "#FEF6F6",
-      blue: "#F7F9FD",
-      purple: "#F8F7FC",
-      teal: "#F1FBFC"
+      1: '#F9F9FB',
+      2: '#F5F6F7',
+      yellow: '#FEF8E7',
+      green: '#F1FAF5',
+      orange: '#FDF8F3',
+      red: '#FEF6F6',
+      blue: '#F7F9FD',
+      purple: '#F8F7FC',
+      teal: '#F1FBFC'
     },
-    overlay: "#7C8B9A"
+    overlay: '#7C8B9A'
   },
 
-  fontFamily:
-    'Cera, -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+  fontFamily: 'Cera, -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
 
   widths: {
     xsm: 8,
@@ -85,7 +84,7 @@ const variables = {
   },
 
   shadows: {
-    shadow0: "0 0 18px 0 rgba(0, 0, 0, 0.08)",
+    shadow0: '0 0 18px 0 rgba(0, 0, 0, 0.08)',
     shadow1: `
       0 1px 2px 0 rgba(0, 0, 0, 0.04),
       0 1px 4px 0 rgba(0, 0, 0, 0.04)
@@ -95,12 +94,12 @@ const variables = {
       0 2px 8px 0 rgba(0, 0, 0, 0.04)
     `
   }
-};
+}
 
-variables.colors.warning = variables.colors.yellow;
-variables.colors.success = variables.colors.green;
+variables.colors.warning = variables.colors.yellow
+variables.colors.success = variables.colors.green
 
 variables.unitize = quantity =>
-  quantity ? quantity * variables.unit + "px" : null;
+  (quantity ? quantity * variables.unit + 'px' : null)
 
-module.exports = variables;
+module.exports = variables

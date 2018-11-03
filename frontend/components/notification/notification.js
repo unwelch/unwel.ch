@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react'
+import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 import {
   and,
@@ -11,15 +11,15 @@ import {
   compose,
   map,
   replace
-} from "ramda";
+} from 'ramda'
 
-import Text from "components/text";
-import Avatar from "components/avatar";
-import Spacer from "components/spacer";
+import Text from 'components/text'
+import Avatar from 'components/avatar'
+import Spacer from 'components/spacer'
 
-import { colors } from "components/variables";
+import { colors } from 'components/variables'
 
-import timeAgo from "../../src/utils/time-ago";
+import timeAgo from '../../src/utils/time-ago'
 
 const ListItem = styled.div`
   min-height: 40px;
@@ -32,25 +32,22 @@ const ListItem = styled.div`
 
   border-bottom: 1px solid ${colors.grey3};
 
-  background: ${props => (props.colored ? "#fdf7e8" : "transparent")};
-  opacity: ${props => (props.dimmed ? "0.5" : "1")};
+  background: ${props => (props.colored ? '#fdf7e8' : 'transparent')};
+  opacity: ${props => (props.dimmed ? '0.5' : '1')};
 
   align-items: center;
 
   transition: background 3s cubic-bezier(1, -0.03, 0.88, 0.61);
-`;
+`
 
 class Notification extends Component {
-  render() {
-    const { id, sender, bet, message, viewed, visited, createdAt } = this.props;
+  render () {
+    const { id, sender, bet, message, viewed, visited, createdAt } = this.props
 
-    const isHyperLinkFormat = and(startsWith("{{"), endsWith("}}"));
-    const removeHyperLink = compose(
-      replace(/{{/, ""),
-      replace(/}}/, "")
-    );
+    const isHyperLinkFormat = and(startsWith('{{'), endsWith('}}'))
+    const removeHyperLink = compose(replace(/{{/, ''), replace(/}}/, ''))
 
-    const msg = split(" ", message);
+    const msg = split(' ', message)
 
     const generateLinks = word => {
       if (isHyperLinkFormat(word)) {
@@ -58,13 +55,13 @@ class Notification extends Component {
           <Link to={`bet/${bet.id}`} alt={bet.statement} id={bet.id}>
             {removeHyperLink(word)}
           </Link>
-        );
+        )
       }
 
-      return word;
-    };
+      return word
+    }
 
-    const newMessage = map(generateLinks, msg);
+    const newMessage = map(generateLinks, msg)
 
     return (
       <ListItem
@@ -76,14 +73,14 @@ class Notification extends Component {
         <br />
         <Avatar size={4} user={sender} />
         <Spacer left={1}>
-          <Text size="size1">{intersperse(" ", newMessage)}</Text>
-          <Text size="size0" dimmed>
+          <Text size='size1'>{intersperse(' ', newMessage)}</Text>
+          <Text size='size0' dimmed>
             {timeAgo(new Date(createdAt))}
           </Text>
         </Spacer>
       </ListItem>
-    );
+    )
   }
 }
 
-export default Notification;
+export default Notification

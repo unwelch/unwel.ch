@@ -26,6 +26,8 @@
     "graphql-tag": "^2.6.0",
     "history": "^4.7.2",
     "javascript-time-ago": "^1.0.31",
+    "json-parse": "^1.0.3",
+    "json-parse-safe": "^1.0.5",
     "keycode": "^2.1.9",
     "query-string": "^5.0.1",
     "ramda": "^0.25.0",
