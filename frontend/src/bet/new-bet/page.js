@@ -10,32 +10,26 @@ import Spacer from 'components/spacer'
 
 import { saveTempStatement } from '../services'
 import { showAnnounce } from './../../announce/actions'
-import * as mutations from './../mutations'
+import { ADD_BET_MUTATION } from './../mutations'
 import * as queries from './../bet-list/queries'
 import { trackEvent, events } from '../../tracking'
 import withNavigate from '../../navigation/withNavigate'
 import withIsLoggedIn from '../../user/auth/withIsLoggedIn'
 
 class NewBet extends Component {
-  constructor (props) {
-    super(props)
-
-    this.onBetConfirm = this.onBetConfirm.bind(this)
-  }
-
   componentDidMount () {
     trackEvent(events.pageLoaded, { page: 'newBet' })
   }
 
-  async onBetConfirm (bet, statement) {
+  handleBetConfirm = async bet => {
     if (!this.props.isLoggedIn) {
-      saveTempStatement(statement, bet)
+      saveTempStatement(bet)
       await this.props.goToPage(`/anonymous-login`)
       return
     }
 
     this.props.showAnnounce('New bet created')
-    const result = await this.props.addBet(statement, bet)
+    const result = await this.props.addBet(bet)
     await this.props.goToPage(`/bet/${result.data.addBet.id}`)
   }
 
@@ -46,7 +40,7 @@ class NewBet extends Component {
           <BetInput
             starter='I bet'
             middle='that'
-            onConfirm={this.onBetConfirm}
+            onConfirm={this.handleBetConfirm}
           />
         </Spacer>
       </DefaultContainer>
@@ -64,10 +58,10 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default compose(
-  graphql(mutations.addBet, {
+  graphql(ADD_BET_MUTATION, {
     props: ({ mutate }) => ({
-      addBet: (statement, quantity) =>
-        mutate({ variables: { statement, quantity } })
+      addBet: ({ statement, quantity, isPrivate }) =>
+        mutate({ variables: { statement, quantity, isPrivate } })
     }),
     options: () => ({
       refetchQueries: [

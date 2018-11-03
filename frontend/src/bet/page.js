@@ -7,7 +7,11 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import { saveTempAccept } from "./services";
-import * as mutations from "./mutations";
+import {
+  ACCEPT_BET_MUTATION,
+  CHOOSE_WINNER_MUTATION,
+  DELETE_BET_MUTATION
+} from "./mutations";
 import * as queries from "./../bet/queries";
 import { BET_LIST } from "./bet-list/queries";
 import { showAnnounce } from "./../announce/actions";
@@ -265,7 +269,7 @@ export default compose(
       pollInterval: 10000
     })
   }),
-  graphql(mutations.acceptBet, {
+  graphql(ACCEPT_BET_MUTATION, {
     props: ({ mutate }) => ({
       acceptBet: id => mutate({ variables: { id } })
     }),
@@ -278,7 +282,7 @@ export default compose(
       ]
     })
   }),
-  graphql(mutations.chooseWinner, {
+  graphql(CHOOSE_WINNER_MUTATION, {
     props: ({ mutate }) => ({
       chooseWinner: (id, winner) => mutate({ variables: { id, winner } })
     }),
@@ -291,7 +295,7 @@ export default compose(
       ]
     })
   }),
-  graphql(mutations.deleteBet, {
+  graphql(DELETE_BET_MUTATION, {
     props: ({ mutate }) => ({
       deleteBet: id => mutate({ variables: { id } })
     }),

@@ -1,28 +1,25 @@
-export function saveTempAccept (betId) {
-  window.sessionStorage.setItem('temp_accept', betId)
+import JSONParser from 'json-parse-safe'
+
+const PREFIX_UNWELCH = '_unwelch/'
+
+const saveToSession = key => value => {
+  window.sessionStorage.setItem(PREFIX_UNWELCH + key, JSON.stringify(value))
 }
 
-export function checkTempAccept () {
-  const betId = window.sessionStorage.getItem('temp_accept')
-
-  if (betId) {
-    window.sessionStorage.removeItem('temp_accept')
-    return betId
+const getOnceFromSession = key => () => {
+  const value = window.sessionStorage.getItem(PREFIX_UNWELCH + key)
+  const parsedValue = JSONParser(value)
+  if (parsedValue.error) {
+    return null
   }
+
+  window.sessionStorage.removeItem(PREFIX_UNWELCH + key)
+
+  return parsedValue
 }
 
-export function saveTempStatement (statement, bet) {
-  window.sessionStorage.setItem('temp_statement', statement)
-  window.sessionStorage.setItem('temp_bet', bet)
-}
+export const saveTempAccept = saveToSession('temp_accept')
+export const saveTempStatement = saveToSession('temp_bet')
 
-export function checkTempStatement () {
-  const statement = window.sessionStorage.getItem('temp_statement')
-  const bet = window.sessionStorage.getItem('temp_bet')
-
-  if (statement && bet) {
-    window.sessionStorage.removeItem('temp_bet')
-    window.sessionStorage.removeItem('temp_statement')
-    return { statement, bet }
-  }
-}
+export const checkTempAccept = getOnceFromSession('temp_accept')
+export const checkTempStatement = getOnceFromSession('temp_bet')

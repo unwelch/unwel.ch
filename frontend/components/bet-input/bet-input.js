@@ -1,10 +1,20 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import styled, { keyframes } from 'styled-components'
+
+import LockIcon from 'react-feather/dist/icons/lock'
+import UnLockIcon from 'react-feather/dist/icons/unlock'
+
+import Distribute from '../distribute'
+import Split from '../split'
+import { colors } from '../variables'
 import Button from './../button'
 import Spacer from './../spacer'
 import Input from '../input'
 import Animate from '../animate'
 import Text from '../text'
+
+import { PRIVATE_BET_FEATURE_TOGGLE } from './../../src/features'
 
 const fadeIn = keyframes`
   0% {
@@ -34,19 +44,29 @@ const isEnterKey = fn => {
 }
 
 class Bet extends Component {
+  static propTypes = {
+    quantity: PropTypes.string,
+    statement: PropTypes.string,
+    isPrivate: PropTypes.bool
+  }
+
+  static defaultProps = {
+    quantity: '',
+    statement: '',
+    isPrivate: false
+  }
+
   constructor (props) {
     super(props)
 
     this.state = {
-      quantityValue: props.quantity || '',
-      statementValue: props.statement || ''
+      quantityValue: props.quantity,
+      statementValue: props.statement,
+      isPrivate: props.isPrivate
     }
-
-    this.onChange = this.onChange.bind(this)
-    this.submitHandler = this.submitHandler.bind(this)
   }
 
-  onChange (stateKey) {
+  onChange = stateKey => {
     return ({ target }) => {
       this.setState({
         [stateKey]: target.value
@@ -54,20 +74,32 @@ class Bet extends Component {
     }
   }
 
+  handleVisibilityChange = () => {
+    this.setState({
+      isPrivateBet: !this.state.isPrivateBet
+    })
+  }
+
   canSubmit (state) {
     return state.quantityValue.length > 0 && state.statementValue.length > 0
   }
 
-  submitHandler () {
-    const { quantityValue, statementValue } = this.state
+  submitHandler = () => {
+    const {
+      quantityValue: quantity,
+      statementValue: statement,
+      isPrivate
+    } = this.state
 
     if (this.canSubmit(this.state)) {
-      this.props.onConfirm(quantityValue, statementValue)
+      this.props.onConfirm({ quantity, statement, isPrivate })
     }
   }
 
   render () {
     const { starter, middle } = this.props
+    const { quantityValue, statementValue } = this.state
+    const VisibilityIcon = this.state.isPrivateBet ? LockIcon : UnLockIcon
 
     return (
       <Root onKeyDown={isEnterKey(this.submitHandler)}>
@@ -81,7 +113,7 @@ class Bet extends Component {
             size='size5'
             fullWidth
             onChange={this.onChange('quantityValue')}
-            value={this.state.quantityValue}
+            value={quantityValue}
             placeholder={'1 coffee'}
             data-qa='bet-input-quantity'
           />
@@ -98,11 +130,28 @@ class Bet extends Component {
             size='size5'
             fullWidth
             onChange={this.onChange('statementValue')}
-            value={this.state.statementValue}
+            value={statementValue}
             placeholder={'something'}
             data-qa='bet-input-statement'
           />
         </AnimateWrapper>
+
+        {PRIVATE_BET_FEATURE_TOGGLE &&
+          <AnimateWrapper delay={3}>
+            <Spacer top={3} onClick={this.handleVisibilityChange}>
+              <Distribute space={2} align='center'>
+                <Text size='size1'>
+                  Visibility
+                </Text>
+                <VisibilityIcon
+                  color={
+                    this.state.isPrivateBet ? colors.grey5 : colors.primary
+                  }
+                />
+              </Distribute>
+              <Split />
+            </Spacer>
+          </AnimateWrapper>}
 
         <Animate
           type='slideUp'
