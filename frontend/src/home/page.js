@@ -111,10 +111,11 @@ class Home extends Component {
     trackEvent(events.pageLoaded, { page: 'landing' })
 
     if (this.props.isLoggedIn) {
-      const statementBet = checkTempStatement()
+      const bet = checkTempStatement()
+      console.log('log: ', bet)
       const betId = checkTempAccept()
-      if (statementBet) {
-        this.props.addBet(statementBet.statement, statementBet.bet)
+      if (bet) {
+        // this.props.addBet(bet.statement, statementBet.bet)
         this.props.goToPage('/bets')
         return
       } else if (betId) {

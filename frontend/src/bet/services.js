@@ -15,7 +15,7 @@ const getOnceFromSession = key => () => {
 
   window.sessionStorage.removeItem(PREFIX_UNWELCH + key)
 
-  return parsedValue
+  return parsedValue.value
 }
 
 export const saveTempAccept = saveToSession('temp_accept')

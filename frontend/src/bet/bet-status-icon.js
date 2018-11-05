@@ -1,8 +1,8 @@
-import { Component } from "react";
-import { graphql } from "react-apollo";
-import gql from "graphql-tag";
+import { Component } from 'react'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
 
-import { betStatuses, getBetStatus } from "./bet-status";
+import { betStatuses, getBetStatus } from './bet-status'
 
 const QUERY = gql`
   query($betId: String!) {
@@ -20,45 +20,45 @@ const QUERY = gql`
       id
     }
   }
-`;
+`
 
 class BetStatusIcon extends Component {
-  getText(betStatus) {
+  getText (betStatus) {
     switch (betStatus) {
       case betStatuses.WAITING_FOR_OPONENT:
-        return "Waiting for an opponent";
+        return 'Waiting for an opponent'
       case betStatuses.AVAILABLE_BET:
-        return "Available";
+        return 'Available'
       case betStatuses.WAITING_FOR_USER_RESPONSE:
-        return "Waiting for result";
+        return 'Waiting for result'
       case betStatuses.WAITING_FOR_OPONENT_RESPONSE:
-        return "Waiting for opponent result";
+        return 'Waiting for opponent result'
       case betStatuses.LOST:
-        return "Lost";
+        return 'Lost'
       case betStatuses.WON:
-        return "Won";
+        return 'Won'
       case betStatuses.WELCHED:
-        return "Dispute";
+        return 'Dispute'
     }
 
-    console.error("Unkown bet state");
+    console.error('Unkown bet state')
   }
 
-  render() {
-    const { loading, bet, currentUser } = this.props.data;
+  render () {
+    const { loading, bet, currentUser } = this.props.data
 
     // let icon = ''
-    let text = "";
+    let text = ''
 
     if (!loading) {
-      const betStatus = getBetStatus(bet, currentUser);
+      const betStatus = getBetStatus(bet, currentUser)
 
       // icon = getBetStatusIcon(betStatus)
-      text = this.getText(betStatus);
+      text = this.getText(betStatus)
     }
 
-    return text;
+    return text
   }
 }
 
-export default graphql(QUERY)(BetStatusIcon);
+export default graphql(QUERY)(BetStatusIcon)
