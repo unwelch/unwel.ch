@@ -69,6 +69,7 @@ const BaseStyles = styled.div`
   font-variant-numeric: lining-nums;
   font-size: ${fontSizes.size0}px;
   line-height: ${lineHeights.size0}px;
+  overflow-x: hidden;
   color: ${colors.body};
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
