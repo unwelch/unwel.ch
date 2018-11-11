@@ -21,5 +21,5 @@ const getOnceFromSession = key => () => {
 export const saveTempAccept = saveToSession('temp_accept')
 export const saveTempStatement = saveToSession('temp_bet')
 
-export const checkTempAccept = getOnceFromSession('temp_accept')
-export const checkTempStatement = getOnceFromSession('temp_bet')
+export const getTempAccept = getOnceFromSession('temp_accept')
+export const getTempStatement = getOnceFromSession('temp_bet')
