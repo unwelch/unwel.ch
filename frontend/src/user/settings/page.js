@@ -119,12 +119,12 @@ class Settings extends Component {
     return (
       <Root>
         <Spacer inner top={3} />
-        <Text size='size3' fontWeight='light'>
+        <Text size='size3' fontWeight='regular'>
           Settings
         </Text>
         <Split />
         <Distribute space={2} align='center'>
-          <Text size='size2' fontWeight='light'>
+          <Text size='size2' fontWeight='regular'>
             Name
           </Text>
           <Input
@@ -138,7 +138,7 @@ class Settings extends Component {
         {isPushSupported() &&
           <Fragment>
             <Distribute space={2} align='center'>
-              <Text size='size2' fontWeight='light'>
+              <Text size='size2' fontWeight='regular'>
                 Notifications
               </Text>
               <Switch

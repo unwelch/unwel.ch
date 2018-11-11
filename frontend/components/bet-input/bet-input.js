@@ -110,7 +110,7 @@ class Bet extends Component {
           </Text>
           <Spacer top={1} />
           <Input
-            fontWeight='bold'
+            fontWeight='black'
             size='size5'
             fullWidth
             onChange={this.onChange('quantityValue')}
@@ -127,7 +127,7 @@ class Bet extends Component {
           </Text>
           <Input
             italics
-            fontWeight='bold'
+            fontWeight='black'
             size='size5'
             fullWidth
             onChange={this.onChange('statementValue')}

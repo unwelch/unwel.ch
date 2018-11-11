@@ -44,7 +44,7 @@ export const getStatusText = betStatus => {
         <Text
           size='size0'
           color={colors.body}
-          fontWeight='bold'
+          fontWeight='black'
           shortLineHeight
         >
           Lost
@@ -55,7 +55,7 @@ export const getStatusText = betStatus => {
         <Text
           size='size0'
           color={colors.primary}
-          fontWeight='bold'
+          fontWeight='black'
           shortLineHeight
         >
           Won
@@ -66,7 +66,7 @@ export const getStatusText = betStatus => {
         <Text
           size='size0'
           color={colors.error}
-          fontWeight='bold'
+          fontWeight='black'
           shortLineHeight
         >
           Dispute

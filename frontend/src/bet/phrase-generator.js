@@ -16,11 +16,11 @@ export const getIntroText = (
   return (
     <Text fontWeight='regular' size={fontSize}>
       {subject} bet{' '}
-      <Text inline size={fontSize} fontWeight='bold'>
+      <Text inline size={fontSize} fontWeight='black'>
         {toLower(quantity)}
       </Text>{' '}
       that{' '}
-      <Text inline size={fontSize} fontWeight='bold' italics>
+      <Text inline size={fontSize} fontWeight='black' italics>
         {statement}
       </Text>
     </Text>
@@ -48,7 +48,7 @@ export const getAccepterText = (
   }
 
   return (
-    <Text fontWeight='light' size={fontSize}>
+    <Text fontWeight='regular' size={fontSize}>
       {text}
     </Text>
   )

@@ -27,6 +27,8 @@ import WaypointAnimate from './waypoint-animate'
 import IPHONE_NEW_BET from './assets/iphone-x-new-bet@2x.png'
 import IPHONE_WHATSAPP from './assets/iphone-x-whatsapp@2x.png'
 import IPHONE_WHO_IS_RIGHT from './assets/iphone-x-who-is-right@2x.png'
+import LANDING_HERO_BACKGROUND from './assets/landing-hero-background.svg'
+import FOOTER_BACKGROUND from './assets/footer-background.svg'
 
 const DistributeWrapper = styled.div`
   display: flex;
@@ -44,7 +46,7 @@ const DistributeWrapper = styled.div`
 
 const Hero = styled.div`
   width: 100%;
-  background-color: ${props => props.color || colors.grey2};
+  background: url(${LANDING_HERO_BACKGROUND});
   padding-top: 16px;
   padding-bottom: 40px;
 `
@@ -59,7 +61,10 @@ const ConversationWrapper = styled.div`
     flex: 1;
 
     &:not(:last-child) {
-      ${props => (props.vertical ? 'margin-bottom:' + props.space * 8 + 'px' : 'margin-right:' + props.space * 8 + 'px')};
+      ${props =>
+    props.vertical
+      ? 'margin-bottom:' + props.space * 8 + 'px'
+      : 'margin-right:' + props.space * 8 + 'px'};
     }
   }
 `
@@ -74,16 +79,14 @@ const Half = styled.div`
   flex: 1;
 `
 
-const Root = styled.div`
-  background-color: ${colors.tint.blue};
-`
+const Root = styled.div``
 
 const Footer = styled.footer`
   width: 100%;
   padding: 32px;
   min-height: 200px;
   position: relative;
-  background-color: ${colors.body};
+  background: url(${FOOTER_BACKGROUND});
 `
 
 const SubFooter = styled.div`
@@ -142,15 +145,15 @@ class Home extends Component {
                 Log in
               </Button>
             </DistributeWrapper>
-            <Spacer top={isBigScreen ? 12 : 8} bottom={3}>
-              <Distribute space={1} vertical position='center' align='center'>
-                <Spacer bottom={3}>
+            <Spacer top={8} bottom={8}>
+              <Distribute space={4} vertical position='center' align='center'>
+                <Spacer bottom={10}>
                   <WaypointAnimate
                     topOffset='0%'
                     direction='down'
                     distance={10}
                   >
-                    <Content align='center' type='title' fontWeight='regular'>
+                    <Content align='center' type='title' fontWeight='bold'>
                       Friendly betting
                     </Content>
                   </WaypointAnimate>
@@ -160,7 +163,7 @@ class Home extends Component {
                     Challenge your friends by betting on anything that you
                     disagree on.
                   </Content>
-                  <Spacer top={1}>
+                  <Spacer top={3}>
                     <Content align='center' type='heading' fontWeight='regular'>
                       Keep track of who
                       {"'"}s the best.
@@ -172,7 +175,7 @@ class Home extends Component {
           </DefaultContainer>
         </Hero>
 
-        <Spacer top={-3}>
+        <Spacer top={-6}>
           <Distribute position='center'>
             <Button
               onClick={this.onCreateBet}
@@ -185,38 +188,20 @@ class Home extends Component {
           </Distribute>
         </Spacer>
 
-        <Spacer top={4} bottom={4}>
-          <DefaultContainer notPadded={!isBigScreen}>
-            <ConversationWrapper
-              space={isBigScreen ? 3 : 1}
-              vertical={!isBigScreen}
-            >
-              <Spacer top={3} bottom={5}>
-                <Content align='center' type='heading' fontWeight='regular'>
-                  Your friends don’t believe in you?
-                  <br />
-                  <strong>Make them bet a dinner on it!</strong>
-                </Content>
-              </Spacer>
-            </ConversationWrapper>
-          </DefaultContainer>
-        </Spacer>
-
-        <Spacer top={6} bottom={6}>
-          <Spacer bottom={10}>
-            <Content align='center' type='title' fontWeight='regular'>
-              3 easy steps
-            </Content>
-          </Spacer>
+        <Spacer top={8} bottom={4}>
+          <Text textAlign='center' size='size4' fontWeight='bold'>
+            Just 3 easy steps
+          </Text>
 
           <DefaultContainer>
-            <Spacer top={isBigScreen ? 15 : 7} bottom={isBigScreen ? 15 : 7}>
+            <Spacer top={8} bottom={8}>
               <Distribute space={2} align='center'>
                 <Half>
                   <Spacer top={-3}>
                     <WaypointAnimate
                       direction='down'
-                      topOffset='90%'
+                      topOffset='0%'
+                      bottomOffset='0%'
                       distance={10}
                     >
                       <Content
@@ -239,7 +224,12 @@ class Home extends Component {
                   </Spacer>
                 </Half>
                 <Half>
-                  <WaypointAnimate direction='right' distance={20}>
+                  <WaypointAnimate
+                    direction='right'
+                    topOffset='0%'
+                    bottomOffset='0%'
+                    distance={20}
+                  >
                     <Spacer
                       top={isBigScreen ? 4 : 0}
                       bottom={isBigScreen ? 4 : 0}
@@ -354,6 +344,23 @@ class Home extends Component {
           </Distribute>
         </Spacer>
 
+        <Spacer top={4} bottom={4}>
+          <DefaultContainer notPadded={!isBigScreen}>
+            <ConversationWrapper
+              space={isBigScreen ? 3 : 1}
+              vertical={!isBigScreen}
+            >
+              <Spacer top={3} bottom={5}>
+                <Content align='center' type='heading' fontWeight='regular'>
+                  Your friends don’t believe in you?
+                  <br />
+                  <strong>Make them bet a dinner on it!</strong>
+                </Content>
+              </Spacer>
+            </ConversationWrapper>
+          </DefaultContainer>
+        </Spacer>
+
         <Footer>
           <DefaultContainer>
             <Distribute vertical>
@@ -367,19 +374,19 @@ class Home extends Component {
                 {!isBigScreen ? <br /> : null}
                 We are creating this small Web Application to easy manage them.
               </Text>
-              {canInstall()
-                ? <Spacer top={3} bottom={3}>
+              {canInstall() ? (
+                <Spacer top={3} bottom={3}>
                   <Button
                     onClick={() => {
                       promptInstall()
                     }}
                     size='small'
                     type='level2'
-                    >
-                      Add to your Homescreen
-                    </Button>
+                  >
+                    Add to your Homescreen
+                  </Button>
                 </Spacer>
-                : null}
+              ) : null}
 
               <Spacer top={2} bottom={1}>
                 <Text size={'size0'} color={colors.grey3}>
@@ -395,8 +402,8 @@ class Home extends Component {
 
         <SubFooter>
           <DefaultContainer>
-            <Text size='size0' color={colors.grey3} fontWeight='light'>
-              Created by <b>Gerard Abello</b> and <b>David Sancho</b>
+            <Text size='size0' color={colors.grey3} fontWeight='regular'>
+              Created by <b>Gerard Abelló</b> and <b>David Sancho</b>
             </Text>
           </DefaultContainer>
         </SubFooter>

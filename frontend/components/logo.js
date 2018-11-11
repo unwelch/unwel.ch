@@ -36,7 +36,7 @@ class Logo extends Component {
         <Text
           color={this.props.color}
           size='size4'
-          fontWeight='bold'
+          fontWeight='black'
           inline
           shortLineHeight
         >

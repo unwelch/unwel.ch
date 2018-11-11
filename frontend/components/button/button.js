@@ -54,7 +54,7 @@ const ButtonWrapper = styled.button`
   transition: 0.4s;
   cursor: pointer;
   white-space: nowrap;
-  font-weight: 500;
+  font-weight: 600;
   border-radius: 3px;
 
   ${props => (props.size === 'small' ? buttonSmall : '')};

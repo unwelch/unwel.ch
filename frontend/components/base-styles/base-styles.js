@@ -2,26 +2,24 @@ import styledNormalize from 'styled-normalize'
 import styled, { injectGlobal } from 'styled-components'
 import { fontSizes, lineHeights, fontFamily, colors } from '../variables'
 
-import CeraLightEot from '../../src/assets/fonts/Cera/Cera-Light.eot'
-import CeraLightWoff from '../../src/assets/fonts/Cera/Cera-Light.woff'
+import CeraBoldEot from '../../src/assets/fonts/Cera/Cera-Bold.eot'
+import CeraBoldWoff from '../../src/assets/fonts/Cera/Cera-Bold.woff'
 import CeraMediumEot from '../../src/assets/fonts/Cera/Cera-Medium.eot'
 import CeraMediumWoff from '../../src/assets/fonts/Cera/Cera-Medium.woff'
 import CeraBlackEot from '../../src/assets/fonts/Cera/Cera-Black.eot'
 import CeraBlackWoff from '../../src/assets/fonts/Cera/Cera-Black.woff'
-import CeraBlackItalicEot
-  from '../../src/assets/fonts/Cera/Cera-BlackItalic.eot'
-import CeraBlackItalicWoff
-  from '../../src/assets/fonts/Cera/Cera-BlackItalic.woff'
+import CeraBlackItalicEot from '../../src/assets/fonts/Cera/Cera-BlackItalic.eot'
+import CeraBlackItalicWoff from '../../src/assets/fonts/Cera/Cera-BlackItalic.woff'
 
 injectGlobal`
   ${styledNormalize}
 
   @font-face {
       font-family: 'Cera';
-      src: url('${CeraLightEot}');
-      src: url('${CeraLightEot}?#iefix') format('embedded-opentype'),
-          url('${CeraLightWoff}') format('woff');
-      font-weight: 300;
+      src: url('${CeraBoldEot}');
+      src: url('${CeraBoldEot}?#iefix') format('embedded-opentype'),
+          url('${CeraBoldWoff}') format('woff');
+      font-weight: 600;
       font-style: normal;
       font-display: swap;
   }

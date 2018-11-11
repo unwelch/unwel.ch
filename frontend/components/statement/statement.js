@@ -11,7 +11,7 @@ const StatementWrapper = styled.span`
 
 const Statement = ({ betIntro, betStatement }) =>
   <div>
-    <Text size='size5' fontWeight='bold'>
+    <Text size='size5' fontWeight='black'>
       {betIntro}
       <StatementWrapper>
         {betStatement}

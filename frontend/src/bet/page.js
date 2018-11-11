@@ -153,19 +153,19 @@ class BetPage extends Component {
         )
       case betStatuses.LOST:
         return (
-          <Text fontWeight='bold' size='size2'>
+          <Text fontWeight='black' size='size2'>
             You lost!
           </Text>
         )
       case betStatuses.WON:
         return (
-          <Text fontWeight='bold' color={colors.primary} size='size2'>
+          <Text fontWeight='black' color={colors.primary} size='size2'>
             You won!
           </Text>
         )
       case betStatuses.WELCHED:
         return (
-          <Text fontWeight='bold' color={colors.error} size='size2'>
+          <Text fontWeight='black' color={colors.error} size='size2'>
             A disputed bet! One of you should be ashamed.
           </Text>
         )
@@ -205,7 +205,7 @@ class BetPage extends Component {
           <Link to={`/profiles/${bet.user.id}`}>
             <Avatar user={bet.user} />
           </Link>
-          <Text size='size4' fontWeight='bold' italics>
+          <Text size='size4' fontWeight='black' italics>
             vs
           </Text>
           {bet.user2

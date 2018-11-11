@@ -30,25 +30,49 @@ const Text = styled.div`
 
   text-align: ${props => props.textAlign};
 
-  ${props => props.size && `
-    font-size: ${fontSizes[breakpointToTextSize(props.size, props.breakpoint)]}px;
-    line-height: ${props.shortLineHeight ? fontSizes[breakpointToTextSize(props.size, props.breakpoint)] : lineHeights[breakpointToTextSize(props.size, props.breakpoint)]}px;
-  `}; ${props => props.color && `
+  ${props =>
+    props.size &&
+    `
+    font-size: ${
+  fontSizes[breakpointToTextSize(props.size, props.breakpoint)]
+}px;
+    line-height: ${
+  props.shortLineHeight
+    ? fontSizes[breakpointToTextSize(props.size, props.breakpoint)]
+    : lineHeights[breakpointToTextSize(props.size, props.breakpoint)]
+}px;
+  `}; ${props =>
+  props.color &&
+  `
     color: ${props.color};
-  `} ${props => props.mono && `
+  `} ${props =>
+  props.mono &&
+  `
     font-family: ${fontMono};
-  `} ${props => props.fontWeight && `
+  `} ${props =>
+  props.fontWeight &&
+  `
     font-weight: ${fontWeights[props.fontWeight]};
-  `} ${props => props.uppercase && `
+  `} ${props =>
+  props.uppercase &&
+  `
     text-transform: uppercase;
-  `} ${props => props.loose && `
+  `} ${props =>
+  props.loose &&
+  `
     letter-spacing: .1em;
-  `} ${props => props.dimmed && `
+  `} ${props =>
+  props.dimmed &&
+  `
     opacity: 0.6;
-  `} ${props => props.capitalize && `
+  `} ${props =>
+  props.capitalize &&
+  `
     &:first-letter{ text-transform: uppercase; }
   `}
-  ${props => props.ellipsis && `white-space: nowrap; overflow: hidden; text-overflow: ellipsis`};
+  ${props =>
+    props.ellipsis &&
+    `white-space: nowrap; overflow: hidden; text-overflow: ellipsis`};
 `
 
 Text.defaultProps = {

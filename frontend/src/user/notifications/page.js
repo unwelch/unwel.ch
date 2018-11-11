@@ -100,7 +100,7 @@ class Notifications extends Component {
       <Root>
         <DefaultContainer>
           <Spacer inner top={3} />
-          <Text size='size3' fontWeight='light'>
+          <Text size='size3' fontWeight='regular'>
             Notifications
           </Text>
 

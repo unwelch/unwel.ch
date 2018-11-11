@@ -21,10 +21,10 @@ class NotFound extends Component {
   render () {
     return (
       <Root>
-        <Text size='size6' fontWeight='bold'>
+        <Text size='size6' fontWeight='black'>
           404
         </Text>
-        <Text size='size2' fontWeight='light'>
+        <Text size='size2' fontWeight='regular'>
           Not found
         </Text>
       </Root>

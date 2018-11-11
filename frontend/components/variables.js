@@ -43,7 +43,8 @@ const variables = {
     overlay: '#7C8B9A'
   },
 
-  fontFamily: 'Cera, -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+  fontFamily:
+    'Cera, -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
 
   widths: {
     xsm: 8,
@@ -78,9 +79,9 @@ const variables = {
   },
 
   fontWeights: {
-    light: 300,
     regular: 500,
-    bold: 800
+    bold: 600,
+    black: 800
   },
 
   shadows: {
@@ -100,6 +101,6 @@ variables.colors.warning = variables.colors.yellow
 variables.colors.success = variables.colors.green
 
 variables.unitize = quantity =>
-  (quantity ? quantity * variables.unit + 'px' : null)
+  quantity ? quantity * variables.unit + 'px' : null
 
 module.exports = variables

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Placeholder from 'components/placeholder'
 
-import { unit, colors } from './variables'
+import { unit, colors, fontWeights } from './variables'
 
 const Image = styled.img`
   display: block;
@@ -20,9 +20,9 @@ const DefaultAvatar = styled.div`
   height: ${p => p.height * unit}px;
   background: hsl(${props => props.hue}, 45%, 45%);
   color: white;
-  font-size: ${p => p.width * unit / 1.5}px;
-  line-height: ${p => p.width * unit / 1.5}px;
-  font-weight: bold;
+  font-size: ${p => (p.width * unit) / 1.5}px;
+  line-height: ${p => (p.width * unit) / 1.5}px;
+  font-weight: ${fontWeights.black};
   display: flex;
   border-radius: 50%;
 `
@@ -35,7 +35,7 @@ const Unknown = styled.div`
   justify-content: center;
   background-color: ${colors.grey9};
   color: white;
-  font-size: ${p => p.width * unit / 1.5}px;
+  font-size: ${p => (p.width * unit) / 1.5}px;
   font-weight: 500;
   border-radius: 50%;
 `

@@ -17,19 +17,19 @@ const BasicStatsWrapper = styled.div`
 export const BasicStats = ({ stats }) => (
   <BasicStatsWrapper>
     <Distribute vertical align='center'>
-      <Text size='size5' fontWeight='bold'>
+      <Text size='size5' fontWeight='black'>
         {stats.betsCreated}
       </Text>
       <Text size='size1'>Created</Text>
     </Distribute>
     <Distribute vertical align='center'>
-      <Text size='size5' fontWeight='bold'>
+      <Text size='size5' fontWeight='black'>
         {stats.betsAccepted}
       </Text>
       <Text size='size1'>Accepted</Text>
     </Distribute>
     <Distribute vertical align='center'>
-      <Text color={colors.error} size='size5' fontWeight='bold'>
+      <Text color={colors.error} size='size5' fontWeight='black'>
         {stats.betsDisputed}
       </Text>
       <Text color={colors.error} size='size1'>

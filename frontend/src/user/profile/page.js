@@ -103,7 +103,7 @@ class Profile extends Component {
           <Spread align='center'>
             <Distribute space={2} align='center'>
               <Avatar size={7} user={user} />
-              <Text size='size3' fontWeight='light'>
+              <Text size='size3' fontWeight='regular'>
                 {user.name}
                 {"'"}s profile
               </Text>
@@ -140,7 +140,7 @@ class Profile extends Component {
           <Fragment>
             <Split />
             <div>
-              <Text size='size3' fontWeight='light'>
+              <Text size='size3' fontWeight='regular'>
                 You vs {user.name}
               </Text>
               <Spacer top={2}>

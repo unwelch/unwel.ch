@@ -18,7 +18,7 @@ stories.add('default', () => (
 
     <Spacer bottom={4} />
 
-    <Text size='sizeN1' uppercase fontWeight='bold' loose>
+    <Text size='sizeN1' uppercase fontWeight='black' loose>
       small caps
     </Text>
 
