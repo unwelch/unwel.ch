@@ -18,7 +18,7 @@ import { colors } from 'components/variables'
 
 import withNavigate from './../navigation/withNavigate'
 import withIsLoggedIn from './../user/auth/withIsLoggedIn'
-import { checkTempStatement, checkTempAccept } from './../bet/services'
+import { getTempStatement, getTempAccept } from './../bet/services'
 import { ACCEPT_BET_MUTATION, ADD_BET_MUTATION } from './../bet/mutations'
 import { trackEvent, events } from '../tracking'
 import { canInstall, promptInstall } from './../pwa'
@@ -114,11 +114,10 @@ class Home extends Component {
     trackEvent(events.pageLoaded, { page: 'landing' })
 
     if (this.props.isLoggedIn) {
-      const bet = checkTempStatement()
-      console.log('log: ', bet)
-      const betId = checkTempAccept()
+      const bet = getTempStatement()
+      const betId = getTempAccept()
       if (bet) {
-        // this.props.addBet(bet.statement, statementBet.bet)
+        this.props.addBet(bet.statement, bet.quantity)
         this.props.goToPage('/bets')
         return
       } else if (betId) {

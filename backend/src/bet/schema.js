@@ -97,7 +97,11 @@ export const BetMutation = {
       statement: { type: GraphQLString },
       isPrivate: { type: GraphQLBoolean }
     },
-    resolve: async (root, { quantity, statement, isPrivate }, { user }) => {
+    resolve: async (
+      root,
+      { quantity, statement, isPrivate = false },
+      { user }
+    ) => {
       if (user) {
         const newStatement = await StatementDB.insert({
           statement,

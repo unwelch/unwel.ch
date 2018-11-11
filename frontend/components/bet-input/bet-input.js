@@ -85,15 +85,10 @@ class Bet extends Component {
   }
 
   submitHandler = () => {
-    const {
-      quantityValue: quantity,
-      statementValue: statement,
-      isPrivate
-    } = this.state
+    const { quantityValue: quantity, statementValue: statement } = this.state
 
     if (this.canSubmit(this.state)) {
-      console.log('log: ', { quantity, statement, isPrivate })
-      this.props.onConfirm({ quantity, statement, isPrivate })
+      this.props.onConfirm({ quantity, statement })
     }
   }
 
