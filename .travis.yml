@@ -3,6 +3,12 @@ language: node_js
 node_js:
   - "10"
 
+sudo: false
+dist: trusty
+
+addons:
+  chrome: stable
+
 services:
   - docker
 
@@ -15,37 +21,38 @@ cache:
   directories:
     - node_modules
 
+git:
+  depth: 3
+  quiet: true
+
 env:
   API_HOST: "https://api.unwel.ch"
 
-matrix:
+jobs:
   include:
-    - env: PACKAGE=frontend
-    - env: PACKAGE=backend
+    - stage: install
+      env:
+        matrix:
+          - PACKAGE=frontend
+          - PACKAGE=backend
+      script:
+        - "curl -o- -L https://yarnpkg.com/install.sh | bash"
+        - export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+        - cd $PACKAGE
+        - yarn
+        - yarn test
+        - API_HOST=https://api.unwel.ch yarn run build
+        - cd ..
 
-before_install:
-  - "curl -o- -L https://yarnpkg.com/install.sh | bash"
-  - export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+    - stage: e2e
+      before_script: yarn start
+      script: yarn test:e2e
 
-install:
-  - cd $PACKAGE
-  - yarn
-  - cd ..
-
-script:
-  - cd $PACKAGE
-  - yarn test
-  - API_HOST=https://api.unwel.ch yarn run build
-  - cd ..
-
-before_deploy:
-  - docker login -u="$DOCKERHUB_USERNAME" -p="$DOCKERHUB_PASSWORD"
-  - docker build -t $PACKAGE ./$PACKAGE
-  - docker tag $PACKAGE unwelch/$PACKAGE
-
-deploy:
-  provider: script
-  script:
-    - docker push unwelch/$PACKAGE
-  on:
-    branch: master
+    - stage: deploy
+      before_script:
+        - docker login -u="$DOCKERHUB_USERNAME" -p="$DOCKERHUB_PASSWORD"
+        - docker build -t $PACKAGE ./$PACKAGE
+        - docker tag $PACKAGE unwelch/$PACKAGE
+      script: docker push unwelch/$PACKAGE
+      on:
+        branch: master

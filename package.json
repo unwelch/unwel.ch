@@ -13,7 +13,7 @@
     "start:backend": "cd backend; yarn dev",
     "start": "concurrently -k 'yarn start:backend' 'yarn start:frontend'",
     "lint": "eslint . --quiet",
-    "test": "testcafe chrome ./e2e"
+    "test:e2e": "testcafe chrome ./e2e"
   },
   "husky": {
     "hooks": {
