@@ -2,7 +2,7 @@ import { Component } from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
-import { betStatuses, getBetStatus } from './bet-status'
+import { betStatuses, getBetStatus } from '../../../shared/bet/status'
 
 const QUERY = gql`
   query($betId: String!) {
@@ -37,7 +37,7 @@ class BetStatusIcon extends Component {
         return 'Lost'
       case betStatuses.WON:
         return 'Won'
-      case betStatuses.WELCHED:
+      case betStatuses.DISPUTED:
         return 'Dispute'
     }
 
