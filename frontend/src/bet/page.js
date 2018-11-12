@@ -199,7 +199,7 @@ class BetPage extends Component {
     const canEditBet = betStatus === betStatuses.WAITING_FOR_OPONENT
 
     return (
-      <DefaultContainer>
+      <DefaultContainer data-qa='bet-page'>
         <Spacer inner top={6} />
         <Distribute space={1} align='center'>
           <Link to={`/profiles/${bet.user.id}`}>
@@ -227,6 +227,7 @@ class BetPage extends Component {
         )}
 
         <Spacer top={3} />
+
         {getAccepterText(
           currentUser,
           bet.statement.user,
