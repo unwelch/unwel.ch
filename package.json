@@ -12,7 +12,8 @@
     "start:frontend": "cd frontend; yarn start",
     "start:backend": "cd backend; yarn dev",
     "start": "concurrently -k 'yarn start:backend' 'yarn start:frontend'",
-    "lint": "eslint . --quiet"
+    "lint": "eslint . --quiet",
+    "test": "testcafe chrome ./e2e"
   },
   "husky": {
     "hooks": {
@@ -42,6 +43,7 @@
     "husky": "^1.1.2",
     "lint-staged": "^7.3.0",
     "prettier": "^1.14.3",
-    "prettier-standard": "^8.0.1"
+    "prettier-standard": "^8.0.1",
+    "testcafe": "^0.22.0"
   }
 }
