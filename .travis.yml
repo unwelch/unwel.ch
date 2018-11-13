@@ -38,8 +38,9 @@ jobs:
   include:
     - stage: unit
       env:
-        - PACKAGE=frontend
-        - PACKAGE=backend
+        matrix:
+          - PACKAGE=frontend
+          - PACKAGE=backend
       before_script:
         - "curl -o- -L https://yarnpkg.com/install.sh | bash"
         - export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
@@ -57,8 +58,9 @@ jobs:
 
     - stage: deploy
       env:
-        - PACKAGE=frontend
-        - PACKAGE=backend
+        matrix:
+          - PACKAGE=frontend
+          - PACKAGE=backend
       before_script:
         - docker login -u="$DOCKERHUB_USERNAME" -p="$DOCKERHUB_PASSWORD"
         - docker build -t $PACKAGE ./$PACKAGE
