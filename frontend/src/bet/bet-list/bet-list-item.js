@@ -11,7 +11,7 @@ import Text from 'components/text'
 import Placeholder from 'components/placeholder'
 import { colors } from 'components/variables'
 import { getIntroText } from '../phrase-generator'
-import { getBetStatus, betStatuses } from './../../../../shared/bet/status'
+import { getBetStatus, betStatuses } from '../bet-status'
 
 export const getStatusText = betStatus => {
   switch (betStatus) {
@@ -61,7 +61,7 @@ export const getStatusText = betStatus => {
           Won
         </Text>
       )
-    case betStatuses.DISPUTED:
+    case betStatuses.WELCHED:
       return (
         <Text
           size='size0'
@@ -141,9 +141,11 @@ class BetListItem extends Component {
             )}
           </BetText>
           <Spacer left={1} />
-          {otherUser
-            ? <Avatar size={4} user={otherUser} />
-            : <Avatar size={4} unknown />}
+          {otherUser ? (
+            <Avatar size={4} user={otherUser} />
+          ) : (
+            <Avatar size={4} unknown />
+          )}
         </Main>
         <Spacer top={1} />
         <Footer>
