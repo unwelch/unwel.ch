@@ -60,8 +60,8 @@ const mapDispatchToProps = dispatch => {
 export default compose(
   graphql(ADD_BET_MUTATION, {
     props: ({ mutate }) => ({
-      addBet: ({ statement, quantity}) =>
-        mutate({ variables: { statement, quantity} })
+      addBet: ({ statement, quantity, isPrivate }) =>
+        mutate({ variables: { statement, quantity, isPrivate } })
     }),
     options: () => ({
       refetchQueries: [

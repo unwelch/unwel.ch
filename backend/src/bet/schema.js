@@ -28,6 +28,10 @@ export const BetType = new GraphQLObjectType({
         return StatementDB.get(bet.statementId)
       }
     },
+    isPrivate: {
+      type: GraphQLBoolean,
+      resolve: prop('isPrivate')
+    },
     user: {
       type: UserType,
       resolve: bet => {
@@ -90,9 +94,14 @@ export const BetMutation = {
     type: BetType,
     args: {
       quantity: { type: GraphQLString },
-      statement: { type: GraphQLString }
+      statement: { type: GraphQLString },
+      isPrivate: { type: GraphQLBoolean }
     },
-    resolve: async (root, { quantity, statement }, { user }) => {
+    resolve: async (
+      root,
+      { quantity, statement, isPrivate = false },
+      { user }
+    ) => {
       if (user) {
         const newStatement = await StatementDB.insert({
           statement,
@@ -102,7 +111,8 @@ export const BetMutation = {
         return db.insert({
           quantity,
           userId: user.id,
-          statementId: newStatement.id
+          statementId: newStatement.id,
+          isPrivate
         })
       } else {
         throw new Error('Not logged in')
