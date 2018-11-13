@@ -15,7 +15,7 @@ import {
 import * as queries from './../bet/queries'
 import { BET_LIST } from './bet-list/queries'
 import { showAnnounce } from './../announce/actions'
-import { betStatuses, getBetStatus } from '../../../shared/bet/status'
+import { betStatuses, getBetStatus } from './bet-status'
 import { getIntroText, getAccepterText } from './phrase-generator'
 import FinishBet from './finish-bet'
 import { trackEvent, events } from '../tracking'
@@ -163,7 +163,7 @@ class BetPage extends Component {
             You won!
           </Text>
         )
-      case betStatuses.DISPUTED:
+      case betStatuses.WELCHED:
         return (
           <Text fontWeight='black' color={colors.error} size='size2'>
             A disputed bet! One of you should be ashamed.

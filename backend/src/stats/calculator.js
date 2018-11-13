@@ -1,13 +1,12 @@
 import R from 'ramda'
 
-import { betStatuses, getBetStatus } from './../../../shared/bet/status'
+import { betStatuses, getBetStatus } from '../bet-status'
 
 const calculateStats = (bets, userId) => ({
   accepted: bets.filter(R.propEq('user2Id', userId)).length,
   created: bets.filter(R.propEq('userId', userId)).length,
-  disputed: bets.filter(
-    bet => getBetStatus(bet, userId) === betStatuses.DISPUTED
-  ).length,
+  disputed: bets.filter(bet => getBetStatus(bet, userId) === betStatuses.DISPUTED)
+    .length,
   won: bets.filter(bet => getBetStatus(bet, userId) === betStatuses.WON).length,
   lost: bets.filter(bet => getBetStatus(bet, userId) === betStatuses.LOST)
     .length

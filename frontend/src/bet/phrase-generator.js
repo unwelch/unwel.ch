@@ -69,8 +69,14 @@ export const getBetText = (currentUser, creator, accepter, quantity) => {
   }
 
   if (isCreator) {
-    return `If you are wrong, you will give ${accepter.name} ${toLower(quantity)}. If you are right it will be the other way around.`
+    return `If you are wrong, you will give ${accepter.name} ${toLower(
+      quantity
+    )}. If you are right it will be the other way around.`
   } else {
-    return `If ${creator.name} is wrong, ${creator.name} will give you ${toLower(quantity)}. If ${creator.name} is right it will be the other way around.`
+    return `If ${creator.name} is wrong, ${
+      creator.name
+    } will give you ${toLower(quantity)}. If ${
+      creator.name
+    } is right it will be the other way around.`
   }
 }
