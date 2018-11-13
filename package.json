@@ -11,7 +11,7 @@
   "scripts": {
     "start:frontend": "cd frontend; yarn start",
     "start:backend": "cd backend; yarn dev",
-    "start": "concurrently -k 'yarn start:backend' 'yarn start:frontend'",
+    "start": "concurrently -k 'yarn start:frontend' 'yarn start:backend'",
     "lint": "eslint . --quiet",
     "test:e2e": "testcafe chrome ./e2e"
   },
