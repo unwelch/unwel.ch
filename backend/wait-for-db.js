@@ -3,6 +3,9 @@ import pg from 'pg'
 require('dotenv').config()
 
 const main = async () => {
+
+  console.log('Connecting to ', process.env.DB_HOST + ':' + process.env.DB_PORT);
+
   const client = new pg.Client({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
