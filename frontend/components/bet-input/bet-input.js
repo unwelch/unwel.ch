@@ -2,19 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled, { keyframes } from 'styled-components'
 
-import LockIcon from 'react-feather/dist/icons/lock'
-import UnLockIcon from 'react-feather/dist/icons/unlock'
-
-import Distribute from '../distribute'
-import Split from '../split'
-import { colors } from '../variables'
 import Button from './../button'
 import Spacer from './../spacer'
 import Input from '../input'
 import Animate from '../animate'
 import Text from '../text'
-
-import { PRIVATE_BET_FEATURE_TOGGLE } from './../../src/features'
 
 const fadeIn = keyframes`
   0% {
@@ -46,14 +38,12 @@ const isEnterKey = fn => {
 class Bet extends Component {
   static propTypes = {
     quantity: PropTypes.string,
-    statement: PropTypes.string,
-    isPrivate: PropTypes.bool
+    statement: PropTypes.string
   }
 
   static defaultProps = {
     quantity: '',
-    statement: '',
-    isPrivate: false
+    statement: ''
   }
 
   constructor (props) {
@@ -61,8 +51,7 @@ class Bet extends Component {
 
     this.state = {
       quantityValue: props.quantity,
-      statementValue: props.statement,
-      isPrivate: props.isPrivate
+      statementValue: props.statement
     }
   }
 
@@ -72,12 +61,6 @@ class Bet extends Component {
         [stateKey]: target.value
       })
     }
-  }
-
-  handleVisibilityChange = () => {
-    this.setState({
-      isPrivateBet: !this.state.isPrivateBet
-    })
   }
 
   canSubmit (state) {
@@ -95,7 +78,6 @@ class Bet extends Component {
   render () {
     const { starter, middle } = this.props
     const { quantityValue, statementValue } = this.state
-    const VisibilityIcon = this.state.isPrivateBet ? LockIcon : UnLockIcon
 
     return (
       <Root onKeyDown={isEnterKey(this.submitHandler)}>
@@ -131,23 +113,6 @@ class Bet extends Component {
             data-qa='bet-input-statement'
           />
         </AnimateWrapper>
-
-        {PRIVATE_BET_FEATURE_TOGGLE &&
-          <AnimateWrapper delay={3}>
-            <Spacer top={3} onClick={this.handleVisibilityChange}>
-              <Distribute space={2} align='center'>
-                <Text size='size1'>
-                  Visibility
-                </Text>
-                <VisibilityIcon
-                  color={
-                    this.state.isPrivateBet ? colors.grey5 : colors.primary
-                  }
-                />
-              </Distribute>
-              <Split />
-            </Spacer>
-          </AnimateWrapper>}
 
         <Animate
           type='slideUp'
