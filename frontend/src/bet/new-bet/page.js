@@ -8,7 +8,7 @@ import DefaultContainer from 'components/default-container'
 import BetInput from 'components/bet-input'
 import Spacer from 'components/spacer'
 
-import { saveTempStatement } from '../services'
+import { saveTempBet } from '../services'
 import { showAnnounce } from './../../announce/actions'
 import { ADD_BET_MUTATION } from './../mutations'
 import * as queries from './../bet-list/queries'
@@ -17,13 +17,18 @@ import withNavigate from '../../navigation/withNavigate'
 import withIsLoggedIn from '../../user/auth/withIsLoggedIn'
 
 class NewBet extends Component {
+  constructor () {
+    super()
+    this.handleBetConfirm = this.handleBetConfirm.bind(this)
+  }
+
   componentDidMount () {
     trackEvent(events.pageLoaded, { page: 'newBet' })
   }
 
-  handleBetConfirm = async bet => {
+  async handleBetConfirm (bet) {
     if (!this.props.isLoggedIn) {
-      saveTempStatement(bet)
+      saveTempBet(bet)
       await this.props.goToPage(`/anonymous-login`)
       return
     }
@@ -60,8 +65,8 @@ const mapDispatchToProps = dispatch => {
 export default compose(
   graphql(ADD_BET_MUTATION, {
     props: ({ mutate }) => ({
-      addBet: ({ statement, quantity}) =>
-        mutate({ variables: { statement, quantity} })
+      addBet: ({ statement, quantity }) =>
+        mutate({ variables: { statement, quantity } })
     }),
     options: () => ({
       refetchQueries: [
@@ -71,7 +76,10 @@ export default compose(
       ]
     })
   }),
-  connect(null, mapDispatchToProps),
+  connect(
+    null,
+    mapDispatchToProps
+  ),
   withNavigate,
   withIsLoggedIn
 )(NewBet)
