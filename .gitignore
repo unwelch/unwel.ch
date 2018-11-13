@@ -10,7 +10,6 @@ cockroach-data
 
 # dependencies
 /node_modules
-/bower_components
 
 # IDEs and editors
 /.idea
@@ -29,10 +28,6 @@ cockroach-data
 npm-debug.log
 testem.log
 /typings
-
-# e2e
-/e2e/*.js
-/e2e/*.map
 
 #System Files
 .DS_Store
