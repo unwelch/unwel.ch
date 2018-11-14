@@ -10,7 +10,7 @@
     "dev": "npm run cleandb && concurrently -k \"npm run startdb\" \"babel-node wait-for-db.js && npm run migrate && npm run start\"",
     "dev:ci": "concurrently -k \"npm run startdb\" \"babel-node wait-for-db.js && npm run migrate && npm run serve\"",
     "start": "nodemon src/server.js --exec babel-node --inspect",
-    "startdb": "docker run --name unwelch-db -p 5432:5432 -e POSTGRES_PASSWORD=postgres postgres",
+    "startdb": "docker run --name unwelch-db -p 5434:5432 -e POSTGRES_PASSWORD=postgres postgres",
     "cleandb": "docker stop unwelch-db || true && docker rm unwelch-db || true",
     "migrate": "babel-node ./migrate.js",
     "test": "jest src/",
