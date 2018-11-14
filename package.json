@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start:frontend": "cd frontend; yarn start",
-    "start:backend": "cd backend; yarn dev:ci",
+    "start:backend": "cd backend; yarn run dev",
     "start": "concurrently -k 'yarn start:frontend' 'yarn start:backend'",
     "lint": "eslint . --quiet",
     "test:e2e": "testcafe 'chrome:headless' ./e2e"
@@ -44,6 +44,6 @@
     "lint-staged": "^7.3.0",
     "prettier": "^1.14.3",
     "prettier-standard": "^8.0.1",
-    "testcafe": "^0.22.0"
+    "testcafe": "^0.23.2"
   }
 }
