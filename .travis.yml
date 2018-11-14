@@ -54,7 +54,9 @@ after_install:
   - yarn test
   - cd ..
 
-before_script: yarn start & export APP_PID=$!
+before_script:
+  - yarn
+  - yarn start & export APP_PID=$!
 script: yarn test:e2e
 after_script: kill $APP_PID
 
