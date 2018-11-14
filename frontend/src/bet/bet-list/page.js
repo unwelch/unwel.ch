@@ -28,6 +28,9 @@ const ListWrapper = styled.div`
 class BetList extends Component {
   componentDidMount () {
     trackEvent(events.pageLoaded, { page: 'betList' })
+    if (!this.props.isLoggedIn) {
+      this.props.goToPage(`/`)
+    }
   }
 
   renderPlaceholderItems (n) {
@@ -82,7 +85,7 @@ class BetList extends Component {
           <Spacer inner top={3} />
           <TranslatorConsumer>
             {t => (
-              <Text size='size3' fontWeight='light'>
+              <Text size='size3' fontWeight='bold'>
                 {t('bet-list-page-title')}
               </Text>
             )}
