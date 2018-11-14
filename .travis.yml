@@ -57,6 +57,7 @@ after_install:
 before_script:
   - yarn
   - yarn start & export APP_PID=$!
+  - sleep 20
 script: yarn test:e2e
 after_script: kill $APP_PID
 
