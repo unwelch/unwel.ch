@@ -175,7 +175,7 @@ class BetPage extends Component {
   render () {
     const { bet, currentUser, loading } = this.props.data
 
-    if (loading || !bet || !currentUser) {
+    if (loading) {
       return (
         <DefaultContainer>
           <Distribute space={2}>
@@ -208,13 +208,11 @@ class BetPage extends Component {
           <Text size='size4' fontWeight='black' italics>
             vs
           </Text>
-          {bet.user2 ? (
-            <Link to={`/profiles/${bet.user2.id}`}>
+          {bet.user2
+            ? <Link to={`/profiles/${bet.user2.id}`}>
               <Avatar user={bet.user2} />
             </Link>
-          ) : (
-            <Avatar unknown />
-          )}
+            : <Avatar unknown />}
         </Distribute>
 
         <Spacer top={3} />
@@ -240,9 +238,9 @@ class BetPage extends Component {
         )}
         <Spacer top={4} />
 
-        {isCurrentUserTheCreator && canEditBet ? (
-          <Link to={`/bet/${bet.id}/edit`} />
-        ) : null}
+        {isCurrentUserTheCreator && canEditBet
+          ? <Link to={`/bet/${bet.id}/edit`} />
+          : null}
 
         <Spacer bottom={20}>{this.renderActions()}</Spacer>
       </DefaultContainer>
@@ -260,10 +258,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default compose(
-  connect(
-    null,
-    mapDispatchToProps
-  ),
+  connect(null, mapDispatchToProps),
   withNavigation,
   graphql(queries.BET_INFO, {
     options: () => ({
