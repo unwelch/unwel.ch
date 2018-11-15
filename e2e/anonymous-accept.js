@@ -1,6 +1,6 @@
 import { Role } from 'testcafe'
 
-import { getLocation, dataQaSelector, dataQaExists } from './utils'
+import { getLocation, dataQaSelector } from './utils'
 import { HOST } from './config'
 
 const creator = Role(`${HOST}/bets/new`, async t => {
@@ -28,20 +28,19 @@ test('I can accept a bet by loggin in', async t => {
   const betUrl = await getLocation()
   const newBetId = betUrl.split('/').pop()
 
-  await t.useRole(Role.anonymous())
+  await t.useRole(Role.anonymous(), async (t) => {
+    await t.navigateTo(`${HOST}/bet/${newBetId}`)
 
-  await t.navigateTo(`${HOST}/bet/${newBetId}`)
+    await t.click(dataQaSelector('accept-bet-button'))
 
-  await t.click(dataQaSelector('accept-bet-button'))
+    await t
+      .expect(await getLocation())
+      .eql(`/anonymous-login`, 'redirects to anonymous login')
 
-  await t
-    .expect(await getLocation())
-    .eql(`/anonymous-login`, 'redirects to anonymous login')
+    await t.typeText(dataQaSelector('anonymous-login-input'), `Creators friend`)
+    await t.click(dataQaSelector('anonymous-login-confirm'))
 
-  await t.typeText(dataQaSelector('anonymous-login-input'), `Creators friend`)
-  await t.click(dataQaSelector('anonymous-login-confirm'))
+    await t.expect(await getLocation()).eql(`/bet/${newBetId}`, 'redirects to bet page')
+  })
 
-  await t.expect(await getLocation()).match(/^\/bet\//, 'redirects to bet page')
-
-  await t.expect(dataQaExists('bet-page')).ok()
 })
