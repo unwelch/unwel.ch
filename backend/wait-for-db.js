@@ -23,4 +23,4 @@ const main = async () => {
 setInterval(() => {
   main()
   console.log('Waiting for DB to be ready...')
-}, 100)
+}, 500)
