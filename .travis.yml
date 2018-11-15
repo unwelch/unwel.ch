@@ -59,6 +59,7 @@ script:
   - yarn start & export APP_PID=$!
   - yarn test:e2e
   - kill $APP_PID
+  - killall node
 
 before_deploy:
   - cd frontend
