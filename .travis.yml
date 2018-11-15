@@ -69,6 +69,7 @@ before_deploy:
   - cd ..
 
 deploy:
+  provider: script
   on:
     branch: master
   script:
