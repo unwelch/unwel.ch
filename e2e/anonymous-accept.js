@@ -30,6 +30,7 @@ test('I can accept a bet by loggin in', async t => {
 
   await t.wait(1000)
   await t.useRole(Role.anonymous())
+  await t.wait(1000)
   await t.navigateTo(`${HOST}/bet/${newBetId}`)
 
   await t
