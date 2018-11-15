@@ -46,13 +46,19 @@ install:
   - API_HOST=https://api.unwel.ch yarn run build
   - cd ..
 
-script:
+after_install:
   - cd frontend
   - yarn test
   - cd ..
   - cd backend
   - yarn test
   - cd ..
+
+before_script:
+  - yarn
+  - yarn start & export APP_PID=$!
+script: yarn test:e2e
+after_script: kill $APP_PID
 
 before_deploy:
   - cd frontend
