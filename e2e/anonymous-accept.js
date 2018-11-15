@@ -27,6 +27,7 @@ test('I can accept a bet by loggin in', async t => {
   await t.typeText(dataQaSelector('anonymous-login-input'), 'Creator')
   await t.click(dataQaSelector('anonymous-login-confirm'))
 
+  await t.wait(2000) // wait for token reload
   await t.expect(await getLocation()).eql(`/bets`, 'redirects to bet page')
 
   await t.click(dataQaSelector('bet-list-item'))
@@ -48,6 +49,7 @@ test('I can accept a bet by loggin in', async t => {
   await t.typeText(dataQaSelector('anonymous-login-input'), `Creators friend`)
   await t.click(dataQaSelector('anonymous-login-confirm'))
 
+  await t.wait(2000) // wait for token reload
   await t.expect(await getLocation()).match(/^\/bet\//, 'redirects to bet page')
 
   await t.expect(dataQaExists('bet-page')).ok()
