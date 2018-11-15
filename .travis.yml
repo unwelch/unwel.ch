@@ -36,6 +36,7 @@ before_install:
   - export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 install:
+  - yarn
   - cd frontend
   - yarn
   - API_HOST=https://api.unwel.ch yarn run build
@@ -54,11 +55,10 @@ after_install:
   - yarn test
   - cd ..
 
-before_script:
-  - yarn
+script:
   - yarn start & export APP_PID=$!
-script: yarn test:e2e
-after_script: kill $APP_PID
+  - yarn test:e2e
+  - kill $APP_PID
 
 before_deploy:
   - cd frontend
