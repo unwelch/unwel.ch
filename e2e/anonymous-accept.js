@@ -32,8 +32,6 @@ test('I can accept a bet by loggin in', async t => {
   await t.useRole(Role.anonymous())
   await t.navigateTo(`${HOST}/bet/${newBetId}`)
 
-  await t.click(dataQaSelector('accept-bet-button'))
-
   await t
     .expect(await getLocation())
     .eql(`/anonymous-login`, 'redirects to anonymous login')
