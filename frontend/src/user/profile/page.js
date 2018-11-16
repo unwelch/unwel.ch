@@ -103,30 +103,32 @@ class Profile extends Component {
           <Spread align='center'>
             <Distribute space={2} align='center'>
               <Avatar size={7} user={user} />
-              <Text size='size3' fontWeight='regular'>
+              <Text size='size3' fontWeight='bold'>
                 {user.name}
                 {"'"}s profile
               </Text>
             </Distribute>
-            {isCurrentUser &&
-              <SettingsIcon onClick={this.handleSettingsIconClick} />}
+            {isCurrentUser && (
+              <SettingsIcon onClick={this.handleSettingsIconClick} />
+            )}
           </Spread>
         </Spacer>
 
         <Split />
 
         {isCurrentUser &&
-          isAnonymous &&
+          isAnonymous && (
           <SaveAccountWrapper>
             <Text size='size1'>
-              You are using a temporal account on this device. Create an
-              account to access unwelch from anywhere.
+                You are using a temporal account on this device. Create an
+                account to access unwelch from anywhere.
             </Text>
             <Spacer top={1} />
             <Button type='level2' fullWidth onClick={this.saveAccountHandler}>
-              Create account
+                Create account
             </Button>
-          </SaveAccountWrapper>}
+          </SaveAccountWrapper>
+        )}
 
         <Split />
 
@@ -136,7 +138,7 @@ class Profile extends Component {
 
         <WonLostPie stats={user.stats} />
 
-        {!isCurrentUser &&
+        {!isCurrentUser && (
           <Fragment>
             <Split />
             <div>
@@ -147,7 +149,8 @@ class Profile extends Component {
                 <WonLostBar stats={user.statsAgainstYou} />
               </Spacer>
             </div>
-          </Fragment>}
+          </Fragment>
+        )}
       </Root>
     )
   }
@@ -162,6 +165,10 @@ const mapDispatchToProps = dispatch => {
   )
 }
 
-export default compose(connect(always({}), mapDispatchToProps), graphql(QUERY))(
-  Profile
-)
+export default compose(
+  connect(
+    always({}),
+    mapDispatchToProps
+  ),
+  graphql(QUERY)
+)(Profile)

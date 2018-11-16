@@ -101,14 +101,13 @@ class Login extends Component {
       page: 'login',
       anonymousLogin: this.props.anonymous
     })
+
+    if (this.props.isLoggedIn) {
+      this.props.goToPage('/bets')
+    }
   }
 
   render () {
-    if (this.props.isLoggedIn) {
-      this.props.goToPage('/bets')
-      return null
-    }
-
     const { anonymous } = this.props
     return (
       <div>

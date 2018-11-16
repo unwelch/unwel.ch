@@ -100,19 +100,21 @@ class Notifications extends Component {
       <Root>
         <DefaultContainer>
           <Spacer inner top={3} />
-          <Text size='size3' fontWeight='regular'>
+          <Text size='size3' fontWeight='bold'>
             Notifications
           </Text>
 
           <Spacer inner top={3} />
 
-          {items.length > 0
-            ? <List>
+          {items.length > 0 ? (
+            <List>
               <Distribute vertical space={1}>
                 {items}
               </Distribute>
             </List>
-            : <Text dimmed>You have no notifications</Text>}
+          ) : (
+            <Text dimmed>You have no notifications</Text>
+          )}
         </DefaultContainer>
       </Root>
     )
@@ -129,7 +131,10 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default compose(
-  connect(always({}), mapDispatchToProps),
+  connect(
+    always({}),
+    mapDispatchToProps
+  ),
   graphql(NOTIFICATIONS_QUERY, {
     options: () => {
       return {

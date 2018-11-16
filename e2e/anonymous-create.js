@@ -22,6 +22,7 @@ test('I can create a bet and login anonymously', async t => {
   await t.typeText(dataQaSelector('anonymous-login-input'), 'Gerard')
   await t.click(dataQaSelector('anonymous-login-confirm'))
 
+  await t.wait(2000) // wait for token reload
   await t.expect(await getLocation()).eql(`/bets`, 'redirects to bet page')
 
   await t.expect(dataQaExists('bet-list-item')).ok()

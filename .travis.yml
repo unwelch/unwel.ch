@@ -3,6 +3,12 @@ language: node_js
 node_js:
   - "10"
 
+sudo: false
+dist: trusty
+
+addons:
+  chrome: stable
+
 services:
   - docker
 
@@ -14,38 +20,57 @@ cache:
   yarn: true
   directories:
     - node_modules
+    - frontend/node_modules
+    - backend/node_modules
+
+git:
+  depth: 3
+  quiet: true
 
 env:
-  API_HOST: "https://api.unwel.ch"
-
-matrix:
-  include:
-    - env: PACKAGE=frontend
-    - env: PACKAGE=backend
+  global:
+    - API_HOST='https://api.unwel.ch'
 
 before_install:
   - "curl -o- -L https://yarnpkg.com/install.sh | bash"
   - export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 install:
-  - cd $PACKAGE
   - yarn
+  - cd frontend
+  - yarn
+  - API_HOST=https://api.unwel.ch yarn run build
   - cd ..
-
-script:
-  - cd $PACKAGE
-  - yarn test
+  - cd backend
+  - yarn
+  - cp .env.dist .env
   - API_HOST=https://api.unwel.ch yarn run build
   - cd ..
 
+after_install:
+  - cd frontend
+  - yarn test
+  - cd ..
+  - cd backend
+  - yarn test
+  - cd ..
+
+script:
+  - yarn start & export APP_PID=$!
+  - yarn test:e2e
+  - kill $APP_PID
+  - killall node
+
 before_deploy:
-  - docker login -u="$DOCKERHUB_USERNAME" -p="$DOCKERHUB_PASSWORD"
-  - docker build -t $PACKAGE ./$PACKAGE
-  - docker tag $PACKAGE unwelch/$PACKAGE
+  - cd frontend
+  - API_HOST=https://api.unwel.ch yarn run build
+  - cd ..
+  - cd backend
+  - API_HOST=https://api.unwel.ch yarn run build
+  - cd ..
 
 deploy:
   provider: script
-  script:
-    - docker push unwelch/$PACKAGE
   on:
     branch: master
+  script: sh deploy.sh

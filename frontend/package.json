@@ -8,8 +8,7 @@
     "prepush": "npm test",
     "start": "webpack-dev-server --mode development",
     "start:prod": "webpack-dev-server --mode production",
-    "build": "webpack --mode production",
-    "test:e2e": "testcafe chrome ./e2e"
+    "build": "webpack --mode production"
   },
   "dependencies": {
     "@nivo/pie": "^0.49.0",
@@ -62,7 +61,6 @@
     "dotenv": "^4.0.0",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.0.4",
-    "testcafe": "^0.22.0",
     "webpack": "4.0.1",
     "webpack-cli": "^2.0.6",
     "webpack-dev-server": "^3.1.0",

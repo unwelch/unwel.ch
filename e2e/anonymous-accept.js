@@ -1,9 +1,16 @@
-import { Role } from 'testcafe'
-
-import { getLocation, dataQaSelector, dataQaExists } from './utils'
+import {
+  getLocation,
+  dataQaSelector,
+  dataQaExists,
+  clearLocalStorage
+} from './utils'
 import { HOST } from './config'
 
-const creator = Role(`${HOST}/bets/new`, async t => {
+fixture`Anonymous login by accepting`.page`${HOST}`
+
+test('I can accept a bet by loggin in', async t => {
+  await t.click(dataQaSelector('make-bet-button'))
+
   await t.typeText(dataQaSelector('bet-input-statement'), 'something')
   await t.typeText(dataQaSelector('bet-input-quantity'), '1 coffee')
 
@@ -16,23 +23,16 @@ const creator = Role(`${HOST}/bets/new`, async t => {
   await t.typeText(dataQaSelector('anonymous-login-input'), 'Creator')
   await t.click(dataQaSelector('anonymous-login-confirm'))
 
+  await t.wait(2000) // wait for token reload
   await t.expect(await getLocation()).eql(`/bets`, 'redirects to bet page')
-})
 
-fixture`Anonymous login by accepting`.page`${HOST}`
+  await t.click(dataQaSelector('bet-list-item'))
+  const betUrl = await getLocation()
+  const newBetId = betUrl.split('/').pop()
 
-test('I can accept a bet by loggin in', async t => {
-  let newBetId
-  {
-    await t.useRole(creator)
+  // ACEPTER
 
-    await t.click(dataQaSelector('bet-list-item'))
-
-    const betUrl = await getLocation()
-    newBetId = betUrl.split('/').pop()
-  }
-
-  await t.useRole(Role.anonymous())
+  await clearLocalStorage()
 
   await t.navigateTo(`${HOST}/bet/${newBetId}`)
 
@@ -42,10 +42,11 @@ test('I can accept a bet by loggin in', async t => {
     .expect(await getLocation())
     .eql(`/anonymous-login`, 'redirects to anonymous login')
 
-  await t.typeText(dataQaSelector('anonymous-login-input'), `Creator's friend`)
+  await t.typeText(dataQaSelector('anonymous-login-input'), `Creators friend`)
   await t.click(dataQaSelector('anonymous-login-confirm'))
 
-  await t.expect(await getLocation()).eql(`/bets`, 'redirects to bet page')
+  await t.wait(2000) // wait for token reload
+  await t.expect(await getLocation()).match(/^\/bet\//, 'redirects to bet page')
 
-  await t.expect(dataQaExists('bet-list-item')).ok()
+  await t.expect(dataQaExists('bet-page')).ok()
 })
