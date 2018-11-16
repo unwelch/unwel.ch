@@ -28,7 +28,8 @@ module.exports = {
       generators: true
     }
   },
-  globals: { fixture: true, FS: true },
+  globals: { fixture: true,
+    FS: true },
   rules: {
     // complexity: ['warn', { max: 7 }],
     "prettier/prettier": 0,
@@ -45,4 +46,4 @@ module.exports = {
       }
     ]
   }
-};
+}

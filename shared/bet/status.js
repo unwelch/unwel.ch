@@ -1,4 +1,4 @@
-export const betStatuses = {
+const betStatuses = {
   WAITING_FOR_OPONENT: 'WAITING_FOR_OPONENT',
   AVAILABLE_BET: 'AVAILABLE_BET',
   WAITING_FOR_USER_RESPONSE: 'WAITING_FOR_USER_RESPONSE',
@@ -8,7 +8,7 @@ export const betStatuses = {
   DISPUTED: 'DISPUTED'
 }
 
-export const getBetStatus = (bet, currentUserId) => {
+const getBetStatus = (bet, currentUserId) => {
   const isCreator = bet.userId === currentUserId
   const userResponded = bet.userResponse != null
   const user2Responded = bet.user2Response != null
@@ -41,4 +41,8 @@ export const getBetStatus = (bet, currentUserId) => {
 
     return betStatuses.LOST
   }
+}
+
+module.exports = {
+  getBetStatus, betStatuses
 }
