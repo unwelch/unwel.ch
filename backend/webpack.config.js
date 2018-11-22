@@ -1,19 +1,18 @@
 const webpack = require('webpack')
 const path = require('path')
 const nodeExternals = require('webpack-node-externals')
+const DotEnvPlugin = require('dotenv-webpack')
+
+require('dotenv').config()
 
 module.exports = {
-  mode: 'development',
+  mode: process.env.NODE_ENV === 'development' ? 'development' : process.env.NODE_ENV,
   devtool: false,
   externals: [nodeExternals()],
   name: 'server',
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-      }
-    }),
-    new webpack.NamedModulesPlugin()
+    new webpack.NamedModulesPlugin(),
+    new DotEnvPlugin()
   ],
   target: 'node',
   entry: [path.resolve(path.join(__dirname, 'src/server.js'))],
@@ -24,8 +23,9 @@ module.exports = {
     libraryTarget: 'commonjs2'
   },
   resolve: {
-    extensions: ['.js'],
-    modules: [path.resolve(__dirname, '..', 'shared')]
+    alias: {
+      shared: path.resolve('../shared')
+    }
   },
   module: {
     rules: [

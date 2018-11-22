@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin')
-var WebpackPwaManifest = require('webpack-pwa-manifest')
+const WebpackPwaManifest = require('webpack-pwa-manifest')
 
 module.exports = {
   devtool: 'source-map',
@@ -49,13 +49,14 @@ module.exports = {
     modules: [path.resolve('./src'), path.resolve('./node_modules')],
     alias: {
       components: path.resolve('./components'),
-      src: path.resolve('./src')
+      src: path.resolve('./src'),
+      shared: path.resolve('../shared')
     }
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js)$/,
         exclude: /(node_modules)/,
         use: [
           {
@@ -64,23 +65,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(ttf|eot|woff|woff2)$/,
-        use: [
-          {
-            loader: 'file-loader'
-          }
-        ]
-      },
-      {
-        test: /\.(png|jpg|gif)$/,
-        use: [
-          {
-            loader: 'file-loader'
-          }
-        ]
-      },
-      {
-        test: /\.(svg)$/,
+        test: /\.(ttf|eot|woff|woff2|png|jpg|gif|svg)$/,
         use: [
           {
             loader: 'file-loader'
@@ -91,6 +76,11 @@ module.exports = {
   },
   devServer: {
     port: 9000,
+    watchContentBase: true,
+    overlay: {
+      warnings: true,
+      errors: true,
+    },
     publicPath: '/',
     historyApiFallback: true,
     disableHostCheck: true

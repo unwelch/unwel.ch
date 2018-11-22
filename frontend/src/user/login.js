@@ -5,25 +5,31 @@ export async function anonymousLogin (name) {
     name = window.prompt('name')
   }
 
-  const resp = await window.fetch(API_HOST + '/auth/anonymous', {
-    method: 'post',
-    headers: {
-      Accept: 'application/json, text/plain, */*',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ name })
-  })
+  let resp
+  try {
+    resp = await window.fetch(API_HOST + '/auth/anonymous', {
+      method: 'post',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name })
+    })
 
-  const { token } = await resp.json()
+    const { token } = await resp.json()
 
-  window.location =
-    window.location.protocol +
-    '//' +
-    window.location.hostname +
-    ':' +
-    window.location.port +
-    '?token=' +
-    token
+    window.location =
+      window.location.protocol +
+      '//' +
+      window.location.hostname +
+      ':' +
+      window.location.port +
+      '?token=' +
+      token
+
+  } catch (error) {
+    console.error(`Can't login`, API_HOST)
+  }
 }
 
 export async function googleLogin (token) {

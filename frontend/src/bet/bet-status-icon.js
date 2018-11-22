@@ -2,7 +2,7 @@ import { Component } from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
-import { betStatuses, getBetStatus } from '../../../shared/bet/status'
+import { betStatuses, getBetStatus } from 'shared/bet/status'
 
 const QUERY = gql`
   query($betId: String!) {

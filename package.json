@@ -44,6 +44,7 @@
     "lint-staged": "^7.3.0",
     "prettier": "^1.14.3",
     "prettier-standard": "^8.0.1",
+    "terser-webpack-plugin": "^1.1.0",
     "testcafe": "^0.23.2"
   }
 }

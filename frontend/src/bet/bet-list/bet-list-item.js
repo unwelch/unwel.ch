@@ -11,7 +11,7 @@ import Text from 'components/text'
 import Placeholder from 'components/placeholder'
 import { colors } from 'components/variables'
 import { getIntroText } from '../phrase-generator'
-import { getBetStatus, betStatuses } from './../../../../shared/bet/status'
+import { getBetStatus, betStatuses } from 'shared/bet/status'
 
 export const getStatusText = betStatus => {
   switch (betStatus) {

@@ -1,6 +1,6 @@
 import R from 'ramda'
 
-import { betStatuses, getBetStatus } from './../../../shared/bet/status'
+import { betStatuses, getBetStatus } from 'shared/bet/status'
 
 const calculateStats = (bets, userId) => ({
   accepted: bets.filter(R.propEq('user2Id', userId)).length,
