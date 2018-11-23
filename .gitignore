@@ -5,6 +5,7 @@ cockroach-data
 
 # compiled output
 /dist
+**/build
 /lib
 /tmp
 
