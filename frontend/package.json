@@ -1,7 +1,7 @@
 {
   "name": "@unwelch/frontend",
   "version": "0.1.0",
-  "license": "BSD-3-Clause",
+  "license": "GPL-3.0-only",
   "scripts": {
     "clean": "rm -rf build",
     "test": "echo 'No tests'; echo ''",
