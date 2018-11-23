@@ -36,6 +36,7 @@ before_install:
   - export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 install:
+  - yarn
   - cd frontend
   - yarn
   - API_HOST=https://api.unwel.ch yarn run build
@@ -54,11 +55,11 @@ after_install:
   - yarn test
   - cd ..
 
-before_script:
-  - yarn
+script:
   - yarn start & export APP_PID=$!
-script: yarn test:e2e
-after_script: kill $APP_PID
+  - yarn test:e2e
+  - kill $APP_PID
+  - killall node
 
 before_deploy:
   - cd frontend
@@ -72,11 +73,4 @@ deploy:
   provider: script
   on:
     branch: master
-  script:
-    - docker login -u="$DOCKERHUB_USERNAME" -p="$DOCKERHUB_PASSWORD"
-    - docker build -t frontend ./frontend
-    - docker tag frontend unwelch/frontend
-    - docker build -t backend ./backend
-    - docker tag backend unwelch/backend
-    - docker push unwelch/frontend
-    - docker push unwelch/backend
+  script: sh deploy.sh
