@@ -41,21 +41,28 @@ class BetList extends Component {
 
   renderEmptyState () {
     return (
-      <div>
-        <Content type='subtitle' fontWeight='regular'>
-          Create your first bet
-        </Content>
-        <Spacer bottom={1} />
-        <Content type='body'>Your bets will appear in this list</Content>
-        <Spacer bottom={3} />
-        <Button type='level2' onClick={() => this.props.goToPage(`/bets/new`)}>
-          {'Make a bet'}
-        </Button>
-      </div>
+      <TranslatorConsumer>
+        {t => (
+          <div>
+            <Content type='subtitle' fontWeight='regular'>
+              {t('bet-list.empty.title')}
+            </Content>
+            <Spacer bottom={1} />
+            <Content type='body'>{t('bet-list.empty.description')}</Content>
+            <Spacer bottom={3} />
+            <Button
+              type='level2'
+              onClick={() => this.props.goToPage(`/bets/new`)}
+            >
+              {t('create-a-bet')}
+            </Button>
+          </div>
+        )}
+      </TranslatorConsumer>
     )
   }
 
-  renderItems = bets => {
+  renderItems (bets) {
     return bets.map(bet => {
       return (
         <ListItem
@@ -86,7 +93,7 @@ class BetList extends Component {
           <TranslatorConsumer>
             {t => (
               <Text size='size3' fontWeight='bold'>
-                {t('bet-list-page-title')}
+                {t('bet-list.title')}
               </Text>
             )}
           </TranslatorConsumer>

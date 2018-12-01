@@ -8,18 +8,19 @@ export const getIntroText = (
   accepter,
   quantity,
   statement,
-  fontSize
+  fontSize,
+  t = a => a
 ) => {
   const isCreator = currentUser && currentUser.id === statementUser.id
-  const subject = isCreator ? 'You' : statementUser.name
+  const subject = isCreator ? t('you') : statementUser.name
 
   return (
     <Text fontWeight='regular' size={fontSize}>
-      {subject} bet{' '}
+      {subject} {t('bet-phrase.verb')}{' '}
       <Text inline size={fontSize} fontWeight='black'>
         {toLower(quantity)}
       </Text>{' '}
-      that{' '}
+      {t('bet-phrase.preposition')}{' '}
       <Text inline size={fontSize} fontWeight='black' italics>
         {statement}
       </Text>
@@ -33,17 +34,18 @@ export const getAccepterText = (
   accepter,
   quantity,
   statement,
-  fontSize
+  fontSize,
+  t = a => a
 ) => {
   let text = ''
   if (!accepter) {
-    text = 'No one accepted this bet yet'
+    text = t('bet-status.waiting-for-opponent')
   } else {
     const isAccepter = currentUser && currentUser.id === accepter.id
     if (isAccepter) {
-      text = 'You accepted this bet'
+      text = t('bet-status.accepted-by-you')
     } else {
-      text = `${accepter.name} accepted this bet`
+      text = t('bet-status.accepted-by-user', { user: accepter.name })
     }
   }
 
@@ -52,31 +54,4 @@ export const getAccepterText = (
       {text}
     </Text>
   )
-}
-
-export const getStatementText = (currentUser, statementUser, statement) => {
-  const isCreator = currentUser && currentUser.id === statementUser.id
-  const subject = isCreator ? 'You' : statementUser.name
-
-  return `${subject} said ${statement}`
-}
-
-export const getBetText = (currentUser, creator, accepter, quantity) => {
-  const isCreator = currentUser && currentUser.id === creator.id
-
-  if (accepter == null) {
-    accepter = { name: 'someone' }
-  }
-
-  if (isCreator) {
-    return `If you are wrong, you will give ${accepter.name} ${toLower(
-      quantity
-    )}. If you are right it will be the other way around.`
-  } else {
-    return `If ${creator.name} is wrong, ${
-      creator.name
-    } will give you ${toLower(quantity)}. If ${
-      creator.name
-    } is right it will be the other way around.`
-  }
 }
