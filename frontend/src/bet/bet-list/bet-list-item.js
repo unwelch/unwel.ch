@@ -13,30 +13,32 @@ import { colors } from 'components/variables'
 import { getIntroText } from '../phrase-generator'
 import { getBetStatus, betStatuses } from '../bet-status'
 
-export const getStatusText = betStatus => {
+import { TranslatorConsumer } from '../../translations'
+
+export const getStatusText = (betStatus, t) => {
   switch (betStatus) {
     case betStatuses.WAITING_FOR_OPONENT:
       return (
         <Text size='size0' dimmed shortLineHeight>
-          Waiting for an opponent
+          {t('bet-status.waiting-for-opponent')}
         </Text>
       )
     case betStatuses.AVAILABLE_BET:
       return (
         <Text size='size0' dimmed shortLineHeight>
-          Available
+          {t('bet-status.available-bet')}
         </Text>
       )
     case betStatuses.WAITING_FOR_USER_RESPONSE:
       return (
         <Text size='size0' dimmed shortLineHeight>
-          Waiting for result
+          {t('bet-status.waiting-for-user-response')}
         </Text>
       )
     case betStatuses.WAITING_FOR_OPONENT_RESPONSE:
       return (
         <Text size='size0' dimmed shortLineHeight>
-          Waiting for opponent result
+          {t('bet-status.waiting-for-opponent-response')}
         </Text>
       )
     case betStatuses.LOST:
@@ -47,7 +49,7 @@ export const getStatusText = betStatus => {
           fontWeight='black'
           shortLineHeight
         >
-          Lost
+          {t('bet-status.lost')}
         </Text>
       )
     case betStatuses.WON:
@@ -58,7 +60,7 @@ export const getStatusText = betStatus => {
           fontWeight='black'
           shortLineHeight
         >
-          Won
+          {t('bet-status.won')}
         </Text>
       )
     case betStatuses.WELCHED:
@@ -69,7 +71,7 @@ export const getStatusText = betStatus => {
           fontWeight='black'
           shortLineHeight
         >
-          Dispute
+          {t('bet-status.dispute')}
         </Text>
       )
   }
@@ -128,40 +130,44 @@ class BetListItem extends Component {
       .filter(user => user.id !== currentUser.id)[0]
 
     return (
-      <Root onClick={this.props.onClick} data-qa='bet-list-item'>
-        <Main>
-          <BetText>
-            {getIntroText(
-              currentUser,
-              bet.user,
-              bet.user2,
-              bet.quantity,
-              bet.statement.statement,
-              'size2'
-            )}
-          </BetText>
-          <Spacer left={1} />
-          {otherUser ? (
-            <Avatar size={4} user={otherUser} />
-          ) : (
-            <Avatar size={4} unknown />
-          )}
-        </Main>
-        <Spacer top={1} />
-        <Footer>
-          <FooterElementWrapper>
-            <Text size='size0' dimmed shortLineHeight>
-              {getStatusText(getBetStatus(bet, currentUser))}
-            </Text>
-          </FooterElementWrapper>
-          <Spacer left={2} />
-          <FooterElementWrapper>
-            <Text size='size0' dimmed shortLineHeight textAlign='right'>
-              {timeAgo(new Date(bet.createdAt))}
-            </Text>
-          </FooterElementWrapper>
-        </Footer>
-      </Root>
+      <TranslatorConsumer>
+        {t => (
+          <Root onClick={this.props.onClick} data-qa='bet-list-item'>
+            <Main>
+              <BetText>
+                {getIntroText(
+                  currentUser,
+                  bet.user,
+                  bet.user2,
+                  bet.quantity,
+                  bet.statement.statement,
+                  'size2'
+                )}
+              </BetText>
+              <Spacer left={1} />
+              {otherUser ? (
+                <Avatar size={4} user={otherUser} />
+              ) : (
+                <Avatar size={4} unknown />
+              )}
+            </Main>
+            <Spacer top={1} />
+            <Footer>
+              <FooterElementWrapper>
+                <Text size='size0' dimmed shortLineHeight>
+                  {getStatusText(getBetStatus(bet, currentUser), t)}
+                </Text>
+              </FooterElementWrapper>
+              <Spacer left={2} />
+              <FooterElementWrapper>
+                <Text size='size0' dimmed shortLineHeight textAlign='right'>
+                  {timeAgo(new Date(bet.createdAt))}
+                </Text>
+              </FooterElementWrapper>
+            </Footer>
+          </Root>
+        )}
+      </TranslatorConsumer>
     )
   }
 }

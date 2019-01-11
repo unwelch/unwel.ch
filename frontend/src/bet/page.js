@@ -12,14 +12,16 @@ import {
   CHOOSE_WINNER_MUTATION,
   DELETE_BET_MUTATION
 } from './mutations'
-import * as queries from './../bet/queries'
+import * as queries from '../bet/queries'
 import { BET_LIST } from './bet-list/queries'
-import { showAnnounce } from './../announce/actions'
+import { showAnnounce } from '../announce/actions'
 import { betStatuses, getBetStatus } from './bet-status'
 import { getIntroText, getAccepterText } from './phrase-generator'
 import FinishBet from './finish-bet'
 import { trackEvent, events } from '../tracking'
-import withNavigation from './../navigation/withNavigate'
+import withNavigation from '../navigation/withNavigate'
+
+import { TranslatorConsumer } from '../translations'
 
 import Button from 'components/button'
 import DefaultContainer from 'components/default-container'
@@ -48,26 +50,28 @@ class BetPage extends Component {
     trackEvent(events.pageLoaded, { page: 'bet' })
   }
 
-  copyLink = (title, text, url) => () => {
-    const isWebAPIShareSupported = window.navigator.share
-    if (isWebAPIShareSupported) {
-      navigator
-        .share({
-          title,
-          text,
-          url
-        })
-        .then(() => console.log('Successful share'))
-        .catch(error => console.log('Error sharing', error))
-    } else {
-      this.props.showAnnounce('Copied! Go find a friend to accept it')
-      copy(`${BET_PAGE}/${this.props.betId}`)
-    }
+  copyLink (title, text, url) {
+    return () => {
+      const isWebAPIShareSupported = window.navigator.share
+      if (isWebAPIShareSupported) {
+        navigator
+          .share({
+            title,
+            text,
+            url
+          })
+          .then(() => console.log('Successful share'))
+          .catch(error => console.log('Error sharing', error))
+      } else {
+        this.props.showAnnounce('Copied! Go find a friend to accept it')
+        copy(`${BET_PAGE}/${this.props.betId}`)
+      }
 
-    trackEvent(events.betLinkCopied, {
-      betId: this.props.betId,
-      isWebAPIShareSupported: !!isWebAPIShareSupported
-    })
+      trackEvent(events.betLinkCopied, {
+        betId: this.props.betId,
+        isWebAPIShareSupported: !!isWebAPIShareSupported
+      })
+    }
   }
 
   acceptBet () {
@@ -102,7 +106,7 @@ class BetPage extends Component {
     }
   }
 
-  renderActions () {
+  renderActions (t) {
     const { currentUser, bet } = this.props.data
 
     const betStatus = getBetStatus(bet, currentUser)
@@ -110,19 +114,17 @@ class BetPage extends Component {
     switch (betStatus) {
       case betStatuses.WAITING_FOR_OPONENT:
         return (
-          <Distribute space={1} align='center'>
-            <SharingButtons
-              url={`${BET_PAGE}/${this.props.betId}`}
-              text={'Are you accepting this bet?'}
-              title={'unwel.ch - Friendly betting'}
-              copyLink={this.copyLink(
-                `${BET_PAGE}/${this.props.betId}`,
-                'Are you accepting this bet?',
-                'unwel.ch - Friendly betting'
-              )}
-              deleteBet={this.deleteBet}
-            />
-          </Distribute>
+          <SharingButtons
+            url={`${BET_PAGE}/${this.props.betId}`}
+            text={'Are you accepting this bet?'}
+            title={'unwel.ch - Friendly betting'}
+            copyLink={this.copyLink(
+              `${BET_PAGE}/${this.props.betId}`,
+              'Are you accepting this bet?',
+              'unwel.ch - Friendly betting'
+            )}
+            deleteBet={this.deleteBet}
+          />
         )
       case betStatuses.AVAILABLE_BET:
         return (
@@ -131,7 +133,7 @@ class BetPage extends Component {
             onClick={this.acceptBet}
             dataQa='accept-bet-button'
           >
-            Accept the bet
+            {t('bet-actions.accept-bet')}
           </Button>
         )
       case betStatuses.WAITING_FOR_USER_RESPONSE:
@@ -144,29 +146,29 @@ class BetPage extends Component {
           />
         )
       case betStatuses.WAITING_FOR_OPONENT_RESPONSE:
-        const otherUser = bet.user.id === currentUser.id ? bet.user2 : bet.user
+        const opponent = bet.user.id === currentUser.id ? bet.user2 : bet.user
 
         return (
           <Text dimmed size='size2'>
-            Waiting for {otherUser.name} to accept winner
+            {t('bet-status.waiting-for-opponent-response', { opponent })}
           </Text>
         )
       case betStatuses.LOST:
         return (
           <Text fontWeight='black' size='size2'>
-            You lost!
+            {t('bet-status.lost.long')}
           </Text>
         )
       case betStatuses.WON:
         return (
           <Text fontWeight='black' color={colors.primary} size='size2'>
-            You won!
+            {t('bet-status.won.long')}
           </Text>
         )
       case betStatuses.WELCHED:
         return (
           <Text fontWeight='black' color={colors.error} size='size2'>
-            A disputed bet! One of you should be ashamed.
+            {t('bet-status.dispute.long')}
           </Text>
         )
     }
@@ -199,51 +201,59 @@ class BetPage extends Component {
     const canEditBet = betStatus === betStatuses.WAITING_FOR_OPONENT
 
     return (
-      <DefaultContainer data-qa='bet-page'>
-        <Spacer inner top={6} />
-        <Distribute space={1} align='center'>
-          <Link to={`/profiles/${bet.user.id}`}>
-            <Avatar user={bet.user} />
-          </Link>
-          <Text size='size4' fontWeight='black' italics>
-            vs
-          </Text>
-          {bet.user2
-            ? <Link to={`/profiles/${bet.user2.id}`}>
-              <Avatar user={bet.user2} />
-            </Link>
-            : <Avatar unknown />}
-        </Distribute>
+      <TranslatorConsumer>
+        {t => (
+          <DefaultContainer data-qa='bet-page'>
+            <Spacer inner top={6} />
+            <Distribute space={1} align='center'>
+              <Link to={`/profiles/${bet.user.id}`}>
+                <Avatar user={bet.user} />
+              </Link>
+              <Text size='size4' fontWeight='black' italics>
+                vs
+              </Text>
+              {bet.user2 ? (
+                <Link to={`/profiles/${bet.user2.id}`}>
+                  <Avatar user={bet.user2} />
+                </Link>
+              ) : (
+                <Avatar unknown />
+              )}
+            </Distribute>
 
-        <Spacer top={3} />
+            <Spacer top={3} />
 
-        {getIntroText(
-          currentUser,
-          bet.statement.user,
-          bet.user2,
-          bet.quantity,
-          bet.statement.statement,
-          'size3'
+            {getIntroText(
+              currentUser,
+              bet.statement.user,
+              bet.user2,
+              bet.quantity,
+              bet.statement.statement,
+              'size3',
+              t
+            )}
+
+            <Spacer top={3} />
+
+            {getAccepterText(
+              currentUser,
+              bet.statement.user,
+              bet.user2,
+              bet.quantity,
+              bet.statement.statement,
+              'size2',
+              t
+            )}
+            <Spacer top={4} />
+
+            {isCurrentUserTheCreator && canEditBet ? (
+              <Link to={`/bet/${bet.id}/edit`} />
+            ) : null}
+
+            <Spacer bottom={20}>{this.renderActions(t)}</Spacer>
+          </DefaultContainer>
         )}
-
-        <Spacer top={3} />
-
-        {getAccepterText(
-          currentUser,
-          bet.statement.user,
-          bet.user2,
-          bet.quantity,
-          bet.statement.statement,
-          'size2'
-        )}
-        <Spacer top={4} />
-
-        {isCurrentUserTheCreator && canEditBet
-          ? <Link to={`/bet/${bet.id}/edit`} />
-          : null}
-
-        <Spacer bottom={20}>{this.renderActions()}</Spacer>
-      </DefaultContainer>
+      </TranslatorConsumer>
     )
   }
 }
@@ -258,7 +268,10 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default compose(
-  connect(null, mapDispatchToProps),
+  connect(
+    null,
+    mapDispatchToProps
+  ),
   withNavigation,
   graphql(queries.BET_INFO, {
     options: () => ({
