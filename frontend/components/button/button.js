@@ -64,34 +64,42 @@ const ButtonWrapper = styled.button`
   ${props => (props.fullWidth ? 'width: 100%' : '')};
 
   &:hover {
-    background-color: ${props => (props.backgroundColor ? Color(
-        props.backgroundColor
-      )
+    background-color: ${props =>
+    props.backgroundColor
+      ? Color(props.backgroundColor)
         .mix(Color('black'), 0.1)
-        .toString() : 'transparent')};
+        .toString()
+      : 'transparent'};
     transition: 0.2s;
   }
 
   &:active {
-    background-color: ${props => (props.backgroundColor ? Color(
-        props.backgroundColor
-      )
+    background-color: ${props =>
+    props.backgroundColor
+      ? Color(props.backgroundColor)
         .mix(Color('black'), 0.05)
-        .toString() : 'transparent')};
+        .toString()
+      : 'transparent'};
     transition: 0.2s;
   }
 
   &:focus {
-    background-color: ${props => (props.backgroundColor ? Color(
-        props.backgroundColor
-      )
+    background-color: ${props =>
+    props.backgroundColor
+      ? Color(props.backgroundColor)
         .mix(Color('black'), 0.1)
-        .toString() : 'transparent')};
+        .toString()
+      : 'transparent'};
     transition: 0.2s;
     outline: 0;
   }
 
-  ${props => (props.disabled ? `background-color: ${variables.colors.grey2}; color: ${variables.colors.grey5}; pointer-events: none` : '')};
+  ${props =>
+    props.disabled
+      ? `background-color: ${variables.colors.grey2}; color: ${
+        variables.colors.grey5
+      }; pointer-events: none`
+      : ''};
 `
 ButtonWrapper.displayName = 'ButtonWrapper'
 

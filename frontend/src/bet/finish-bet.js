@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 import styled from 'styled-components'
 
 import Button from 'components/button'
@@ -53,6 +53,7 @@ class FinishBet extends Component {
         </BetActionWrapper>
       )
     }
+
     return (
       <BetActionWrapper space={3 / 2} align='center'>
         <Button type='level2' onClick={chooseLost} fullWidth>
@@ -66,22 +67,20 @@ class FinishBet extends Component {
   }
 
   render () {
-    if (this.state.showModal) {
-      return (
-        <Modal onClose={this.handleClose}>
+    return (
+      <Fragment>
+        <Modal isOpen={this.state.showModal} onClose={this.handleClose}>
           <Text size='size2'>Bet has finished?</Text>
           <Text size='size2'>Choose who won!</Text>
           <Spacer top={2} />
           {this.renderActions()}
         </Modal>
-      )
-    }
-    return (
-      <Root>
-        <Button dataQa='decide-who-won-button' onClick={this.handleOpen}>
-          Choose winner
-        </Button>
-      </Root>
+        <Root>
+          <Button dataQa='decide-who-won-button' onClick={this.handleOpen}>
+            Choose winner
+          </Button>
+        </Root>
+      </Fragment>
     )
   }
 }

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import { compose, always } from 'ramda'
+import { compose } from 'ramda'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -14,7 +14,6 @@ import Text from 'components/text'
 import Avatar from 'components/avatar'
 import Placeholder from 'components/placeholder'
 import Spacer from 'components/spacer'
-import Button from 'components/button'
 import { colors } from 'components/variables'
 
 import { BasicStats, WonLostPie, WonLostBar } from './stats'
@@ -51,9 +50,8 @@ export const QUERY = gql`
     }
   }
 `
-const Root = styled(DefaultContainer)``
 
-const SaveAccountWrapper = styled.div``
+const Root = styled(DefaultContainer)``
 
 const Split = styled.div`
   background: ${colors.grey3};
@@ -62,25 +60,14 @@ const Split = styled.div`
 `
 
 class Profile extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = { selectedTab: 'bets' }
-
-    this.handleSettingsIconClick = this.handleSettingsIconClick.bind(this)
-    this.saveAccountHandler = this.saveAccountHandler.bind(this)
-  }
+  state = { selectedTab: 'bets' }
 
   componentDidMount () {
     trackEvent(events.pageLoaded, { page: 'profile' })
   }
 
-  handleSettingsIconClick () {
+  handleSettingsIconClick = () => {
     this.props.goToPage('/settings')
-  }
-
-  saveAccountHandler () {
-    this.props.goToPage('/save-account')
   }
 
   render () {
@@ -95,7 +82,6 @@ class Profile extends Component {
     }
 
     const isCurrentUser = currentUser.id === user.id
-    const isAnonymous = currentUser.isAnonymous
 
     return (
       <Root>
@@ -113,24 +99,6 @@ class Profile extends Component {
             )}
           </Spread>
         </Spacer>
-
-        <Split />
-
-        {isCurrentUser &&
-          isAnonymous && (
-          <SaveAccountWrapper>
-            <Text size='size1'>
-                You are using a temporal account on this device. Create an
-                account to access unwelch from anywhere.
-            </Text>
-            <Spacer top={1} />
-            <Button type='level2' fullWidth onClick={this.saveAccountHandler}>
-                Create account
-            </Button>
-          </SaveAccountWrapper>
-        )}
-
-        <Split />
 
         <BasicStats stats={user.stats} />
 
@@ -167,7 +135,7 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
   connect(
-    always({}),
+    null,
     mapDispatchToProps
   ),
   graphql(QUERY)

@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 
 import Layout from './layout'
 import Announcer from './announce/page'
+import SaveAccountPopup from './user/popup'
 
 import NotFoundPage from './not-found'
 
@@ -62,6 +63,7 @@ const Router = () => (
       <Route path='/save-account' component={() => <AsyncSaveAccountPage />} />
       <Route component={() => <NotFoundPage />} />
     </Switch>
+    <SaveAccountPopup />
     <Announcer />
   </Layout>
 )

@@ -35,6 +35,8 @@ const Root = styled.div`
   justify-content: center;
   z-index: 1000;
   animation: ${disolve} 1s ease;
+  opacity: ${props => (props.isOpen ? '1' : '0')};
+  visibility: ${props => (props.isOpen ? 'visibile' : 'hidden')};
 `
 
 const ModalWrapper = styled.div`
@@ -51,8 +53,8 @@ const ModalWrapper = styled.div`
   box-shadow: 0px 4px 80px rgba(0, 0, 0, 0.35);
 `
 
-const Modal = ({ children, onClose }) => (
-  <Root onClick={onClose}>
+const Modal = ({ children, onClose, isOpen }) => (
+  <Root onClick={onClose} isOpen={isOpen}>
     <ModalWrapper>{children}</ModalWrapper>
   </Root>
 )
