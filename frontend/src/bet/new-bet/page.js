@@ -15,6 +15,7 @@ import * as queries from './../bet-list/queries'
 import { trackEvent, events } from '../../tracking'
 import withNavigate from '../../navigation/withNavigate'
 import withIsLoggedIn from '../../user/auth/withIsLoggedIn'
+import { TranslatorConsumer } from '../../translations'
 
 class NewBet extends Component {
   constructor () {
@@ -33,22 +34,26 @@ class NewBet extends Component {
       return
     }
 
-    this.props.showAnnounce('New bet created')
+    this.props.showAnnounce('announce.new-bet-created')
     const result = await this.props.addBet(bet)
     await this.props.goToPage(`/bet/${result.data.addBet.id}`)
   }
 
   render () {
     return (
-      <DefaultContainer>
-        <Spacer top={6}>
-          <BetInput
-            starter='I bet'
-            middle='that'
-            onConfirm={this.handleBetConfirm}
-          />
-        </Spacer>
-      </DefaultContainer>
+      <TranslatorConsumer>
+        {t => (
+          <DefaultContainer>
+            <Spacer top={6}>
+              <BetInput
+                starter={t('new-bet-phrase.verb')}
+                middle={t('new-bet-phrase.preposition')}
+                onConfirm={this.handleBetConfirm}
+              />
+            </Spacer>
+          </DefaultContainer>
+        )}
+      </TranslatorConsumer>
     )
   }
 }

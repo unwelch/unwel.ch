@@ -9,6 +9,8 @@ import { popAnnounce } from './actions'
 import Text from 'components/text'
 import { colors } from 'components/variables'
 
+import { TranslatorConsumer } from '../translations'
+
 const appear = keyframes`
   0% {
     transform: translateY(120px);
@@ -68,14 +70,19 @@ class Announcer extends Component {
     }
 
     return (
-      <Root>
-        {announce &&
-          <Announce key={announce.key}>
-            <Text size='size2' color={colors.background}>
-              {announce.message}
-            </Text>
-          </Announce>}
-      </Root>
+      <TranslatorConsumer>
+        {t => (
+          <Root>
+            {announce && (
+              <Announce key={announce.key}>
+                <Text size='size2' color={colors.background}>
+                  {t(announce.message)}
+                </Text>
+              </Announce>
+            )}
+          </Root>
+        )}
+      </TranslatorConsumer>
     )
   }
 }
@@ -95,4 +102,7 @@ const mapDispatchToProps = dispatch => {
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Announcer)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Announcer)

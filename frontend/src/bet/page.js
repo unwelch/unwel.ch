@@ -63,7 +63,7 @@ class BetPage extends Component {
           .then(() => console.log('Successful share'))
           .catch(error => console.log('Error sharing', error))
       } else {
-        this.props.showAnnounce('Copied! Go find a friend to accept it')
+        this.props.showAnnounce('announce.bet-url-copied')
         copy(`${BET_PAGE}/${this.props.betId}`)
       }
 
@@ -80,7 +80,7 @@ class BetPage extends Component {
 
     if (currentUser) {
       this.props.acceptBet(this.props.betId)
-      this.props.showAnnounce('Bet accepted')
+      this.props.showAnnounce('announce.bet-accepted')
       trackEvent(events.betAccepted, { betId: this.props.betId })
     } else {
       saveTempAccept(this.props.betId)
@@ -90,12 +90,12 @@ class BetPage extends Component {
 
   chooseWon () {
     this.props.chooseWinner(this.props.betId, true)
-    this.props.showAnnounce('Bet marked as won')
+    this.props.showAnnounce('announce.bet-marked-won')
   }
 
   chooseLost () {
     this.props.chooseWinner(this.props.betId, false)
-    this.props.showAnnounce('Bet marked as lost')
+    this.props.showAnnounce('announce.bet-marked-lost')
   }
 
   deleteBet () {

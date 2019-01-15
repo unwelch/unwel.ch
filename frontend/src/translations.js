@@ -22,7 +22,14 @@ const translations = {
     'create-a-bet': 'Create a bet',
     you: 'You',
     'bet-phrase.verb': 'bet',
-    'bet-phrase.preposition': 'that'
+    'bet-phrase.preposition': 'that',
+    'new-bet-phrase.verb': 'I bet',
+    'new-bet-phrase.preposition': 'that',
+    'announce.bet-url-copied': 'Copied! Go find a friend to accept it',
+    'announce.bet-accepted': 'Bet accepted',
+    'announce.bet-marked-won': 'Bet marked as won',
+    'announce.bet-marked-lost': 'Bet marked as lost',
+    'announce.new-bet-created': 'New bet created'
   },
   es: {
     'titles.bet-list': 'Lista de apuestas',
