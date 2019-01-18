@@ -141,7 +141,8 @@ class BetListItem extends Component {
                   bet.user2,
                   bet.quantity,
                   bet.statement.statement,
-                  'size2'
+                  'size2',
+                  t
                 )}
               </BetText>
               <Spacer left={1} />
