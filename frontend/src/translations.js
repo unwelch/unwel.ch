@@ -17,9 +17,14 @@ const translations = {
     'bet-status.lost.long': 'You lost!',
     'bet-status.dispute.long': 'A disputed bet! One of you should be ashamed.',
     'bet-actions.accept-bet': 'Accept this bet',
+    'bet-actions.copy-url': 'Copy URL',
+    'bet-actions.delete': 'Delete',
     'bet-list.empty.title': 'Create a new bet',
     'bet-list.empty.description': 'Your bets will appear in this list',
     'create-a-bet': 'Create a bet',
+    'create-account': 'Create account',
+    'save-account-message':
+      'You are using a temporal account on this device. Create an account to access unwelch from anywhere.',
     you: 'You',
     'bet-phrase.verb': 'bet',
     'bet-phrase.preposition': 'that',
@@ -29,7 +34,9 @@ const translations = {
     'announce.bet-accepted': 'Bet accepted',
     'announce.bet-marked-won': 'Bet marked as won',
     'announce.bet-marked-lost': 'Bet marked as lost',
-    'announce.new-bet-created': 'New bet created'
+    'announce.new-bet-created': 'New bet created',
+    'copy-message.body': 'Are you accepting this bet?',
+    'copy-message.title': 'unwel.ch - Friendly betting'
   },
   es: {
     'titles.bet-list': 'Lista de apuestas',

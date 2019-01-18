@@ -6,7 +6,9 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { differenceInDays } from 'date-fns'
 
-import { goToPage } from './../navigation/actions'
+import { goToPage } from '../navigation/actions'
+
+import { TranslatorConsumer } from '../translations'
 
 import Text from 'components/text'
 import Spacer from 'components/spacer'
@@ -87,11 +89,11 @@ class SaveAccountPopup extends Component {
     this.checkShow()
   }
 
-  handleCloseModal() {
+  handleCloseModal () {
     this.setState({ isModalOpen: false })
   }
 
-  saveAccountHandler() {
+  saveAccountHandler () {
     this.props.goToPage('/save-account')
   }
 
@@ -103,20 +105,24 @@ class SaveAccountPopup extends Component {
     }
 
     return (
-      <Modal isOpen={this.state.isModalOpen} onClose={this.handleCloseModal}>
-        <Text size='size1'>
-          You are using a temporal account on this device. Create an account to
-          access unwelch from anywhere.
-        </Text>
-        <Spacer top={4} />
-        <Button type='level2' fullWidth onClick={this.saveAccountHandler}>
-          Create account
-        </Button>
-        <Spacer top={1} />
-        <Button size='small' type='inverted' fullWidth>
-          Cancel
-        </Button>
-      </Modal>
+      <TranslatorConsumer>
+        {t => (
+          <Modal
+            isOpen={this.state.isModalOpen}
+            onClose={this.handleCloseModal}
+          >
+            <Text size='size1'>{t('save-account-message')}</Text>
+            <Spacer top={4} />
+            <Button type='level2' fullWidth onClick={this.saveAccountHandler}>
+              {t('create-account')}
+            </Button>
+            <Spacer top={1} />
+            <Button size='small' type='inverted' fullWidth>
+              Cancel
+            </Button>
+          </Modal>
+        )}
+      </TranslatorConsumer>
     )
   }
 }

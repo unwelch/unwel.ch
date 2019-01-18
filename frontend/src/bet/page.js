@@ -116,12 +116,10 @@ class BetPage extends Component {
         return (
           <SharingButtons
             url={`${BET_PAGE}/${this.props.betId}`}
-            text={'Are you accepting this bet?'}
-            title={'unwel.ch - Friendly betting'}
             copyLink={this.copyLink(
               `${BET_PAGE}/${this.props.betId}`,
-              'Are you accepting this bet?',
-              'unwel.ch - Friendly betting'
+              t('copy-message.body'),
+              t('copy-message.title')
             )}
             deleteBet={this.deleteBet}
           />

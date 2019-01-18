@@ -19,6 +19,8 @@ import { colors } from 'components/variables'
 
 import { BasicStats, WonLostPie, WonLostBar } from './stats'
 
+import { TranslatorConsumer } from '../../translations'
+
 import { trackEvent, events } from '../../tracking'
 import { goToPage } from './../../navigation/actions'
 
@@ -98,60 +100,64 @@ class Profile extends Component {
     const isAnonymous = currentUser.isAnonymous
 
     return (
-      <Root>
-        <Spacer top={3} bottom={3}>
-          <Spread align='center'>
-            <Distribute space={2} align='center'>
-              <Avatar size={7} user={user} />
-              <Text size='size3' fontWeight='bold'>
-                {user.name}
-                {"'"}s profile
-              </Text>
-            </Distribute>
-            {isCurrentUser && (
-              <SettingsIcon onClick={this.handleSettingsIconClick} />
-            )}
-          </Spread>
-        </Spacer>
+      <TranslatorConsumer>
+        {t => (
+          <Root>
+            <Spacer top={3} bottom={3}>
+              <Spread align='center'>
+                <Distribute space={2} align='center'>
+                  <Avatar size={7} user={user} />
+                  <Text size='size3' fontWeight='bold'>
+                    {user.name}
+                  </Text>
+                </Distribute>
+                {isCurrentUser && (
+                  <SettingsIcon onClick={this.handleSettingsIconClick} />
+                )}
+              </Spread>
+            </Spacer>
 
-        <Split />
-
-        {isCurrentUser &&
-          isAnonymous && (
-          <SaveAccountWrapper>
-            <Text size='size1'>
-                You are using a temporal account on this device. Create an
-                account to access unwelch from anywhere.
-            </Text>
-            <Spacer top={1} />
-            <Button type='level2' fullWidth onClick={this.saveAccountHandler}>
-                Create account
-            </Button>
-          </SaveAccountWrapper>
-        )}
-
-        <Split />
-
-        <BasicStats stats={user.stats} />
-
-        <Split />
-
-        <WonLostPie stats={user.stats} />
-
-        {!isCurrentUser && (
-          <Fragment>
             <Split />
-            <div>
-              <Text size='size3' fontWeight='regular'>
-                You vs {user.name}
-              </Text>
-              <Spacer top={2}>
-                <WonLostBar stats={user.statsAgainstYou} />
-              </Spacer>
-            </div>
-          </Fragment>
+
+            {isCurrentUser &&
+              isAnonymous && (
+              <SaveAccountWrapper>
+                <Text size='size1'>{t('save-account-message')}</Text>
+                <Spacer top={1} />
+                <Button
+                  type='level2'
+                  fullWidth
+                  onClick={this.saveAccountHandler}
+                >
+                  {t('create-account')}
+                </Button>
+              </SaveAccountWrapper>
+            )}
+
+            <Split />
+
+            <BasicStats stats={user.stats} />
+
+            <Split />
+
+            <WonLostPie stats={user.stats} />
+
+            {!isCurrentUser && (
+              <Fragment>
+                <Split />
+                <div>
+                  <Text size='size3' fontWeight='regular'>
+                    {t('you')} vs {user.name}
+                  </Text>
+                  <Spacer top={2}>
+                    <WonLostBar stats={user.statsAgainstYou} />
+                  </Spacer>
+                </div>
+              </Fragment>
+            )}
+          </Root>
         )}
-      </Root>
+      </TranslatorConsumer>
     )
   }
 }
