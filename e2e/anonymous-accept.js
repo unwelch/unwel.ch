@@ -1,11 +1,7 @@
-import { Role } from 'testcafe'
-
 import {
   getLocation,
   dataQaSelector,
   dataQaExists,
-  getToken,
-  setToken,
   clearLocalStorage
 } from './utils'
 import { HOST } from './config'
