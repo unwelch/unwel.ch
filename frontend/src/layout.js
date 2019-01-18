@@ -41,28 +41,35 @@ class Layout extends Component {
 
     const { pathname } = location
 
-    const showTabs = !(pathname === '/bets/new' ||
+    const showTabs = !(
+      pathname === '/bets/new' ||
       pathname === '/save-account' ||
       pathname === '/login' ||
-      pathname === '/anonymous-login')
+      pathname === '/anonymous-login'
+    )
 
     const tabsOnTop = globalWidth > 600
 
     return (
       <Root>
         <Header />
-        {tabsOnTop &&
+        {tabsOnTop && (
           <TabWrapper visible={showTabs}>
             <Tabs verticalLabels={!tabsOnTop} />
-          </TabWrapper>}
+          </TabWrapper>
+        )}
         <Content>{this.props.children}</Content>
-        {!tabsOnTop &&
+        {!tabsOnTop && (
           <TabWrapper disableBorder visible={showTabs}>
             <Tabs verticalLabels={!tabsOnTop} />
-          </TabWrapper>}
+          </TabWrapper>
+        )}
       </Root>
     )
   }
 }
 
-export default compose(withRouter, withGlobalSize)(Layout)
+export default compose(
+  withRouter,
+  withGlobalSize
+)(Layout)

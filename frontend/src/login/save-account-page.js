@@ -85,5 +85,8 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
   graphql(QUERY),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(SaveAccount)
