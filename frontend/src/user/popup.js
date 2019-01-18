@@ -24,10 +24,16 @@ const QUERY = gql`
 `
 
 const checkIfShouldAppear = () => {
-  const lastPopupShownDate = new Date(
-    window.localStorage.getItem('lastPopupDate')
-  )
+  const lastPopupShownDateString = window.localStorage.getItem('lastPopupDate')
+
   const today = new Date()
+
+  if (!lastPopupShownDateString) {
+    window.localStorage.setItem('lastPopupDate', today.toString())
+    return false
+  }
+
+  const lastPopupShownDate = new Date(lastPopupShownDateString)
 
   if (have7DaysPassed(lastPopupShownDate, today)) {
     window.localStorage.setItem('lastPopupDate', today.toString())
@@ -39,7 +45,7 @@ const checkIfShouldAppear = () => {
 
 const have7DaysPassed = (lastPopupShownDate, today) => {
   const appearanceDays = 7
-  const daysSinceLastPopup = differenceInDays(lastPopupShownDate, today)
+  const daysSinceLastPopup = differenceInDays(today, lastPopupShownDate)
 
   if (daysSinceLastPopup > appearanceDays) {
     return true
@@ -49,13 +55,26 @@ const have7DaysPassed = (lastPopupShownDate, today) => {
 }
 
 class SaveAccountPopup extends Component {
-  state = {
-    isModalOpen: false
+  constructor (props) {
+    super(props)
+
+    this.checkShow = this.checkShow.bind(this)
+    this.handleCloseModal = this.handleCloseModal.bind(this)
+    this.saveAccountHandler = this.saveAccountHandler.bind(this)
+
+    this.state = {
+      isModalOpen: false
+    }
   }
 
-  componentDidMount () {
+  checkShow () {
     const { currentUser } = this.props.data
     const isAnonymous = currentUser && currentUser.isAnonymous
+
+    if (!currentUser) {
+      setTimeout(this.checkShow, 1000)
+      return
+    }
 
     if (checkIfShouldAppear() && isAnonymous) {
       this.setState({
@@ -64,11 +83,15 @@ class SaveAccountPopup extends Component {
     }
   }
 
-  handleCloseModal = () => {
+  componentDidMount () {
+    this.checkShow()
+  }
+
+  handleCloseModal() {
     this.setState({ isModalOpen: false })
   }
 
-  saveAccountHandler = () => {
+  saveAccountHandler() {
     this.props.goToPage('/save-account')
   }
 
