@@ -5,7 +5,7 @@ const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin')
 const WebpackPwaManifest = require('webpack-pwa-manifest')
 
 module.exports = {
-  devtool: 'source-map',
+  devtool: 'eval',
   entry: {
     bundle: ['@babel/polyfill', './src/index.js']
   },
