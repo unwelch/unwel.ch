@@ -3,13 +3,12 @@ import webpush from 'web-push'
 import UserDB from './user/db'
 import { getUser } from './user'
 
-// This keys are temporal, they should be secret
 const VAPID_PUBLIC =
-  'BLGf4odvx8PEcK5pdvaHw0qBPobyhynHYCHVk5jpcZnQBlug6IiSxuNrJuQtzjmBpwzXnLkZss6t_4osuBJT5BQ'
-const VAPID_PRIVATE = 'HKKVMmeg7ysh16BpoBRKdLNRFKEkbFXpzbJnwgSesp8'
+  'BFiZMcD9coHZp00RK7x6DLgfkOUc_koVc228begnhoqylXO8uHqGgEKpdxCbm6SdaS1fPmu2KjrOEjKQtvbESGc'
+const VAPID_PRIVATE = process.env.VAPID_PRIVATE_KEY
 
 webpush.setVapidDetails(
-  'mailto:example@yourdomain.org',
+  'mailto:unwelchers@gmail.com',
   VAPID_PUBLIC,
   VAPID_PRIVATE
 )

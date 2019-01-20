@@ -2,7 +2,7 @@ import { API_HOST } from '../config'
 import runtime from 'serviceworker-webpack-plugin/lib/runtime'
 
 const publicVapidKey =
-  'BLGf4odvx8PEcK5pdvaHw0qBPobyhynHYCHVk5jpcZnQBlug6IiSxuNrJuQtzjmBpwzXnLkZss6t_4osuBJT5BQ'
+  'BFiZMcD9coHZp00RK7x6DLgfkOUc_koVc228begnhoqylXO8uHqGgEKpdxCbm6SdaS1fPmu2KjrOEjKQtvbESGc'
 
 function requestPermission () {
   return new Promise((resolve, reject) => {
@@ -24,7 +24,7 @@ function requestPermission () {
 }
 
 function urlBase64ToUint8Array (base64String) {
-  const padding = '='.repeat((4 - base64String.length % 4) % 4)
+  const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
   const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/')
 
   const rawData = window.atob(base64)
