@@ -81,6 +81,7 @@ const onGoogleClickHandler = () => {
 const OAuthLogin = () => {
   return (
     <div>
+      <Spacer top={4} />
       <Content type='title' fontWeight='regular'>
         Welcome 👋
       </Content>
@@ -88,7 +89,7 @@ const OAuthLogin = () => {
       <Content type='subtitle'>
         Sign into your account and start challenging your friends.
       </Content>
-      <Spacer top={6} bottom={10}>
+      <Spacer top={6} bottom={6}>
         <ProviderButtons onClickGoogle={onGoogleClickHandler} />
       </Spacer>
     </div>
@@ -121,4 +122,7 @@ class Login extends Component {
   }
 }
 
-export default compose(withIsLoggedIn, withNavigate)(Login)
+export default compose(
+  withIsLoggedIn,
+  withNavigate
+)(Login)

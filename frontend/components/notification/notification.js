@@ -27,7 +27,8 @@ const ListItem = styled.div`
   flex-direction: row;
   align-items: flex-start;
 
-  padding: 24px 0;
+  cursor: pointer;
+
   overflow: hidden;
 
   border-bottom: 1px solid ${colors.grey3};
@@ -38,6 +39,9 @@ const ListItem = styled.div`
   align-items: center;
 
   transition: background 3s cubic-bezier(1, -0.03, 0.88, 0.61);
+
+  margin: -16px;
+  padding: 24px 16px;
 `
 
 class Notification extends Component {
@@ -45,7 +49,10 @@ class Notification extends Component {
     const { id, sender, bet, message, viewed, visited, createdAt } = this.props
 
     const isHyperLinkFormat = and(startsWith('{{'), endsWith('}}'))
-    const removeHyperLink = compose(replace(/{{/, ''), replace(/}}/, ''))
+    const removeHyperLink = compose(
+      replace(/{{/, ''),
+      replace(/}}/, '')
+    )
 
     const msg = split(' ', message)
 

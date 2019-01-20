@@ -269,7 +269,7 @@ class Home extends Component {
                     </Content>
                   </Spacer>
                   <Content type='heading' fontWeight='regular'>
-                    We believe in transparency, so we made unwel.ch open source.
+                    We believe in transparency, so we made unwelch open source.
                     Be part of it and help improve it.
                   </Content>
                 </Flex>

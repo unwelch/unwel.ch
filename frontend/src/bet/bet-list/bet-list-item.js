@@ -80,6 +80,7 @@ export const getStatusText = (betStatus, t) => {
 }
 
 const Root = styled.div`
+  cursor: pointer;
   padding: 24px 0;
   border-bottom: 1px solid ${colors.grey3};
   overflow: hidden;
