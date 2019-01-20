@@ -45,8 +45,5 @@
     "prettier": "^1.14.3",
     "prettier-standard": "^8.0.1",
     "testcafe": "^0.23.2"
-  },
-  "dependencies": {
-    "babel-plugin-styled-components": "^1.10.0"
   }
 }
