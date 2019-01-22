@@ -54,7 +54,7 @@ const Announce = styled.div`
   background: ${colors.primary};
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
 
-  animation: ${appear} 3.5s forwards ease;
+  animation: ${appear} 3.5s forwards cubic-bezier(0.19, 1, 0.22, 1);
   border-radius: 6px;
 `
 
