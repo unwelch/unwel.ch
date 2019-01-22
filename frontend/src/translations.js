@@ -18,6 +18,7 @@ const translations = {
     'bet-status.dispute.long': 'A disputed bet! One of you should be ashamed.',
     'bet-actions.accept-bet': 'Accept this bet',
     'bet-actions.copy-url': 'Copy URL',
+    'bet-actions.share': 'Share bet',
     'bet-actions.delete': 'Delete',
     'bet-list.empty.title': 'Create a new bet',
     'bet-list.empty.description': 'Your bets will appear in this list',

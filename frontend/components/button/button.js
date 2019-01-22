@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import Color from 'color'
 import variables from '../variables'
+import Spacer from '../spacer'
 
 const buttonTypes = {
   level0: {
@@ -114,7 +115,8 @@ const Button = ({
   children,
   disabled,
   onClick,
-  dataQa
+  dataQa,
+  icon
 }) => {
   return (
     <ButtonWrapper
@@ -127,6 +129,8 @@ const Button = ({
       disabled={disabled}
       onClick={onClick}
     >
+      {icon}
+      {icon ? <Spacer left={1} /> : null}
       {children}
     </ButtonWrapper>
   )
@@ -141,7 +145,8 @@ Button.propTypes = {
   type: PropTypes.oneOf(Object.keys(buttonTypes)),
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
-  children: PropTypes.node
+  children: PropTypes.node,
+  icon: PropTypes.node
 }
 
 Button.defaultProps = {
@@ -149,7 +154,8 @@ Button.defaultProps = {
   fullWidth: false,
   type: 'level0',
   disabled: false,
-  onClick: () => {}
+  onClick: () => {},
+  icon: null
 }
 
 export default Button

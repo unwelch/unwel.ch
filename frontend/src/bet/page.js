@@ -6,6 +6,9 @@ import { compose } from 'ramda'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+import ShareIcon from 'react-feather/dist/icons/share'
+import TrashIcon from 'react-feather/dist/icons/trash-2'
+
 import { saveTempAccept } from './services'
 import {
   ACCEPT_BET_MUTATION,
@@ -30,10 +33,11 @@ import Avatar from 'components/avatar'
 import Text from 'components/text'
 import Spacer from 'components/spacer'
 import Placeholder from 'components/placeholder'
-import SharingButtons from 'components/sharing-buttons'
 import { colors } from 'components/variables'
 
 const BET_PAGE = `${window.location.origin}/bet`
+
+const webShareEnabled = () => window.navigator.share
 
 class BetPage extends Component {
   constructor (props) {
@@ -41,7 +45,7 @@ class BetPage extends Component {
 
     this.acceptBet = this.acceptBet.bind(this)
     this.deleteBet = this.deleteBet.bind(this)
-    this.copyLink = this.copyLink.bind(this)
+    this.shareLink = this.shareLink.bind(this)
     this.chooseWon = this.chooseWon.bind(this)
     this.chooseLost = this.chooseLost.bind(this)
   }
@@ -50,10 +54,9 @@ class BetPage extends Component {
     trackEvent(events.pageLoaded, { page: 'bet' })
   }
 
-  copyLink (title, text, url) {
+  shareLink (title, text, url) {
     return () => {
-      const isWebAPIShareSupported = window.navigator.share
-      if (isWebAPIShareSupported) {
+      if (webShareEnabled()) {
         navigator
           .share({
             title,
@@ -69,7 +72,7 @@ class BetPage extends Component {
 
       trackEvent(events.betLinkCopied, {
         betId: this.props.betId,
-        isWebAPIShareSupported: !!isWebAPIShareSupported
+        isWebAPIShareSupported: !!webShareEnabled()
       })
     }
   }
@@ -114,15 +117,28 @@ class BetPage extends Component {
     switch (betStatus) {
       case betStatuses.WAITING_FOR_OPONENT:
         return (
-          <SharingButtons
-            url={`${BET_PAGE}/${this.props.betId}`}
-            copyLink={this.copyLink(
-              `${BET_PAGE}/${this.props.betId}`,
-              t('copy-message.body'),
-              t('copy-message.title')
-            )}
-            deleteBet={this.deleteBet}
-          />
+          <Distribute vertical space={2}>
+            <Button
+              type='level2'
+              onClick={this.shareLink(
+                t('copy-message.body'),
+                t('copy-message.title'),
+                `${BET_PAGE}/${this.props.betId}`
+              )}
+              icon={<ShareIcon />}
+            >
+              {t(
+                webShareEnabled() ? 'bet-actions.share' : 'bet-actions.copy-url'
+              )}
+            </Button>
+            <Button
+              type='warning'
+              icon={<TrashIcon />}
+              onClick={this.deleteBet}
+            >
+              {t('bet-actions.delete')}
+            </Button>
+          </Distribute>
         )
       case betStatuses.AVAILABLE_BET:
         return (
