@@ -67,7 +67,7 @@ class BetPage extends Component {
           .catch(error => console.log('Error sharing', error))
       } else {
         this.props.showAnnounce('announce.bet-url-copied')
-        copy(`${BET_PAGE}/${this.props.betId}`)
+        copy(url)
       }
 
       trackEvent(events.betLinkCopied, {
