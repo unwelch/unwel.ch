@@ -7,11 +7,21 @@ const VAPID_PUBLIC =
   'BFiZMcD9coHZp00RK7x6DLgfkOUc_koVc228begnhoqylXO8uHqGgEKpdxCbm6SdaS1fPmu2KjrOEjKQtvbESGc'
 const VAPID_PRIVATE = process.env.VAPID_PRIVATE_KEY
 
-webpush.setVapidDetails(
-  'mailto:unwelchers@gmail.com',
-  VAPID_PUBLIC,
-  VAPID_PRIVATE
-)
+if (VAPID_PRIVATE) {
+  webpush.setVapidDetails(
+    'mailto:unwelchers@gmail.com',
+    VAPID_PUBLIC,
+    VAPID_PRIVATE
+  )
+} else {
+  console.warn('Using temporal vapid keys')
+  const devVapidKeys = webpush.generateVAPIDKeys()
+  webpush.setVapidDetails(
+    'mailto:example@yourdomain.org',
+    devVapidKeys.publicKey,
+    devVapidKeys.privateKey
+  )
+}
 
 export const sendPush = (subscription, title, body, link) => {
   if (!subscription) return
