@@ -121,20 +121,21 @@ class Profile extends Component {
 
             {isCurrentUser &&
               isAnonymous && (
-              <SaveAccountWrapper>
-                <Text size='size1'>{t('save-account-message')}</Text>
-                <Spacer top={1} />
-                <Button
-                  type='level2'
-                  fullWidth
-                  onClick={this.saveAccountHandler}
-                >
-                  {t('create-account')}
-                </Button>
-              </SaveAccountWrapper>
+              <Fragment>
+                <SaveAccountWrapper>
+                  <Text size='size1'>{t('save-account-message')}</Text>
+                  <Spacer top={1} />
+                  <Button
+                    type='level2'
+                    fullWidth
+                    onClick={this.saveAccountHandler}
+                  >
+                    {t('create-account')}
+                  </Button>
+                </SaveAccountWrapper>
+                <Split />
+              </Fragment>
             )}
-
-            <Split />
 
             <BasicStats stats={user.stats} />
 
