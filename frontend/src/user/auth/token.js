@@ -1,11 +1,13 @@
 import queryString from 'query-string'
-// import { API_HOST } from './../../config'
+import { API_HOST } from './../../config'
 
 export const loadUser = location => {
   let { token, isLoggedIn } = checkToken(location.search)
+
   // FIX: This goes to the backend to check if the token is valid,
   // then clears the localStorage
-  // token = await clearTokenIfInvalid(token)
+  clearTokenIfInvalid(token)
+
   const userId = getUserIdFromToken(token)
 
   return { token, isLoggedIn, userId }
@@ -38,22 +40,27 @@ const checkToken = search => {
   return { token: window.localStorage.getItem('token'), isLoggedIn: false }
 }
 
-// const clearTokenIfInvalid = async token => {
-//   const response = await window.fetch(API_HOST + '/check-token', {
-//     method: 'GET',
-//     headers: {
-//       authorization: `Bearer ${token}`
-//     }
-//   })
+const getAuthErrorUrl = () =>
+  window.location.protocol +
+  '//' +
+  window.location.hostname +
+  ':' +
+  window.location.port
 
-//   if (response.status === 400) {
-//     localStorage.clear()
+const clearTokenIfInvalid = async token => {
+  if (!token) {
+    return
+  }
 
-//     window.location =
-//       window.location.protocol +
-//       '//' +
-//       window.location.hostname +
-//       ':' +
-//       window.location.port
-//   }
-// }
+  const response = await window.fetch(API_HOST + '/check-token', {
+    method: 'GET',
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  })
+
+  if (response.status === 400) {
+    window.location = getAuthErrorUrl()
+    window.localStorage.clear()
+  }
+}
