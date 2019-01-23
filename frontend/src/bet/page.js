@@ -209,6 +209,21 @@ class BetPage extends Component {
       )
     }
 
+    if (!bet) {
+      return (
+        <TranslatorConsumer>
+          {t => (
+            <DefaultContainer data-qa='bet-page'>
+              <Spacer inner top={6} />
+              <Text size='size3' textAlign='center'>
+                {t('bet-404')}
+              </Text>
+            </DefaultContainer>
+          )}
+        </TranslatorConsumer>
+      )
+    }
+
     const isCurrentUserTheCreator =
       currentUser && bet.user.id === currentUser.id
     const betStatus = getBetStatus(bet, currentUser)

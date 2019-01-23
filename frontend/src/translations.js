@@ -22,6 +22,7 @@ const translations = {
     'bet-actions.delete': 'Delete',
     'bet-list.empty.title': 'Create a new bet',
     'bet-list.empty.description': 'Your bets will appear in this list',
+    'bet-404': 'Bet not found',
     'create-a-bet': 'Create a bet',
     'create-account': 'Create account',
     'save-account-message':
