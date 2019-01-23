@@ -6,7 +6,7 @@ import { sendPushToUser } from '../push'
 const NOTIFICATION_TYPES = {
   ACCEPTED: `{{userName}} accepted your bet`,
   WON: 'You won a bet',
-  LOST: 'You lose a bet',
+  LOST: 'You lost a bet',
   DISPUTED: 'Oh... you got disputed!'
 }
 
