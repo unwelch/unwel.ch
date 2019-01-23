@@ -22,18 +22,11 @@ import { trackEvent, events } from '../../tracking'
 
 const List = styled.div`
   flex: 1;
+  border-top: 1px solid #e6e6e6;
 `
 
 const ListItem = styled.div`
-  min-height: 40px;
-  padding: 10px 0;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-
-  & + & {
-    border-top: 1px solid #e6e6e6;
-  }
+  border-bottom: 1px solid #e6e6e6;
 `
 
 const Root = styled.div`
@@ -59,20 +52,21 @@ class Notifications extends Component {
     return (
       notifications &&
       notifications.map(notification => (
-        <Notification
-          onClick={() => {
-            this.props.markNotificationsAsVisited(notification.id)
-            this.props.goToPage(`bet/${notification.bet.id}`)
-          }}
-          key={notification.id}
-          id={notification.id}
-          sender={notification.sender}
-          message={notification.message}
-          bet={notification.bet}
-          viewed={notification.viewed}
-          visited={notification.visited}
-          createdAt={notification.createdAt}
-        />
+        <ListItem key={notification.id}>
+          <Notification
+            onClick={() => {
+              this.props.markNotificationsAsVisited(notification.id)
+              this.props.goToPage(`bet/${notification.bet.id}`)
+            }}
+            id={notification.id}
+            sender={notification.sender}
+            message={notification.message}
+            bet={notification.bet}
+            viewed={notification.viewed}
+            visited={notification.visited}
+            createdAt={notification.createdAt}
+          />
+        </ListItem>
       ))
     )
   }

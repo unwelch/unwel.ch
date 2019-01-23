@@ -164,7 +164,9 @@ class BetPage extends Component {
 
         return (
           <Text dimmed size='size2'>
-            {t('bet-status.waiting-for-opponent-response', { opponent })}
+            {t('bet-status.waiting-for-opponent-response', {
+              opponent: opponent.name
+            })}
           </Text>
         )
       case betStatuses.LOST:

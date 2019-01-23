@@ -15,7 +15,7 @@ import { getBetStatus, betStatuses } from '../bet-status'
 
 import { TranslatorConsumer } from '../../translations'
 
-export const getStatusText = (betStatus, t) => {
+export const getStatusText = (betStatus, opponent, t) => {
   switch (betStatus) {
     case betStatuses.WAITING_FOR_OPONENT:
       return (
@@ -38,7 +38,9 @@ export const getStatusText = (betStatus, t) => {
     case betStatuses.WAITING_FOR_OPONENT_RESPONSE:
       return (
         <Text size='size0' dimmed shortLineHeight>
-          {t('bet-status.waiting-for-opponent-response')}
+          {t('bet-status.waiting-for-opponent-response', {
+            opponent: opponent.name
+          })}
         </Text>
       )
     case betStatuses.LOST:
@@ -156,7 +158,7 @@ class BetListItem extends Component {
             <Footer>
               <FooterElementWrapper>
                 <Text size='size0' dimmed shortLineHeight>
-                  {getStatusText(getBetStatus(bet, currentUser), t)}
+                  {getStatusText(getBetStatus(bet, currentUser), otherUser, t)}
                 </Text>
               </FooterElementWrapper>
               <Spacer left={2} />

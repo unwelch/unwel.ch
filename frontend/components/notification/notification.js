@@ -17,8 +17,6 @@ import Text from 'components/text'
 import Avatar from 'components/avatar'
 import Spacer from 'components/spacer'
 
-import { colors } from 'components/variables'
-
 import timeAgo from '../../src/utils/time-ago'
 
 const ListItem = styled.div`
@@ -29,8 +27,6 @@ const ListItem = styled.div`
 
   padding: 24px 0;
   overflow: hidden;
-
-  border-bottom: 1px solid ${colors.grey3};
 
   background: ${props => (props.colored ? '#fdf7e8' : 'transparent')};
   opacity: ${props => (props.dimmed ? '0.5' : '1')};
@@ -45,7 +41,10 @@ class Notification extends Component {
     const { id, sender, bet, message, viewed, visited, createdAt } = this.props
 
     const isHyperLinkFormat = and(startsWith('{{'), endsWith('}}'))
-    const removeHyperLink = compose(replace(/{{/, ''), replace(/}}/, ''))
+    const removeHyperLink = compose(
+      replace(/{{/, ''),
+      replace(/}}/, '')
+    )
 
     const msg = split(' ', message)
 
