@@ -13,6 +13,7 @@
   "dependencies": {
     "@nivo/pie": "^0.49.0",
     "@sentry/browser": "^4.0.6",
+    "@typeform/embed": "^0.6.1",
     "amplitude-js": "^4.2.1",
     "apollo-cache-inmemory": "^1.1.4",
     "apollo-client": "^2.0.4",
