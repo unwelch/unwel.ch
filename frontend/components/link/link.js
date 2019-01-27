@@ -35,18 +35,30 @@ const linkStyles = {
 }
 
 const Link = styled.a`
-  ${props => props.size && `
+  ${props =>
+    props.size &&
+    `
     font-size: ${fontSizes[props.size]}px;
     line-height: ${lineHeights[props.size]}px;
-  `} ${props => props.mono && `
+  `} ${props =>
+  props.mono &&
+  `
     font-family: ${fontMono};
-  `} ${props => props.fontWeight && `
+  `} ${props =>
+  props.fontWeight &&
+  `
     font-weight: ${fontWeights[props.fontWeight]};
-  `} ${props => props.uppercase && `
+  `} ${props =>
+  props.uppercase &&
+  `
     text-transform: uppercase;
-  `} ${props => props.loose && `
+  `} ${props =>
+  props.loose &&
+  `
     letter-spacing: .1em;
-  `} ${props => props.dimmed && `
+  `} ${props =>
+  props.dimmed &&
+  `
     opacity: 0.6;
   `};
   ${props => (props.clear ? linkStyles.withoutStyle : linkStyles.withStyle)};

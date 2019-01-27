@@ -2,6 +2,7 @@ import amplitude from 'amplitude-js'
 
 export const events = {
   pageLoaded: 'pageLoaded',
+  githubClick: 'githubClick',
   betLinkCopied: 'betLinkCopied',
   betDeleted: 'betDeleted',
   betAccepted: 'betAccepted',
@@ -16,9 +17,10 @@ export const events = {
 }
 
 export const init = () => {
-  const key = process.env.NODE_ENV === 'production'
-    ? '16621e1ae779c55cd67c2eda1610325b'
-    : 'd78524420bd27e783198933c03a59aca'
+  const key =
+    process.env.NODE_ENV === 'production'
+      ? '16621e1ae779c55cd67c2eda1610325b'
+      : 'd78524420bd27e783198933c03a59aca'
 
   amplitude.getInstance().init(key)
 }

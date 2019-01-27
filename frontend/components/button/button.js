@@ -152,7 +152,7 @@ Button.propTypes = {
 Button.defaultProps = {
   size: 'medium',
   fullWidth: false,
-  type: 'level0',
+  type: 'level1',
   disabled: false,
   onClick: () => {},
   icon: null

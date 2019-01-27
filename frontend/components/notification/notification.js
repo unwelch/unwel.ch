@@ -25,7 +25,8 @@ const ListItem = styled.div`
   flex-direction: row;
   align-items: flex-start;
 
-  padding: 24px 0;
+  cursor: pointer;
+
   overflow: hidden;
 
   background: ${props => (props.colored ? '#fdf7e8' : 'transparent')};
@@ -34,6 +35,9 @@ const ListItem = styled.div`
   align-items: center;
 
   transition: background 3s cubic-bezier(1, -0.03, 0.88, 0.61);
+
+  margin: -16px;
+  padding: 24px 16px;
 `
 
 class Notification extends Component {
