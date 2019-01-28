@@ -17,7 +17,8 @@ const googleOauth =
       redirect: 'https://unwel.ch'
     }
     : {
-      id: '499609547211-t00j4eum1isr2lv7d17otpimb0o4aaqu.apps.googleusercontent.com',
+      id:
+          '499609547211-t00j4eum1isr2lv7d17otpimb0o4aaqu.apps.googleusercontent.com',
       secret: process.env.UNWELCH_OAUTH_DEV_GOOGLE_SECRET,
       callback: 'http://localhost:3000/auth/google/callback',
       redirect: 'http://localhost:9000'
@@ -39,7 +40,7 @@ export const googleAuthCallbackMiddleware = async (req, res) => {
     // TODO this will fail if the google account is already asociated with another unwelch account
     user = await UserDB.update(user)
   } else {
-    user = await UserDB.getBy.googleId(userData.googleId)
+    user = await UserDB.getBy('googleId', userData.googleId)
 
     if (!user) {
       // New user creating saved account from the start

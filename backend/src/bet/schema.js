@@ -212,7 +212,7 @@ const betsQuery = {
   type: new GraphQLList(BetType),
   resolve: (root, _, { user }) => {
     if (user) {
-      return db.getBy.userId(user.id)
+      return db.getByUserOrUser2(user.id)
     } else {
       throw new Error('Not logged in')
     }
