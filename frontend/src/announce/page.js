@@ -13,11 +13,12 @@ import { TranslatorConsumer } from '../translations'
 
 const appear = keyframes`
   0% {
-    transform: translateY(120px);
+    transform: translateY(120px) scaleY(1.6);
     opacity: 0;
+    animation-timing-function: cubic-bezier(0.55, 1.5, 0.55, 0.9);
   }
 
-  20% {
+  10% {
     transform: translateY(0);
     opacity: 1;
   }
@@ -25,10 +26,11 @@ const appear = keyframes`
   90% {
     transform: translateY(0);
     opacity: 1;
+    animation-timing-function: cubic-bezier(0.8, 0, 0.8, 0);
   }
 
   100% {
-    transform: translateY(120px);
+    transform: translateY(120px) scaleY(1.6);
     opacity: 0;
   }
 `
@@ -54,7 +56,7 @@ const Announce = styled.div`
   background: ${colors.primary};
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
 
-  animation: ${appear} 3.5s forwards cubic-bezier(0.19, 1, 0.22, 1);
+  animation: ${appear} 3.5s forwards;
   border-radius: 6px;
 `
 
