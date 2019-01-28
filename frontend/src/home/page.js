@@ -91,12 +91,12 @@ const SubFooter = styled.div`
   background-color: ${colors.black};
 `
 
-const Section = styled(Spacer, {
-  top: 8,
-  bottom: 8,
-  inner: true
-})`
-  background: rgba(255, 216, 138, 1);
+const OpenSourceSection = styled.div`
+  width: 100%;
+  padding: 32px;
+  min-height: 200px;
+  position: relative;
+  background: #ffeeba;
 `
 
 class Home extends Component {
@@ -112,7 +112,7 @@ class Home extends Component {
 
   handleGithubClick = () => {
     trackEvent(events.githubClick, { page: 'landing' })
-    window.open("https://github.com/unwelch/unwel.ch",'_blank')
+    window.open('https://github.com/unwelch/unwel.ch', '_blank')
   }
 
   onCreateBet = () => {
@@ -258,10 +258,14 @@ class Home extends Component {
           </Distribute>
         </Spacer>
 
-        <Section>
-          <Spacer inner top={8} bottom={8}>
-            <DefaultContainer notPadded={!isBigScreen}>
-              <Distribute align='center'>
+        <OpenSourceSection>
+          <DefaultContainer>
+            <Spacer
+              inner
+              top={isBigScreen ? 8 : 4}
+              bottom={isBigScreen ? 8 : 4}
+            >
+              <Distribute vertical={!isBigScreen} align='center'>
                 <Flex>
                   <Spacer bottom={2}>
                     <Content type='subtitle' fontWeight='bold'>
@@ -273,20 +277,25 @@ class Home extends Component {
                     Be part of it and help improve it.
                   </Content>
                 </Flex>
-                <Button onClick={this.handleGithubClick}>
-                  <Distribute align='center'>
-                    <Text>Fork on GitHub</Text>
-                    <Spacer left={2}>
-                      <Distribute>
-                        <Github size={20}/>
-                      </Distribute>
-                    </Spacer>
-                  </Distribute>
-                </Button>
+                <Spacer top={isBigScreen ? 0 : 3}>
+                  <Button
+                    onClick={this.handleGithubClick}
+                    fullWidth={!isBigScreen}
+                  >
+                    <Distribute align='center'>
+                      <Text>Fork on GitHub</Text>
+                      <Spacer left={2}>
+                        <Distribute>
+                          <Github size={20} />
+                        </Distribute>
+                      </Spacer>
+                    </Distribute>
+                  </Button>
+                </Spacer>
               </Distribute>
-            </DefaultContainer>
-          </Spacer>
-        </Section>
+            </Spacer>
+          </DefaultContainer>
+        </OpenSourceSection>
 
         <Footer>
           <DefaultContainer>
@@ -329,7 +338,11 @@ class Home extends Component {
 
         <SubFooter>
           <DefaultContainer>
-            <Text size='size0' color={colors.grey3} fontWeight='regular'>
+            <Text
+              size={isBigScreen ? 'size0' : 'sizeN1'}
+              color={colors.grey3}
+              fontWeight='regular'
+            >
               Created by{' '}
               <Link
                 href='https://gerard.sh'
