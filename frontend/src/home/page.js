@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-
 import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import { compose } from 'ramda'
+import Github from 'react-feather/dist/icons/github'
 
 import DefaultContainer from 'components/default-container'
 import Spacer from 'components/spacer'
@@ -25,12 +25,9 @@ import { canInstall, promptInstall } from './../pwa'
 import WaypointAnimate from './waypoint-animate'
 import MobileSection from './mobile-section'
 
-import Github from 'react-feather/dist/icons/github'
-
 import IPHONE_NEW_BET from './assets/iphone-x-new-bet@2x.png'
 import IPHONE_WHATSAPP from './assets/iphone-x-whatsapp@2x.png'
 import IPHONE_WHO_IS_RIGHT from './assets/iphone-x-who-is-right@2x.png'
-import LANDING_HERO_BACKGROUND from './assets/landing-hero-background.svg'
 
 const Flex = styled.div`
   flex: 1;
@@ -52,7 +49,7 @@ const DistributeWrapper = styled.div`
 
 const Hero = styled.div`
   width: 100%;
-  background: url(${LANDING_HERO_BACKGROUND});
+  background-color: #ffeeba;
   padding-top: 16px;
   padding-bottom: 40px;
 `
@@ -153,7 +150,7 @@ class Home extends Component {
                 Log in
               </Button>
             </DistributeWrapper>
-            <Spacer top={8} bottom={8}>
+            <Spacer top={8} bottom={isBigScreen ? 8 : 4}>
               <Distribute space={4} vertical position='center' align='center'>
                 <Spacer bottom={10}>
                   <WaypointAnimate
@@ -168,8 +165,8 @@ class Home extends Component {
                 </Spacer>
                 <WaypointAnimate topOffset='0%' direction='down' distance={10}>
                   <Content align='center' type='heading' fontWeight='regular'>
-                    Challenge your friends by betting on anything that you
-                    disagree on.
+                    Challenge your friends by <b>betting on anything</b> that
+                    you disagree on.
                   </Content>
                   <Spacer top={3}>
                     <Content align='center' type='heading' fontWeight='regular'>
@@ -183,7 +180,7 @@ class Home extends Component {
           </DefaultContainer>
         </Hero>
 
-        <Spacer top={-6}>
+        <Spacer top={-3}>
           <Distribute position='center'>
             <Button
               onClick={this.onCreateBet}

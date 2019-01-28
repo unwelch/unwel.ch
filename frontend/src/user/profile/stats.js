@@ -1,11 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-
 import { ResponsivePie } from '@nivo/pie'
 
 import Distribute from 'components/distribute'
 import Text from 'components/text'
-
 import { colors } from 'components/variables'
 
 const BasicStatsWrapper = styled.div`
