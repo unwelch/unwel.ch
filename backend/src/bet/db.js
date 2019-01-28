@@ -1,4 +1,4 @@
-import { squel, queryOne, query } from './../db'
+import { squel, queryOne, query, defaultSquelConstructorParams } from './../db'
 import { keysToUnderscore } from './../db/helpers'
 
 export default {
@@ -10,7 +10,7 @@ export default {
 
     return queryOne(
       squel
-        .insert()
+        .insert(defaultSquelConstructorParams)
         .into('bets')
         .setFields(keysToUnderscore(newBet))
         .returning('*')
@@ -26,7 +26,7 @@ export default {
 
     return queryOne(
       squel
-        .update()
+        .update(defaultSquelConstructorParams)
         .table('bets')
         .setFields(keysToUnderscore(newBet))
         .where(`'${bet.id}' = bets.id`)
@@ -36,7 +36,11 @@ export default {
   },
 
   get: async id => {
-    const sql = squel.select().from('bets').where('id = ?', id).toString()
+    const sql = squel
+      .select(defaultSquelConstructorParams)
+      .from('bets')
+      .where('id = ?', id)
+      .toString()
     return queryOne(sql)
   },
 
@@ -44,7 +48,7 @@ export default {
     userId: async id => {
       return query(
         squel
-          .select()
+          .select(defaultSquelConstructorParams)
           .from('bets')
           .where('user_id = ? OR user2_id = ?', id, id)
           .order('created_at', false)
@@ -54,6 +58,12 @@ export default {
   },
 
   delete: async id => {
-    return query(squel.delete().from('bets').where('id = ?', id).toString())
+    return query(
+      squel
+        .delete(defaultSquelConstructorParams)
+        .from('bets')
+        .where('id = ?', id)
+        .toString()
+    )
   }
 }

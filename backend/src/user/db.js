@@ -1,4 +1,4 @@
-import { squel, queryOne, query } from './../db'
+import { squel, queryOne, query, defaultSquelConstructorParams } from './../db'
 import { keysToUnderscore } from './../db/helpers'
 
 export default {
@@ -10,7 +10,7 @@ export default {
 
     return queryOne(
       squel
-        .insert()
+        .insert(defaultSquelConstructorParams)
         .into('users')
         .setFields(keysToUnderscore(newUser))
         .returning('*')
@@ -26,7 +26,7 @@ export default {
 
     return queryOne(
       squel
-        .update()
+        .update(defaultSquelConstructorParams)
         .table('users')
         .setFields(keysToUnderscore(newUser))
         .where(`'${user.id}' = users.id`)
@@ -36,17 +36,32 @@ export default {
   },
 
   get: async id => {
-    return queryOne(squel.select().from('users').where('id = ?', id).toParam())
+    return queryOne(
+      squel
+        .select(defaultSquelConstructorParams)
+        .from('users')
+        .where('id = ?', id)
+        .toParam()
+    )
   },
 
   getAll: async () => {
-    return query(squel.select().from('users').toParam())
+    return query(
+      squel
+        .select(defaultSquelConstructorParams)
+        .from('users')
+        .toParam()
+    )
   },
 
   getBy: {
     googleId: async id => {
       return queryOne(
-        squel.select().from('users').where('google_id = ?', id).toParam()
+        squel
+          .select(defaultSquelConstructorParams)
+          .from('users')
+          .where('google_id = ?', id)
+          .toParam()
       )
     }
   }

@@ -1,6 +1,6 @@
-import uuid from "uuid/v4";
-import { squel, queryOne, query } from "./../db";
-import { keysToUnderscore } from "./../db/helpers";
+import uuid from 'uuid/v4'
+import { squel, queryOne, query, defaultSquelConstructorParams } from './../db'
+import { keysToUnderscore } from './../db/helpers'
 
 export default {
   insert: async notification => {
@@ -8,63 +8,63 @@ export default {
       ...notification,
       id: notification.id ? notification.id : uuid(),
       createdAt: new Date()
-    };
+    }
 
     return queryOne(
       squel
-        .insert()
-        .into("notifications")
+        .insert(defaultSquelConstructorParams)
+        .into('notifications')
         .setFields(keysToUnderscore(newNotification))
-        .returning("*")
+        .returning('*')
         .toString()
-    );
+    )
   },
 
   update: async notification => {
     let newNotification = {
       ...notification,
       id: notification.id ? notification.id : uuid()
-    };
+    }
 
     return queryOne(
       squel
-        .update()
-        .table("notifications")
+        .update(defaultSquelConstructorParams)
+        .table('notifications')
         .setFields(keysToUnderscore(newNotification))
         .where(`'${notification.id}' = notifications.id`)
-        .returning("*")
+        .returning('*')
         .toString()
-    );
+    )
   },
 
   get: async id => {
     return queryOne(
       squel
-        .select()
-        .from("notifications")
-        .where("id = ?", id)
+        .select(defaultSquelConstructorParams)
+        .from('notifications')
+        .where('id = ?', id)
         .toString()
-    );
+    )
   },
 
   getAll: async () => {
     return query(
       squel
-        .select()
-        .from("notifications")
+        .select(defaultSquelConstructorParams)
+        .from('notifications')
         .toString()
-    );
+    )
   },
 
   getBy: {
     recieverUserId: userId => {
       return query(
         squel
-          .select()
-          .from("notifications")
-          .where("reciever_user_id = ?", userId)
+          .select(defaultSquelConstructorParams)
+          .from('notifications')
+          .where('reciever_user_id = ?', userId)
           .toString()
-      );
+      )
     }
   }
-};
+}

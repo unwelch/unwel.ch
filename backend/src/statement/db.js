@@ -1,5 +1,5 @@
 import uuid from 'uuid/v4'
-import { squel, query, queryOne } from './../db'
+import { squel, query, queryOne, defaultSquelConstructorParams } from './../db'
 import { keysToUnderscore } from './../db/helpers'
 
 export default {
@@ -12,7 +12,7 @@ export default {
 
     return queryOne(
       squel
-        .insert()
+        .insert(defaultSquelConstructorParams)
         .into('statements')
         .setFields(keysToUnderscore(newStatement))
         .returning('*')
@@ -22,14 +22,22 @@ export default {
 
   get: async id => {
     return queryOne(
-      squel.select().from('statements').where('id = ?', id).toString()
+      squel
+        .select(defaultSquelConstructorParams)
+        .from('statements')
+        .where('id = ?', id)
+        .toString()
     )
   },
 
   getBy: {
     userId: async id => {
       return query(
-        squel.select().from('statements').where('user_id = ?', id).toString()
+        squel
+          .select(defaultSquelConstructorParams)
+          .from('statements')
+          .where('user_id = ?', id)
+          .toString()
       )
     }
   }

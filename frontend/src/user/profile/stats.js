@@ -14,12 +14,6 @@ const BasicStatsWrapper = styled.div`
   justify-content: space-around;
 `
 
-const Circle = styled.div`
-  width: ${props => props.size};
-  background-color: ${props => props.bg};
-  display: flex;
-`
-
 export const BasicStats = ({ stats }) => (
   <BasicStatsWrapper>
     <Distribute vertical align='center'>

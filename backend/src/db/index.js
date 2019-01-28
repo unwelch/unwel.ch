@@ -46,4 +46,9 @@ const squelPostgres = squel.useFlavour('postgres')
 squelPostgres.registerValueHandler(Date, date => `'${date.toISOString()}'`)
 squel.registerValueHandler('string', s => escape(s))
 
+export const defaultSquelConstructorParams = {
+  replaceSingleQuotes: true,
+  singleQuoteReplacement: "''"
+}
+
 export { squelPostgres as squel }
