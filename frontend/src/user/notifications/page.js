@@ -102,7 +102,7 @@ class Notifications extends Component {
 
           {items.length > 0 ? (
             <List>
-              <Distribute vertical space={1}>
+              <Distribute vertical>
                 {items}
               </Distribute>
             </List>
