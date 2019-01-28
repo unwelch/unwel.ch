@@ -28,7 +28,7 @@ const MobileSection = ({
     <Spacer top={8} bottom={8}>
       <Distribute space={2} align='center' flipped={flipped}>
         <Half>
-          <Spacer top={-3}>
+          <Spacer top={-3} left={isBigScreen ? 0 : 2}>
             <WaypointAnimate
               direction='down'
               topOffset='0%'
