@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin')
 const WebpackPwaManifest = require('webpack-pwa-manifest')
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 module.exports = {
   devtool: 'eval',
@@ -27,6 +28,7 @@ module.exports = {
     new ServiceWorkerWebpackPlugin({
       entry: path.join(__dirname, 'src/service-worker/sw.js')
     }),
+    new FaviconsWebpackPlugin(path.resolve('src/assets/logo.png')),
     new WebpackPwaManifest({
       name: 'unwelch',
       short_name: 'unwelch',
