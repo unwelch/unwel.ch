@@ -36,7 +36,7 @@ const ListItem = styled.div`
 
   transition: background 3s cubic-bezier(1, -0.03, 0.88, 0.61);
 
-  padding: 16px 8px;
+  padding: 16px 0px;
 `
 
 class Notification extends Component {
