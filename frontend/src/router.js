@@ -1,4 +1,4 @@
-import React, { lazy } from 'react'
+import React, { lazy, Suspense } from 'react'
 import { Route, Switch } from 'react-router-dom'
 
 import Layout from './layout'
@@ -36,33 +36,41 @@ const AsyncNewBet = lazy(() =>
 
 const Router = () => (
   <Layout>
-    <Switch>
-      <Route
-        exact
-        path='/notifications'
-        component={() => <AsyncNotifications />}
-      />
-      <Route exact path='/bets' component={() => <AsyncBetList />} />
-      <Route exact path='/bets/new' component={() => <AsyncNewBet />} />
-      <Route
-        path='/bet/:id'
-        component={props => (
-          <AsyncBetPage betId={props.match.params.id} history={props.history} />
-        )}
-      />
-      <Route
-        path='/profiles/:id'
-        component={props => <AsyncProfile userId={props.match.params.id} />}
-      />
-      <Route path='/settings' component={() => <AsyncSettings />} />
-      <Route path='/login' component={() => <AsyncLoginPage />} />
-      <Route
-        path='/anonymous-login'
-        component={() => <AsyncLoginPage anonymous />}
-      />
-      <Route path='/save-account' component={() => <AsyncSaveAccountPage />} />
-      <Route component={() => <NotFoundPage />} />
-    </Switch>
+    <Suspense fallback={<div />}>
+      <Switch>
+        <Route
+          exact
+          path='/notifications'
+          component={() => <AsyncNotifications />}
+        />
+        <Route exact path='/bets' component={() => <AsyncBetList />} />
+        <Route exact path='/bets/new' component={() => <AsyncNewBet />} />
+        <Route
+          path='/bet/:id'
+          component={props => (
+            <AsyncBetPage
+              betId={props.match.params.id}
+              history={props.history}
+            />
+          )}
+        />
+        <Route
+          path='/profiles/:id'
+          component={props => <AsyncProfile userId={props.match.params.id} />}
+        />
+        <Route path='/settings' component={() => <AsyncSettings />} />
+        <Route path='/login' component={() => <AsyncLoginPage />} />
+        <Route
+          path='/anonymous-login'
+          component={() => <AsyncLoginPage anonymous />}
+        />
+        <Route
+          path='/save-account'
+          component={() => <AsyncSaveAccountPage />}
+        />
+        <Route component={() => <NotFoundPage />} />
+      </Switch>
+    </Suspense>
     <SaveAccountPopup />
     <Announcer />
   </Layout>
