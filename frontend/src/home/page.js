@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import { compose } from 'ramda'
 import Github from 'react-feather/dist/icons/github'
+import { makePopup } from '@typeform/embed'
 
 import DefaultContainer from 'components/default-container'
 import Spacer from 'components/spacer'
@@ -28,6 +29,10 @@ import MobileSection from './mobile-section'
 import IPHONE_NEW_BET from './assets/iphone-x-new-bet@2x.png'
 import IPHONE_WHATSAPP from './assets/iphone-x-whatsapp@2x.png'
 import IPHONE_WHO_IS_RIGHT from './assets/iphone-x-who-is-right@2x.png'
+
+import 'ric'
+
+const TYPEFORM_URL = 'https://unwelchers.typeform.com/to/efbovO'
 
 const Flex = styled.div`
   flex: 1;
@@ -112,6 +117,11 @@ class Home extends Component {
     window.open('https://github.com/unwelch/unwel.ch', '_blank')
   }
 
+  handleFeedbackClick = () => {
+    trackEvent(events.feedbackOpened, { timeout: 5000 })
+    this.typeformPopup.open()
+  }
+
   onCreateBet = () => {
     this.props.goToPage('/bets/new')
   }
@@ -134,6 +144,17 @@ class Home extends Component {
       }
       this.props.goToPage('/bets')
     }
+
+    requestIdleCallback(() => {
+      this.typeformPopup = makePopup(TYPEFORM_URL, {
+        mode: 'popup',
+        autoClose: 3,
+        hideScrollbars: true,
+        onSubmit: () => {
+          trackEvent(events.feedbackSubmitted)
+        }
+      })
+    })
   }
 
   render () {
@@ -322,11 +343,12 @@ class Home extends Component {
               ) : null}
 
               <Spacer top={2} bottom={1}>
-                <Text size={'size0'} color={colors.grey3}>
+                <Link
+                  size={'size0'}
+                  color={colors.grey3}
+                  onClick={this.handleFeedbackClick}
+                >
                   Send us your thoughts
-                </Text>
-                <Link size={'size0'} color={colors.grey3}>
-                  Contact us
                 </Link>
               </Spacer>
             </Distribute>
