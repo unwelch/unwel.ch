@@ -11,7 +11,7 @@ test('I can create a bet and login anonymously', async t => {
     .eql(`/bets/new`, 'redirects to new bet page')
 
   await t.typeText(dataQaSelector('bet-input-statement'), 'something for sure!')
-  await t.typeText(dataQaSelector('bet-input-quantity'), `1 good ol' coffee`)
+  await t.typeText(dataQaSelector('bet-input-quantity'), `something`)
 
   await t.click(dataQaSelector('create-bet-button'))
 
@@ -21,7 +21,7 @@ test('I can create a bet and login anonymously', async t => {
 
   await t.typeText(
     dataQaSelector('anonymous-login-input'),
-    `Gerard's a beast?'`
+    `Gerard o'can`
   )
   await t.click(dataQaSelector('anonymous-login-confirm'))
 
