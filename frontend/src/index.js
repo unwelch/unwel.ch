@@ -10,7 +10,7 @@ import './pwa'
 
 if (process.env.NODE_ENV === 'production') {
   // start fullstory recording
-  FS.restart()
+  window.FS.restart()
 }
 
 if (process.env.NODE_ENV === 'production') {
@@ -19,8 +19,8 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-initTracking()
-
 registerServiceWorker()
 
-ReactDOM.render(<App />, document.getElementById('root'))
+initTracking().then(() => {
+  ReactDOM.render(<App />, document.getElementById('root'))
+})

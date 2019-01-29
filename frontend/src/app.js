@@ -56,21 +56,27 @@ if (token) {
     })
   }
 
-  identify(userId)
-  FS.identify(userId)
+  setTimeout(() => {
+    identify(userId)
+    FS.identify(userId)
 
-  if (isLoggedIn) {
-    trackEvent(events.loggedIn)
-  }
+    if (isLoggedIn) {
+      trackEvent(events.loggedIn)
+    }
+  }, 1000)
 }
 
 const client = createApolloClient(token)
 
-trackEvent(events.applicationLoaded, {
-  url: window.location.pathname,
-  referrer: document.referrer,
-  loggedIn: !!token
-})
+setTimeout(
+  () =>
+    trackEvent(events.applicationLoaded, {
+      url: window.location.pathname,
+      referrer: document.referrer,
+      loggedIn: !!token
+    }),
+  1000
+)
 
 injectGlobal`
   html,
