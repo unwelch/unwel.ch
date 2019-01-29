@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getIsLoggedIn } from './selectors'
+import { getToken } from './selectors'
 
-const withIsLoggedIn = component => {
+const withToken = component => {
   const mapStateToProps = (state, ownProps) => {
     return {
-      isLoggedIn: getIsLoggedIn(state),
+      token: getToken(state),
       ...ownProps
     }
   }
@@ -17,12 +17,12 @@ const withIsLoggedIn = component => {
 
   enhanced.propTypes = {
     ...component.propTypes,
-    isLoggedIn: PropTypes.bool
+    token: PropTypes.string
   }
 
-  enhanced.displayName = `withIsLoggedIn(${component.displayName})`
+  enhanced.displayName = `withToken(${component.displayName})`
 
   return enhanced
 }
 
-export default withIsLoggedIn
+export default withToken

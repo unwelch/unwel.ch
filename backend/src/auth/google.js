@@ -40,13 +40,14 @@ export const googleAuthCallbackMiddleware = async (req, res) => {
     // TODO this will fail if the google account is already asociated with another unwelch account
     user = await UserDB.update(user)
   } else {
-    user = await UserDB.getBy('googleId', userData.googleId)
-
-    if (!user) {
+    const users = await UserDB.getBy('googleId', userData.googleId)
+    if (users.length === 0) {
       // New user creating saved account from the start
       user = await UserDB.insert({
         ...userData
       })
+    } else {
+      user = users[0]
     }
   }
 

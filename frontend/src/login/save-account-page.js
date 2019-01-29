@@ -8,6 +8,8 @@ import { bindActionCreators } from 'redux'
 import { googleLogin } from '../user/login'
 
 import { getIsAnonymous } from './../user/auth/selectors'
+import withToken from './../user/auth/withToken'
+
 import { goToPage } from './../navigation/actions'
 
 import DefaultContainer from 'components/default-container'
@@ -44,9 +46,11 @@ class SaveAccount extends Component {
 
     return (
       <DefaultContainer>
-        <Text size='size4' fontWeight='regular'>
-          Save your account and bets.
-        </Text>
+        <Spacer top={4}>
+          <Text size='size4' fontWeight='regular'>
+            Save your account and bets.
+          </Text>
+        </Spacer>
         <Spacer top={2}>
           <Text>
             Link it with your Google account and get access from other devices.
@@ -59,7 +63,7 @@ class SaveAccount extends Component {
                 type: 'oauth',
                 provider: 'google'
               })
-              googleLogin()
+              googleLogin(this.props.token)
             }}
           />
         </Spacer>
@@ -88,5 +92,6 @@ export default compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )
+  ),
+  withToken
 )(SaveAccount)
