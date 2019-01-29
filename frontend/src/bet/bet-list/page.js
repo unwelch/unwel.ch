@@ -44,11 +44,10 @@ class BetList extends Component {
       <TranslatorConsumer>
         {t => (
           <div>
+            <Spacer bottom={2} />
             <Content type='subtitle' fontWeight='regular'>
               {t('bet-list.empty.title')}
             </Content>
-            <Spacer bottom={1} />
-            <Content type='body'>{t('bet-list.empty.description')}</Content>
             <Spacer bottom={3} />
             <Button
               type='level2'
