@@ -61,7 +61,6 @@ class SaveAccountPopup extends Component {
   constructor (props) {
     super(props)
 
-    this.checkRecurrentShow = this.checkRecurrentShow.bind(this)
     this.handleCloseModal = this.handleCloseModal.bind(this)
     this.saveAccountHandler = this.saveAccountHandler.bind(this)
 
@@ -70,22 +69,10 @@ class SaveAccountPopup extends Component {
     }
   }
 
-  checkRecurrentShow () {
-    const { currentUser } = this.props.data
-    const isAnonymous = currentUser && currentUser.isAnonymous
-
-    if (!currentUser) {
-      setTimeout(this.checkRecurrentShow, 1000)
-      return
-    }
-
-    if (checkIfShouldAppear() && isAnonymous) {
+  componentDidMount () {
+    if (checkIfShouldAppear()) {
       this.props.showSaveAccountPopup()
     }
-  }
-
-  componentDidMount () {
-    this.checkRecurrentShow()
   }
 
   handleCloseModal () {
@@ -98,8 +85,15 @@ class SaveAccountPopup extends Component {
 
   render () {
     const { data, showPopup } = this.props
+    const { currentUser } = data
 
     if (data.loading) {
+      return null
+    }
+
+    const isAnonymous = currentUser && currentUser.isAnonymous
+
+    if (!isAnonymous) {
       return null
     }
 
