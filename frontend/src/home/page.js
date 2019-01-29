@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-
 import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import { compose } from 'ramda'
+import Github from 'react-feather/dist/icons/github'
 
 import DefaultContainer from 'components/default-container'
 import Spacer from 'components/spacer'
@@ -25,12 +25,9 @@ import { canInstall, promptInstall } from './../pwa'
 import WaypointAnimate from './waypoint-animate'
 import MobileSection from './mobile-section'
 
-import Github from 'react-feather/dist/icons/github'
-
 import IPHONE_NEW_BET from './assets/iphone-x-new-bet@2x.png'
 import IPHONE_WHATSAPP from './assets/iphone-x-whatsapp@2x.png'
 import IPHONE_WHO_IS_RIGHT from './assets/iphone-x-who-is-right@2x.png'
-import LANDING_HERO_BACKGROUND from './assets/landing-hero-background.svg'
 
 const Flex = styled.div`
   flex: 1;
@@ -52,7 +49,7 @@ const DistributeWrapper = styled.div`
 
 const Hero = styled.div`
   width: 100%;
-  background: url(${LANDING_HERO_BACKGROUND});
+  background-color: #ffeeba;
   padding-top: 16px;
   padding-bottom: 40px;
 `
@@ -91,12 +88,12 @@ const SubFooter = styled.div`
   background-color: ${colors.black};
 `
 
-const Section = styled(Spacer, {
-  top: 8,
-  bottom: 8,
-  inner: true
-})`
-  background: rgba(255, 216, 138, 1);
+const OpenSourceSection = styled.div`
+  width: 100%;
+  padding: 32px;
+  min-height: 200px;
+  position: relative;
+  background: #ffeeba;
 `
 
 class Home extends Component {
@@ -112,7 +109,7 @@ class Home extends Component {
 
   handleGithubClick = () => {
     trackEvent(events.githubClick, { page: 'landing' })
-    window.open("https://github.com/unwelch/unwel.ch",'_blank')
+    window.open('https://github.com/unwelch/unwel.ch', '_blank')
   }
 
   onCreateBet = () => {
@@ -153,7 +150,7 @@ class Home extends Component {
                 Log in
               </Button>
             </DistributeWrapper>
-            <Spacer top={8} bottom={8}>
+            <Spacer top={8} bottom={isBigScreen ? 8 : 4}>
               <Distribute space={4} vertical position='center' align='center'>
                 <Spacer bottom={10}>
                   <WaypointAnimate
@@ -168,8 +165,8 @@ class Home extends Component {
                 </Spacer>
                 <WaypointAnimate topOffset='0%' direction='down' distance={10}>
                   <Content align='center' type='heading' fontWeight='regular'>
-                    Challenge your friends by betting on anything that you
-                    disagree on.
+                    Challenge your friends by <b>betting on anything</b> that
+                    you disagree on.
                   </Content>
                   <Spacer top={3}>
                     <Content align='center' type='heading' fontWeight='regular'>
@@ -183,7 +180,7 @@ class Home extends Component {
           </DefaultContainer>
         </Hero>
 
-        <Spacer top={-6}>
+        <Spacer top={-3}>
           <Distribute position='center'>
             <Button
               onClick={this.onCreateBet}
@@ -258,10 +255,14 @@ class Home extends Component {
           </Distribute>
         </Spacer>
 
-        <Section>
-          <Spacer inner top={8} bottom={8}>
-            <DefaultContainer notPadded={!isBigScreen}>
-              <Distribute align='center'>
+        <OpenSourceSection>
+          <DefaultContainer>
+            <Spacer
+              inner
+              top={isBigScreen ? 8 : 4}
+              bottom={isBigScreen ? 8 : 4}
+            >
+              <Distribute vertical={!isBigScreen} align='center'>
                 <Flex>
                   <Spacer bottom={2}>
                     <Content type='subtitle' fontWeight='bold'>
@@ -273,20 +274,25 @@ class Home extends Component {
                     Be part of it and help improve it.
                   </Content>
                 </Flex>
-                <Button onClick={this.handleGithubClick}>
-                  <Distribute align='center'>
-                    <Text>Fork on GitHub</Text>
-                    <Spacer left={2}>
-                      <Distribute>
-                        <Github size={20}/>
-                      </Distribute>
-                    </Spacer>
-                  </Distribute>
-                </Button>
+                <Spacer top={isBigScreen ? 0 : 3}>
+                  <Button
+                    onClick={this.handleGithubClick}
+                    fullWidth={!isBigScreen}
+                  >
+                    <Distribute align='center'>
+                      <Text>Fork on GitHub</Text>
+                      <Spacer left={2}>
+                        <Distribute>
+                          <Github size={20} />
+                        </Distribute>
+                      </Spacer>
+                    </Distribute>
+                  </Button>
+                </Spacer>
               </Distribute>
-            </DefaultContainer>
-          </Spacer>
-        </Section>
+            </Spacer>
+          </DefaultContainer>
+        </OpenSourceSection>
 
         <Footer>
           <DefaultContainer>
@@ -329,7 +335,11 @@ class Home extends Component {
 
         <SubFooter>
           <DefaultContainer>
-            <Text size='size0' color={colors.grey3} fontWeight='regular'>
+            <Text
+              size={isBigScreen ? 'size0' : 'sizeN1'}
+              color={colors.grey3}
+              fontWeight='regular'
+            >
               Created by{' '}
               <Link
                 href='https://gerard.sh'
