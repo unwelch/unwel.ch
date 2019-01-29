@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import { compose } from 'ramda'
 import Github from 'react-feather/dist/icons/github'
+import requestIdleCallback from 'requestidlecallback'
 import { makePopup } from '@typeform/embed'
 
 import DefaultContainer from 'components/default-container'
@@ -29,8 +30,6 @@ import MobileSection from './mobile-section'
 import IPHONE_NEW_BET from './assets/iphone-x-new-bet@2x.png'
 import IPHONE_WHATSAPP from './assets/iphone-x-whatsapp@2x.png'
 import IPHONE_WHO_IS_RIGHT from './assets/iphone-x-who-is-right@2x.png'
-
-import 'ric'
 
 const TYPEFORM_URL = 'https://unwelchers.typeform.com/to/efbovO'
 

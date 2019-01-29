@@ -2868,13 +2868,6 @@ csstype@^2.5.2:
   resolved "https://registry.npmjs.org/csstype/-/csstype-2.6.1.tgz#4cfbf637a577497036ebcd7e32647ef19a0b8076"
   integrity sha512-wv7IRqCGsL7WGKB8gPvrl+++HlFM9kxAM6jL1EXNPNTshEJYilMkbfS2SnuHha77uosp/YVK0wAp2jmlBzn1tg==
 
-curry2@^1.0.0:
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/curry2/-/curry2-1.0.3.tgz#38191d55f1060bfea47ca08009385bb878f6612f"
-  integrity sha1-OBkdVfEGC/6kfKCACThbuHj2YS8=
-  dependencies:
-    fast-bind "^1.0.0"
-
 custom-event@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/custom-event/-/custom-event-1.0.1.tgz#5d02a46850adf1b4a317946a3928fccb5bfd0425"
@@ -3722,11 +3715,6 @@ extsprintf@^1.2.0:
   version "1.4.0"
   resolved "https://registry.npmjs.org/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
-
-fast-bind@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/fast-bind/-/fast-bind-1.0.0.tgz#7fa9652cb3325f5cd1e252d6cb4f160de1a76e75"
-  integrity sha1-f6llLLMyX1zR4lLWy08WDeGnbnU=
 
 fast-deep-equal@^2.0.1:
   version "2.0.1"
@@ -5338,13 +5326,6 @@ json-parse-safe@^1.0.5:
   version "1.0.5"
   resolved "https://registry.npmjs.org/json-parse-safe/-/json-parse-safe-1.0.5.tgz#fc18258806ed2e286151ca815eac4c633d219ed6"
   integrity sha512-bA4Wieq0+zN+onjNQh/p0NrCg6w8GUGDbvQ6MBVuBI+XGCg/CQfg5hVFHp7080+zrSJbTxNvQxZ61ENtmb1pYg==
-
-json-parse@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/json-parse/-/json-parse-1.0.3.tgz#5fd7a7de296c0b6cac1922623cf7c318bf7d8ab6"
-  integrity sha1-X9en3ilsC2ysGSJiPPfDGL99irY=
-  dependencies:
-    curry2 "^1.0.0"
 
 json-schema-traverse@^0.4.1:
   version "0.4.1"
@@ -7504,6 +7485,11 @@ request@^2.65.0, request@^2.81.0:
     tunnel-agent "^0.6.0"
     uuid "^3.3.2"
 
+requestidlecallback@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.npmjs.org/requestidlecallback/-/requestidlecallback-0.3.0.tgz#6fb74e0733f90df3faa4838f9f6a2a5f9b742ac5"
+  integrity sha1-b7dOBzP5DfP6pIOPn2oqX5t0KsU=
+
 require-directory@^2.1.1:
   version "2.1.1"
   resolved "https://registry.npmjs.org/require-directory/-/require-directory-2.1.1.tgz#8c64ad5fd30dab1c976e2344ffe7f792a6a6df42"
@@ -7592,11 +7578,6 @@ ret@~0.1.10:
   version "0.1.15"
   resolved "https://registry.npmjs.org/ret/-/ret-0.1.15.tgz#b8a4825d5bdb1fc3f6f53c2bc33f81388681c7bc"
   integrity sha512-TTlYpa+OL+vMMNG24xSlQGEJ3B/RzEfUlLct7b5G/ytav+wPrplCpVMFuwzXbkecJrb6IYo1iFb0S9v37754mg==
-
-ric@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.npmjs.org/ric/-/ric-1.3.0.tgz#8e95042609ce8213548a83164d08e94fae94909f"
-  integrity sha1-jpUEJgnOghNUioMWTQjpT66UkJ8=
 
 rimraf@^2.2.8, rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.2:
   version "2.6.3"
