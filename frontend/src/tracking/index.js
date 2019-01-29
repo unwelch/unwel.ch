@@ -11,6 +11,8 @@ export const events = {
   loginRequested: 'loginRequested',
   saveAccountRequest: 'saveAccountRequest',
   acceptBetClick: 'acceptBetClick',
+  feedbackSubmitted: 'feedbackSubmitted',
+  feedbackOpened: 'feedbackOpened',
   pwaHomeScreenPrompted: 'pwaHomeScreenPrompted',
   pwaHomeScreenDismissed: 'pwaHomeScreenDismissed',
   pwaHomeScreenAdded: 'pwaHomeScreenAdded'
