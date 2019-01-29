@@ -44,7 +44,6 @@
     "react-waypoint": "^8.0.3",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "requestidlecallback": "^0.3.0",
     "serviceworker-webpack-plugin": "^1.0.1",
     "styled-components": "^2.2.4",
     "styled-normalize": "^2.2.1",

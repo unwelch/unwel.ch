@@ -4,8 +4,6 @@ import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import { compose } from 'ramda'
 import Github from 'react-feather/dist/icons/github'
-import requestIdleCallback from 'requestidlecallback'
-import { makePopup } from '@typeform/embed'
 
 import DefaultContainer from 'components/default-container'
 import Spacer from 'components/spacer'
@@ -118,7 +116,19 @@ class Home extends Component {
 
   handleFeedbackClick = () => {
     trackEvent(events.feedbackOpened, { timeout: 5000 })
-    this.typeformPopup.open()
+    import(/* webpackChunkName: "embed" */ '@typeform/embed')
+      .then(({ makePopup }) => {
+        makePopup(TYPEFORM_URL, {
+          mode: 'popup',
+          autoOpen: true,
+          autoClose: 3,
+          hideScrollbars: true,
+          onSubmit: () => {
+            trackEvent(events.feedbackSubmitted)
+          }
+        })
+      })
+      .catch(error => console.error(`Could not show feedback form: ${error}`))
   }
 
   onCreateBet = () => {
@@ -143,17 +153,6 @@ class Home extends Component {
       }
       this.props.goToPage('/bets')
     }
-
-    requestIdleCallback(() => {
-      this.typeformPopup = makePopup(TYPEFORM_URL, {
-        mode: 'popup',
-        autoClose: 3,
-        hideScrollbars: true,
-        onSubmit: () => {
-          trackEvent(events.feedbackSubmitted)
-        }
-      })
-    })
   }
 
   render () {
