@@ -10,6 +10,7 @@ import Spacer from 'components/spacer'
 
 import { saveTempBet } from '../services'
 import { showAnnounce } from './../../announce/actions'
+import { showSaveAccountPopup } from './../../user/actions'
 import { ADD_BET_MUTATION } from './../mutations'
 import * as queries from './../bet-list/queries'
 import { trackEvent, events } from '../../tracking'
@@ -34,6 +35,7 @@ class NewBet extends Component {
       return
     }
 
+    this.props.showSaveAccountPopup()
     this.props.showAnnounce('announce.new-bet-created')
     const result = await this.props.addBet(bet)
     await this.props.goToPage(`/bet/${result.data.addBet.id}`)
@@ -61,7 +63,8 @@ class NewBet extends Component {
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      showAnnounce
+      showAnnounce,
+      showSaveAccountPopup
     },
     dispatch
   )
