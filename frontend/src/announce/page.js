@@ -12,18 +12,13 @@ import { colors } from 'components/variables'
 import { TranslatorConsumer } from '../translations'
 
 const appear = keyframes`
-  0% {
+  0%, 10% {
     transform: translateY(120px) scaleY(1.6);
     opacity: 0;
     animation-timing-function: cubic-bezier(0.55, 1.5, 0.55, 0.9);
   }
 
-  10% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  90% {
+  20%, 90% {
     transform: translateY(0);
     opacity: 1;
     animation-timing-function: cubic-bezier(0.8, 0, 0.8, 0);
