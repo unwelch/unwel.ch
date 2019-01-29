@@ -54,12 +54,11 @@ class BetPage extends Component {
     trackEvent(events.pageLoaded, { page: 'bet' })
   }
 
-  shareLink (title, text, url) {
+  shareLink (text, url) {
     return () => {
       if (webShareEnabled()) {
         navigator
           .share({
-            title,
             text,
             url
           })
@@ -121,8 +120,7 @@ class BetPage extends Component {
             <Button
               type='level2'
               onClick={this.shareLink(
-                t('copy-message.body'),
-                t('copy-message.title'),
+                t('copy-message.body', { statement: bet.statement.statement }),
                 `${BET_PAGE}/${this.props.betId}`
               )}
               icon={<ShareIcon />}
