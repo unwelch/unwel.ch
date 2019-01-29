@@ -68,6 +68,10 @@ before_deploy:
   - cd backend
   - API_HOST=https://api.unwel.ch yarn run build
   - cd ..
+  - docker build -t frontend ./frontend
+  - docker tag frontend unwelch/frontend
+  - docker build -t backend ./backend
+  - docker tag backend unwelch/backend
 
 deploy:
   provider: script
