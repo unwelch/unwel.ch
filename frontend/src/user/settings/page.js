@@ -95,9 +95,13 @@ class Settings extends Component {
 
   handleNotificationsChange (enabled) {
     if (enabled) {
-      setupPush(this.props.token).then(() =>
-        this.props.enablePushNotifications()
-      )
+      setupPush(this.props.token)
+        .then(() => this.props.enablePushNotifications())
+        .catch(() => {
+          // User probably denied the request of notifications
+          // reload to reflect changes (Notification.permission will be 'denied')
+          window.location.reload()
+        })
     } else {
       this.props.disablePushNotifications()
     }
@@ -136,10 +140,11 @@ class Settings extends Component {
         </Distribute>
         <Split />
         {isPushSupported() &&
+          window.Notification.permission !== 'denied' && (
           <Fragment>
             <Distribute space={2} align='center'>
               <Text size='size2' fontWeight='regular'>
-                Notifications
+                  Notifications
               </Text>
               <Switch
                 onChange={this.handleNotificationsChange}
@@ -148,19 +153,22 @@ class Settings extends Component {
               />
             </Distribute>
             <Split />
-          </Fragment>}
-        {canInstall() &&
+          </Fragment>
+        )}
+        {canInstall() && (
           <Fragment>
             <Button onClick={this.handleInstall}>Add to homescreen</Button>
             <Split />
-          </Fragment>}
-        {!isAnonymous &&
+          </Fragment>
+        )}
+        {!isAnonymous && (
           <Fragment>
             <Button type='warning' onClick={this.handleLogOut}>
               Log out
             </Button>
             <Split />
-          </Fragment>}
+          </Fragment>
+        )}
       </Root>
     )
   }
@@ -173,7 +181,10 @@ const mapStateToProps = state => {
 }
 
 export default compose(
-  connect(mapStateToProps, null),
+  connect(
+    mapStateToProps,
+    null
+  ),
   graphql(QUERY),
   graphql(CHANGE_NAME, {
     props: ({ mutate }) => ({

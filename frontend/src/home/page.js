@@ -270,7 +270,9 @@ class Home extends Component {
 
         <Spacer top={1} bottom={6}>
           <Distribute position='center'>
-            <Button type='level2' onClick={this.onCreateBet}>Create your first bet!</Button>
+            <Button onClick={this.onCreateBet} type='level2'>
+              Create your first bet!
+            </Button>
           </Distribute>
         </Spacer>
 

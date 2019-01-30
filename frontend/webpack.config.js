@@ -6,6 +6,7 @@ const WebpackPwaManifest = require('webpack-pwa-manifest')
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 module.exports = {
+  devtool: 'source-map',
   entry: {
     bundle: ['@babel/polyfill', './src/index.js']
   },

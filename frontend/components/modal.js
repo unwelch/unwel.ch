@@ -17,8 +17,8 @@ const Root = styled.div`
 
   opacity: ${props => (props.isOpen ? '1' : '0')};
   pointer-events: ${props => (props.isOpen ? 'auto' : 'none')};
-  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1)
-    ${props => (props.isOpen ? '0s' : '0.2s')};
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1)
+    ${props => (props.isOpen ? '0s' : '0.5s')};
 `
 
 const ModalWrapper = styled.div`
@@ -30,10 +30,16 @@ const ModalWrapper = styled.div`
   box-shadow: 0px 4px 80px rgba(0, 0, 0, 0.35);
 
   opacity: ${props => (props.isOpen ? '1' : '0')};
-  transform: translateY(${props => (props.isOpen ? '0' : '20')}px);
+  transform: translateY(${props => (props.isOpen ? '0' : '120')}px)
+    scaleY(${props => (props.isOpen ? '1' : '1.6')});
   pointer-events: ${props => (props.isOpen ? 'auto' : 'none')};
-  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1)
-    ${props => (props.isOpen ? '0.2s' : '0s')};
+
+  transition: all ${props => (props.isOpen ? '0.35s' : '0.5s')}
+    ${props =>
+    props.isOpen
+      ? 'cubic-bezier(0.55, 1.5, 0.55, 0.9)'
+      : 'cubic-bezier(0.8, 0, 0.8, 0)'}
+    ${props => (props.isOpen ? '0.1s' : '0s')};
 `
 
 const ChildrenWrapper = styled.div`
@@ -41,10 +47,6 @@ const ChildrenWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  transform: translateY(${props => (props.isOpen ? '0' : '-40')}px);
-  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1)
-    ${props => (props.isOpen ? '0.2s' : '0s')};
 `
 
 const Modal = ({ children, onClose, isOpen }) => (

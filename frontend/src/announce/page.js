@@ -47,7 +47,7 @@ const Announce = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 48px;
+  padding: 18px 24px;
   background: ${colors.primary};
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
 

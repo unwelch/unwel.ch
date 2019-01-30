@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux'
 import { differenceInDays } from 'date-fns'
 
 import { goToPage } from '../navigation/actions'
+import { showSaveAccountPopup } from '../user/actions'
 
 import { TranslatorConsumer } from '../translations'
 
@@ -37,7 +38,7 @@ const checkIfShouldAppear = () => {
 
   const lastPopupShownDate = new Date(lastPopupShownDateString)
 
-  if (have7DaysPassed(lastPopupShownDate, today)) {
+  if (haveDaysPassed(lastPopupShownDate, today)) {
     window.localStorage.setItem('lastPopupDate', today.toString())
     return true
   }
@@ -45,8 +46,8 @@ const checkIfShouldAppear = () => {
   return false
 }
 
-const have7DaysPassed = (lastPopupShownDate, today) => {
-  const appearanceDays = 7
+const haveDaysPassed = (lastPopupShownDate, today) => {
+  const appearanceDays = 5
   const daysSinceLastPopup = differenceInDays(today, lastPopupShownDate)
 
   if (daysSinceLastPopup > appearanceDays) {
@@ -60,37 +61,22 @@ class SaveAccountPopup extends Component {
   constructor (props) {
     super(props)
 
-    this.checkShow = this.checkShow.bind(this)
     this.handleCloseModal = this.handleCloseModal.bind(this)
     this.saveAccountHandler = this.saveAccountHandler.bind(this)
 
     this.state = {
-      isModalOpen: false
-    }
-  }
-
-  checkShow () {
-    const { currentUser } = this.props.data
-    const isAnonymous = currentUser && currentUser.isAnonymous
-
-    if (!currentUser) {
-      setTimeout(this.checkShow, 1000)
-      return
-    }
-
-    if (checkIfShouldAppear() && isAnonymous) {
-      this.setState({
-        isModalOpen: true
-      })
+      alreadyShown: false
     }
   }
 
   componentDidMount () {
-    this.checkShow()
+    if (checkIfShouldAppear()) {
+      this.props.showSaveAccountPopup()
+    }
   }
 
   handleCloseModal () {
-    this.setState({ isModalOpen: false })
+    this.setState({ alreadyShown: true })
   }
 
   saveAccountHandler () {
@@ -98,9 +84,16 @@ class SaveAccountPopup extends Component {
   }
 
   render () {
-    const { data } = this.props
+    const { data, showPopup } = this.props
+    const { currentUser } = data
 
     if (data.loading) {
+      return null
+    }
+
+    const isAnonymous = currentUser && currentUser.isAnonymous
+
+    if (!isAnonymous) {
       return null
     }
 
@@ -108,7 +101,7 @@ class SaveAccountPopup extends Component {
       <TranslatorConsumer>
         {t => (
           <Modal
-            isOpen={this.state.isModalOpen}
+            isOpen={showPopup && !this.state.alreadyShown}
             onClose={this.handleCloseModal}
           >
             <Text size='size1'>{t('save-account-message')}</Text>
@@ -127,10 +120,17 @@ class SaveAccountPopup extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    showPopup: state.user.showSaveAccountPopup
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      goToPage
+      goToPage,
+      showSaveAccountPopup
     },
     dispatch
   )
@@ -138,7 +138,7 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
   ),
   graphql(QUERY)

@@ -44,11 +44,10 @@ class BetList extends Component {
       <TranslatorConsumer>
         {t => (
           <div>
+            <Spacer bottom={2} />
             <Content type='subtitle' fontWeight='regular'>
               {t('bet-list.empty.title')}
             </Content>
-            <Spacer bottom={1} />
-            <Content type='body'>{t('bet-list.empty.description')}</Content>
             <Spacer bottom={3} />
             <Button
               type='level2'
@@ -77,10 +76,10 @@ class BetList extends Component {
   }
 
   render () {
-    const { loading, bets } = this.props.data
+    const { bets } = this.props.data
 
     let items = []
-    if (loading) {
+    if (!bets) {
       items = this.renderPlaceholderItems(2)
     } else {
       items = this.renderItems(bets)
@@ -111,7 +110,7 @@ class BetList extends Component {
 export default compose(
   graphql(queries.BET_LIST, {
     options: () => ({
-      pollInterval: 10000
+      fetchPolicy: 'cache-and-network'
     })
   }),
   withIsLoggedIn,
