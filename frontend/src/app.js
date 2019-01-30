@@ -85,14 +85,22 @@ injectGlobal`
     width: 100%;
     margin: 0;
     padding: 0;
+
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
   }
 
   * {
     box-sizing: border-box;
   }
 
-  :focus {outline:none;}
-  ::-moz-focus-inner {border:0;}
+  :focus {
+    outline:none;
+  }
+
+  ::-moz-focus-inner {
+    border:0;
+  }
 `
 
 const App = () => (
