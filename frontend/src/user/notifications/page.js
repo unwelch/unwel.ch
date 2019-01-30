@@ -100,7 +100,7 @@ class Notifications extends Component {
 
           <Spacer inner top={3} />
 
-          {items.length > 0 ? (
+          {items && items.length > 0 ? (
             <List>
               <Distribute vertical>
                 {items}
