@@ -41,6 +41,8 @@ class FinishBet extends Component {
   renderActions () {
     const { bet, currentUser, chooseWon, chooseLost } = this.props
 
+    if (!currentUser) return null
+
     if (bet.user.id === currentUser.id) {
       return (
         <BetActionWrapper>
