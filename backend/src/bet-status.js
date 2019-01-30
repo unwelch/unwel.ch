@@ -1,6 +1,7 @@
 export const betStatuses = {
   WAITING_FOR_OPONENT: 'WAITING_FOR_OPONENT',
   AVAILABLE_BET: 'AVAILABLE_BET',
+  THIRD_PARTY_BET: 'THIRD_PARTY_BET',
   WAITING_FOR_USER_RESPONSE: 'WAITING_FOR_USER_RESPONSE',
   WAITING_FOR_OPONENT_RESPONSE: 'WAITING_FOR_OPONENT_RESPONSE',
   WON: 'WON',
@@ -10,6 +11,7 @@ export const betStatuses = {
 
 export const getBetStatus = (bet, currentUserId) => {
   const isCreator = bet.userId === currentUserId
+  const isAcceptor = bet.user2Id && bet.user2Id === currentUserId
   const userResponded = bet.userResponse != null
   const user2Responded = bet.user2Response != null
 
@@ -20,6 +22,8 @@ export const getBetStatus = (bet, currentUserId) => {
     } else {
       return betStatuses.AVAILABLE_BET
     }
+  } else if (!isCreator && !isAcceptor) {
+    return betStatuses.THIRD_PARTY_BET
   } else if (!userResponded || !user2Responded) {
     // Bet accepted
     if (isCreator && !userResponded) {
