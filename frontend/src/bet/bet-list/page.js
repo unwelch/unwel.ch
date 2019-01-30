@@ -76,10 +76,10 @@ class BetList extends Component {
   }
 
   render () {
-    const { loading, bets } = this.props.data
+    const { bets } = this.props.data
 
     let items = []
-    if (loading) {
+    if (!bets) {
       items = this.renderPlaceholderItems(2)
     } else {
       items = this.renderItems(bets)
@@ -110,7 +110,7 @@ class BetList extends Component {
 export default compose(
   graphql(queries.BET_LIST, {
     options: () => ({
-      pollInterval: 10000
+      fetchPolicy: 'cache-and-network'
     })
   }),
   withIsLoggedIn,

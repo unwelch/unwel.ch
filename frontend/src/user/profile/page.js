@@ -86,9 +86,9 @@ class Profile extends Component {
   }
 
   render () {
-    const { user, currentUser, loading } = this.props.data
+    const { user, currentUser } = this.props.data
 
-    if (loading || !user) {
+    if (!user || !currentUser) {
       return (
         <Root>
           <Placeholder fullWidth />
@@ -177,5 +177,11 @@ export default compose(
     always({}),
     mapDispatchToProps
   ),
-  graphql(QUERY)
+  graphql(QUERY, {
+    options: () => {
+      return {
+        fetchPolicy: 'cache-and-network'
+      }
+    }
+  })
 )(Profile)

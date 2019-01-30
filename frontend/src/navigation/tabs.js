@@ -144,10 +144,11 @@ class Navigation extends Component {
               >
                 <IconWrapper>
                   <BellIcon />
-                  {unViewedNotifications > 0 &&
+                  {unViewedNotifications > 0 && (
                     <NotificationsBadge>
                       {unViewedNotifications}
-                    </NotificationsBadge>}
+                    </NotificationsBadge>
+                  )}
                 </IconWrapper>
                 <Label
                   selected={window.location.href.includes('notifications')}
@@ -165,4 +166,10 @@ class Navigation extends Component {
   }
 }
 
-export default compose(graphql(QUERY))(Navigation)
+export default compose(
+  graphql(QUERY, {
+    options: () => ({
+      pollInterval: 5000
+    })
+  })
+)(Navigation)

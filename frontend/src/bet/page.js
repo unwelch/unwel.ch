@@ -306,7 +306,7 @@ export default compose(
   withNavigation,
   graphql(queries.BET_INFO, {
     options: () => ({
-      pollInterval: 10000
+      pollInterval: 5000
     })
   }),
   graphql(ACCEPT_BET_MUTATION, {
