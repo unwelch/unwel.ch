@@ -34,12 +34,12 @@ const ModalWrapper = styled.div`
     scaleY(${props => (props.isOpen ? '1' : '1.6')});
   pointer-events: ${props => (props.isOpen ? 'auto' : 'none')};
 
-  transition: all 0.5s
+  transition: all ${props => (props.isOpen ? '0.35s' : '0.5s')}
     ${props =>
     props.isOpen
       ? 'cubic-bezier(0.55, 1.5, 0.55, 0.9)'
       : 'cubic-bezier(0.8, 0, 0.8, 0)'}
-    ${props => (props.isOpen ? '0.2s' : '0s')};
+    ${props => (props.isOpen ? '0.1s' : '0s')};
 `
 
 const ChildrenWrapper = styled.div`
