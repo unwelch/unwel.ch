@@ -37,7 +37,7 @@ class BetStatusIcon extends Component {
         return 'Lost'
       case betStatuses.WON:
         return 'Won'
-      case betStatuses.WELCHED:
+      case betStatuses.DISPUTED:
         return 'Dispute'
     }
 

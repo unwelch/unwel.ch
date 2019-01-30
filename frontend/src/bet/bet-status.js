@@ -6,7 +6,7 @@ export const betStatuses = {
   WAITING_FOR_OPONENT_RESPONSE: 'WAITING_FOR_OPONENT_RESPONSE',
   WON: 'WON',
   LOST: 'LOST',
-  WELCHED: 'WELCHED'
+  DISPUTED: 'DISPUTED'
 }
 
 export const getBetStatus = (bet, currentUser) => {
@@ -35,7 +35,7 @@ export const getBetStatus = (bet, currentUser) => {
   } else {
     // BET FINISHED
     if (bet.userResponse === bet.user2Response) {
-      return betStatuses.WELCHED
+      return betStatuses.DISPUTED
     }
 
     if ((bet.userResponse && isCreator) || (bet.user2Response && !isCreator)) {

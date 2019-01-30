@@ -65,7 +65,7 @@ export const getStatusText = (betStatus, opponent, t) => {
           {t('bet-status.won')}
         </Text>
       )
-    case betStatuses.WELCHED:
+    case betStatuses.DISPUTED:
       return (
         <Text
           size='size0'

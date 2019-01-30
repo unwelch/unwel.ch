@@ -181,7 +181,7 @@ class BetPage extends Component {
             {t('bet-status.won.long')}
           </Text>
         )
-      case betStatuses.WELCHED:
+      case betStatuses.DISPUTED:
         return (
           <Text fontWeight='black' color={colors.error} size='size2'>
             {t('bet-status.dispute.long')}
