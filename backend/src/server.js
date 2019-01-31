@@ -22,9 +22,11 @@ import anonymousAuthMiddleware from './auth/test-login'
 
 require('dotenv').config()
 
-sentryInit({
-  dsn: process.env.SENTRY_DSN
-})
+if (process.env.NODE_ENV === 'production') {
+  sentryInit({
+    dsn: process.env.SENTRY_DSN
+  })
+}
 
 console.log(
   `Connecting to db: ${process.env.DB_USER}@${process.env.DB_HOST}:${
@@ -48,7 +50,9 @@ db.init({
 })
 
 const app = express()
-app.use(sentryHandlers.requestHandler()) // The request handler must be the first middleware on the app
+if (process.env.NODE_ENV === 'production') {
+  app.use(sentryHandlers.requestHandler()) // The request handler must be the first middleware on the app
+}
 app.use(bodyParser.json())
 app.use(cors())
 app.use(passport.initialize())
@@ -82,7 +86,9 @@ app.use(
       context: { user },
       graphiql: true,
       formatError: error => {
-        sentryCaptureException(error)
+        if (process.env.NODE_ENV === 'production') {
+          sentryCaptureException(error)
+        }
         return {
           message: error.message,
           locations: error.locations,
@@ -104,8 +110,10 @@ app.get('/check-token', async function (req, res) {
   res.send()
 })
 
-// The error handler must be before any other error middleware
-app.use(sentryHandlers.errorHandler())
+if (process.env.NODE_ENV === 'production') {
+  // The error handler must be before any other error middleware
+  app.use(sentryHandlers.errorHandler())
+}
 
 console.log('Starting server...')
 app.listen(3000)
