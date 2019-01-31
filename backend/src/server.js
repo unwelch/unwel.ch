@@ -3,6 +3,11 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import graphqlHTTP from 'express-graphql'
 import passport from 'passport'
+import {
+  captureException as sentryCaptureException,
+  init as sentryInit,
+  Handlers as sentryHandlers
+} from '@sentry/node'
 
 import * as db from './db'
 import myGraphQLSchema from './schema'
@@ -17,8 +22,14 @@ import anonymousAuthMiddleware from './auth/test-login'
 
 require('dotenv').config()
 
+sentryInit({
+  dsn: process.env.SENTRY_DSN
+})
+
 console.log(
-  `Connecting to db: ${process.env.DB_USER}@${process.env.DB_HOST}:${process.env.DB_PORT}`
+  `Connecting to db: ${process.env.DB_USER}@${process.env.DB_HOST}:${
+    process.env.DB_PORT
+  }`
 )
 
 // Force crash on unhandled rejections instead of silently ignoring them.
@@ -37,6 +48,7 @@ db.init({
 })
 
 const app = express()
+app.use(sentryHandlers.requestHandler()) // The request handler must be the first middleware on the app
 app.use(bodyParser.json())
 app.use(cors())
 app.use(passport.initialize())
@@ -68,7 +80,15 @@ app.use(
     return {
       schema: myGraphQLSchema,
       context: { user },
-      graphiql: true
+      graphiql: true,
+      formatError: error => {
+        sentryCaptureException(error)
+        return {
+          message: error.message,
+          locations: error.locations,
+          path: error.path
+        }
+      }
     }
   })
 )
@@ -83,6 +103,9 @@ app.get('/check-token', async function (req, res) {
 
   res.send()
 })
+
+// The error handler must be before any other error middleware
+app.use(sentryHandlers.errorHandler())
 
 console.log('Starting server...')
 app.listen(3000)
