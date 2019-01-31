@@ -137,7 +137,7 @@ class BetListItem extends Component {
         {t => (
           <Root onClick={this.props.onClick} data-qa='bet-list-item'>
             <Main>
-              <BetText>
+              <BetText data-qa='bet-list-item-text'>
                 {getIntroText(
                   currentUser,
                   bet.user,
