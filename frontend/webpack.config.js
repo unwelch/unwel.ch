@@ -18,7 +18,8 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        API_HOST: JSON.stringify(process.env.API_HOST)
+        API_HOST: JSON.stringify(process.env.API_HOST),
+        VERSION: JSON.stringify(process.env.TRAVIS_COMMIT || 'unknown')
       }
     }),
     new HtmlWebpackPlugin({

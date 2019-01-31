@@ -15,7 +15,8 @@ if (process.env.NODE_ENV === 'production') {
 
 if (process.env.NODE_ENV === 'production') {
   initSentry({
-    dsn: 'https://630b4977fc2c4e0ba0d825cc3defbfdc@sentry.io/1292228'
+    dsn: 'https://630b4977fc2c4e0ba0d825cc3defbfdc@sentry.io/1292228',
+    release: process.env.VERSION
   })
 }
 
