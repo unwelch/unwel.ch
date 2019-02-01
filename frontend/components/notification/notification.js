@@ -74,7 +74,7 @@ class Notification extends Component {
       >
         <br />
         <Avatar size={4} user={sender} />
-        <Spacer left={1}>
+        <Spacer left={2}>
           <Text size='size1'>{intersperse(' ', newMessage)}</Text>
           <Text size='size0' dimmed>
             {timeAgo(new Date(createdAt))}
