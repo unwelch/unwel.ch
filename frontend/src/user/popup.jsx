@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux'
 import { differenceInDays } from 'date-fns'
 
 import { goToPage } from '../navigation/actions'
-import { showSaveAccountPopup } from '../user/actions'
+import { showSaveAccountPopup } from './actions'
 
 import { TranslatorConsumer } from '../translations'
 

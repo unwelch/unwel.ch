@@ -17,7 +17,7 @@ import {
   MARK_NOTIFICATIONS_VIEWED_MUTATION,
   MARK_NOTIFICATIONS_VISITED_MUTATION
 } from './mutations'
-import { goToPage } from './../../navigation/actions'
+import { goToPage } from '../../navigation/actions'
 import { trackEvent, events } from '../../tracking'
 
 const List = styled.div`
@@ -102,9 +102,7 @@ class Notifications extends Component {
 
           {items && items.length > 0 ? (
             <List>
-              <Distribute vertical>
-                {items}
-              </Distribute>
+              <Distribute vertical>{items}</Distribute>
             </List>
           ) : (
             <Text dimmed>You have no notifications</Text>
