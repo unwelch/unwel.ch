@@ -5,26 +5,25 @@ import { graphql } from 'react-apollo'
 import { compose } from 'ramda'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-
 import ShareIcon from 'react-feather/dist/icons/share'
 import TrashIcon from 'react-feather/dist/icons/trash-2'
 
-import { saveTempAccept } from './services'
+import { saveTempAccept } from '../services'
 import {
   ACCEPT_BET_MUTATION,
   CHOOSE_WINNER_MUTATION,
   DELETE_BET_MUTATION
-} from './mutations'
-import * as queries from '../bet/queries'
-import { BET_LIST } from './bet-list/queries'
-import { showAnnounce } from '../announce/actions'
-import { betStatuses, getBetStatus } from './bet-status'
-import { getIntroText, getAccepterText } from './phrase-generator'
+} from './../mutations'
+import * as queries from './queries'
+import { BET_LIST } from '../bet-list/queries'
+import { showAnnounce } from '../../announce/actions'
+import { betStatuses, getBetStatus } from '../bet-status'
+import { getIntroText, getAccepterText } from '../phrase-generator'
 import FinishBet from './finish-bet'
-import { trackEvent, events } from '../tracking'
-import withNavigation from '../navigation/withNavigate'
+import { trackEvent, events } from '../../tracking'
+import withNavigation from '../../navigation/withNavigate'
 
-import { TranslatorConsumer } from '../translations'
+import { TranslatorConsumer } from '../../translations'
 
 import Button from 'components/button'
 import DefaultContainer from 'components/default-container'

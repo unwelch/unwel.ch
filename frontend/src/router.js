@@ -17,7 +17,7 @@ const AsyncNotifications = lazy(() =>
   import(/* webpackChunkName: "notifications" */ './user/notifications/page')
 )
 const AsyncBetPage = lazy(() =>
-  import(/* webpackChunkName: "bet-page" */ './bet/page')
+  import(/* webpackChunkName: "bet-page" */ './bet/bet/page')
 )
 const AsyncLoginPage = lazy(() =>
   import(/* webpackChunkName: "login" */ './login/page')
