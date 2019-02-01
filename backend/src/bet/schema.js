@@ -177,8 +177,8 @@ export const BetMutation = {
         } else if (bet.userResponse === false && bet.user2Response === false) {
           // user 1 lost
           // user 2 lost
-          await newNotification(bet.user2Id, bet.userId, bet.id, types.LOST)
-          await newNotification(bet.userId, bet.user2Id, bet.id, types.LOST)
+          await newNotification(bet.user2Id, bet.userId, bet.id, types.DISPUTED)
+          await newNotification(bet.userId, bet.user2Id, bet.id, types.DISPUTED)
         }
 
         // throw new Error('Cannot choose winner of a bet you are not part of')

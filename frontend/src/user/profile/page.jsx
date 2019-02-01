@@ -22,7 +22,7 @@ import { BasicStats, WonLostPie, WonLostBar } from './stats'
 import { TranslatorConsumer } from '../../translations'
 
 import { trackEvent, events } from '../../tracking'
-import { goToPage } from './../../navigation/actions'
+import { goToPage } from '../../navigation/actions'
 
 export const QUERY = gql`
   query($userId: String!) {
@@ -119,8 +119,7 @@ class Profile extends Component {
 
             <Split />
 
-            {isCurrentUser &&
-              isAnonymous && (
+            {isCurrentUser && isAnonymous && (
               <Fragment>
                 <SaveAccountWrapper>
                   <Text size='size1'>{t('save-account-message')}</Text>

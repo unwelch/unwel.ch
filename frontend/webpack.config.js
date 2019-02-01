@@ -59,6 +59,9 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
+        resolve: {
+          extensions: ['.js', '.jsx']
+        },
         exclude: /(node_modules)/,
         use: [
           {

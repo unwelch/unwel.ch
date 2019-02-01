@@ -11,8 +11,8 @@ import Input from 'components/input'
 import ProviderButtons from 'components/login-provider-buttons'
 
 import { anonymousLogin, googleLogin } from '../user/login'
-import withNavigate from './../navigation/withNavigate'
-import withIsLoggedIn from './../user/auth/withIsLoggedIn'
+import withNavigate from '../navigation/withNavigate'
+import withIsLoggedIn from '../user/auth/withIsLoggedIn'
 import { trackEvent, events } from '../tracking'
 
 const Root = styled(Distribute)`

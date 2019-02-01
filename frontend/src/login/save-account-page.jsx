@@ -7,10 +7,10 @@ import { bindActionCreators } from 'redux'
 
 import { googleLogin } from '../user/login'
 
-import { getIsAnonymous } from './../user/auth/selectors'
-import withToken from './../user/auth/withToken'
+import { getIsAnonymous } from '../user/auth/selectors'
+import withToken from '../user/auth/withToken'
 
-import { goToPage } from './../navigation/actions'
+import { goToPage } from '../navigation/actions'
 
 import DefaultContainer from 'components/default-container'
 import Spacer from 'components/spacer'
