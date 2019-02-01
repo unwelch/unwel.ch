@@ -10,7 +10,7 @@ import {
   ACCEPT_BET_MUTATION,
   CHOOSE_WINNER_MUTATION,
   DELETE_BET_MUTATION
-} from './../mutations'
+} from '../mutations'
 import * as queries from './queries'
 import { BET_LIST } from '../bet-list/queries'
 import { showAnnounce } from '../../announce/actions'
