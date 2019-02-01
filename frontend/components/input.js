@@ -8,6 +8,7 @@ const Input = styled.input`
   outline: none;
   border: none;
   border-radius: 0;
+  padding: 0;
   font-family: inherit;
   line-height: inherit;
   cursor: pointer;
