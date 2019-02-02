@@ -48,7 +48,7 @@ export const UserType = new GraphQLObjectType({
       type: StatsType,
       resolve: async (root, args, { user }) => {
         return calculateAgainstStats(
-          await BetDB.getByUserOrUser2( root.id),
+          await BetDB.getByUserOrUser2(root.id),
           root.id,
           user.id
         )

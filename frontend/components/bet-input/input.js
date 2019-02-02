@@ -48,14 +48,14 @@ const InputSpan = styled.span`
 `
 
 class Input extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.emitChange = this.emitChange.bind(this)
     this.onKeyDown = this.onKeyDown.bind(this)
   }
 
-  onKeyDown (e) {
+  onKeyDown(e) {
     const code = e.keyCode ? e.keyCode : e.which
 
     // Prevent new lines on enter
@@ -66,11 +66,11 @@ class Input extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.ref.innerHTML = this.props.html
   }
 
-  emitChange () {
+  emitChange() {
     const html = this.ref.innerHTML
     if (this.props.onChange && html !== this.lastHtml) {
       this.props.onChange({
@@ -82,7 +82,7 @@ class Input extends Component {
     this.lastHtml = html
   }
 
-  render () {
+  render() {
     return (
       <InputSpan
         innerRef={node => {
@@ -108,8 +108,7 @@ const FancyInput = ({ prefix, value, onChange, placeholder, dataQa }) => {
       <InputWrapper
         flex={empty}
         placeholder={placeholder}
-        isPlaceholder={empty}
-      >
+        isPlaceholder={empty}>
         <Input html={value} block={empty} onChange={onChange} dataQa={dataQa} />
       </InputWrapper>
     </Root>

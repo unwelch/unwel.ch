@@ -57,8 +57,7 @@ const Animate = ({ isVisible, type, delay, children, dataQa, ...rest }) => (
       component={FirstChild}
       transitionName={type}
       transitionEnterTimeout={200 + delay * 200}
-      transitionLeaveTimeout={200}
-    >
+      transitionLeaveTimeout={200}>
       {isVisible ? children : null}
     </ReactCSSTransitionGroup>
   </Wrapper>

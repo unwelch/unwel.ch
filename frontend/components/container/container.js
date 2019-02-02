@@ -113,7 +113,8 @@ const propsToHeight = generatePropsToSize('height')
 const propsToWidth = generatePropsToSize('width')
 
 const Container = styled.div`
-  ${propsToDisplay} ${propsToBackground} ${propsToBorder} ${propsToColor} ${propsToPadding} ${propsToMinHeight} ${propsToHeight} ${propsToWidth} ${props => cursorTypes[props.cursor]};  ;
+  ${propsToDisplay} ${propsToBackground} ${propsToBorder} ${propsToColor} ${propsToPadding} ${propsToMinHeight} ${propsToHeight} ${propsToWidth} ${props =>
+  cursorTypes[props.cursor]};  ;
 `
 Container.borderSides = Object.keys(borderSideToPixelsMap)
 Container.displayName = 'Container'

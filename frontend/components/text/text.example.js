@@ -18,7 +18,7 @@ stories.add('default', () => (
 
     <Spacer bottom={4} />
 
-    <Text size='sizeN1' uppercase fontWeight='black' loose>
+    <Text size="sizeN1" uppercase fontWeight="black" loose>
       small caps
     </Text>
 
@@ -37,8 +37,7 @@ stories.add('default', () => (
         uppercase={boolean('uppercase', false)}
         loose={boolean('loose', false)}
         dimmed={boolean('dimmed', false)}
-        ellipsis={boolean('ellipsis', false)}
-      >
+        ellipsis={boolean('ellipsis', false)}>
         Can a fish be depressed? This question has been floating around my head
         ever since I spent a night in a hotel across from an excruciatingly
         sad-looking Siamese fighting fish. His name was Bruce Lee, according to

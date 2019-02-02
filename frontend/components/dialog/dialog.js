@@ -23,7 +23,7 @@ const CloseButton = styled(Link)`
 `
 
 const Dialog = ({ children, onClose, isVisible }) => (
-  <Animate type='fade' isVisible={isVisible}>
+  <Animate type="fade" isVisible={isVisible}>
     <DialogWrapper>
       {onClose ? <CloseButton onClick={onClose}>Close</CloseButton> : null}
       {children}

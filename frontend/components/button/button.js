@@ -66,31 +66,31 @@ const ButtonWrapper = styled.button`
 
   &:hover {
     background-color: ${props =>
-    props.backgroundColor
-      ? Color(props.backgroundColor)
-        .mix(Color('black'), 0.1)
-        .toString()
-      : 'transparent'};
+      props.backgroundColor
+        ? Color(props.backgroundColor)
+            .mix(Color('black'), 0.1)
+            .toString()
+        : 'transparent'};
     transition: 0.2s;
   }
 
   &:active {
     background-color: ${props =>
-    props.backgroundColor
-      ? Color(props.backgroundColor)
-        .mix(Color('black'), 0.05)
-        .toString()
-      : 'transparent'};
+      props.backgroundColor
+        ? Color(props.backgroundColor)
+            .mix(Color('black'), 0.05)
+            .toString()
+        : 'transparent'};
     transition: 0.2s;
   }
 
   &:focus {
     background-color: ${props =>
-    props.backgroundColor
-      ? Color(props.backgroundColor)
-        .mix(Color('black'), 0.1)
-        .toString()
-      : 'transparent'};
+      props.backgroundColor
+        ? Color(props.backgroundColor)
+            .mix(Color('black'), 0.1)
+            .toString()
+        : 'transparent'};
     transition: 0.2s;
     outline: 0;
   }
@@ -98,8 +98,8 @@ const ButtonWrapper = styled.button`
   ${props =>
     props.disabled
       ? `background-color: ${variables.colors.grey2}; color: ${
-        variables.colors.grey5
-      }; pointer-events: none`
+          variables.colors.grey5
+        }; pointer-events: none`
       : ''};
 `
 ButtonWrapper.displayName = 'ButtonWrapper'
@@ -127,8 +127,7 @@ const Button = ({
       fullWidth={fullWidth}
       type={type}
       disabled={disabled}
-      onClick={onClick}
-    >
+      onClick={onClick}>
       {icon}
       {icon ? <Spacer left={1} /> : null}
       {children}

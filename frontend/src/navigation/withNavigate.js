@@ -13,7 +13,10 @@ const withNavigate = component => {
     )
   }
 
-  const enhanced = connect(null, mapDispatchToProps)(component)
+  const enhanced = connect(
+    null,
+    mapDispatchToProps
+  )(component)
 
   enhanced.propTypes = {
     ...component.propTypes,

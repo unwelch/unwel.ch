@@ -30,7 +30,7 @@ const PopoverCard = ({
     animate={openOnHover}
     content={
       <CardWrapper width={width}>
-        <Card size='none'>{children}</Card>
+        <Card size="none">{children}</Card>
       </CardWrapper>
     }
     placement={placement}

@@ -8,7 +8,7 @@ stories.addDecorator(withKnobs)
 
 stories.add('default', () => (
   <Link
-    href='#'
+    href="#"
     clear={boolean('clear', false)}
     size={select('size', availableSizes, 'size0')}
     fontWeight={select('fontWeight', availableFontWeights, 'regular')}
@@ -16,8 +16,7 @@ stories.add('default', () => (
     uppercase={boolean('uppercase', false)}
     loose={boolean('loose', false)}
     color={color('color')}
-    dimmed={boolean('dimmed', false)}
-  >
+    dimmed={boolean('dimmed', false)}>
     Link
   </Link>
 ))

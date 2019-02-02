@@ -10,8 +10,8 @@ stories.addDecorator(withKnobs).add('default', () => {
   return (
     <Box>
       <BetInput
-        starter='I bet'
-        middle='that'
+        starter="I bet"
+        middle="that"
         items={['a bitcoin', 'a dinner', 'a beer']}
         onConfirm={console.log}
       />

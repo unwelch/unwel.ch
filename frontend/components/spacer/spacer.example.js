@@ -13,18 +13,17 @@ Demo.displayName = 'Demo'
 const stories = storiesOf('Spacer', module)
 stories.addDecorator(withKnobs)
 
-stories.add('default', () =>
+stories.add('default', () => (
   <div>
     <Spacer
       top={number('top', 0)}
       right={number('right', 4)}
       bottom={number('bottom', 3)}
       left={number('left', 0)}
-      inline={boolean('inline', false)}
-    >
+      inline={boolean('inline', false)}>
       <Demo>content</Demo>
     </Spacer>
 
     <Demo>content</Demo>
   </div>
-)
+))

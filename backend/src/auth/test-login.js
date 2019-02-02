@@ -2,7 +2,7 @@ import UserDB from '../user/db'
 import SECRET from '../user/secret'
 import jwt from 'jsonwebtoken'
 
-const anonymousAuthMiddleware = async function (req, res) {
+const anonymousAuthMiddleware = async function(req, res) {
   const { name } = req.body
 
   const user = await UserDB.insert({

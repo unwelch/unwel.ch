@@ -9,14 +9,14 @@ import DemoBox from '../demos/demo-box'
 import StoryDocs from '../demos/story-docs'
 
 const docsUseCase = (
-  <Spread align='center'>
+  <Spread align="center">
     <div>Some text</div>
-    <Checkbox type='toggle' />
+    <Checkbox type="toggle" />
   </Spread>
 )
 
 const docsUseCase2 = (
-  <Spread align='center' space={4}>
+  <Spread align="center" space={4}>
     <Text ellipsis>
       Can a fish be depressed? This question has been floating around my head
       ever since I spent a night in a hotel across from an excruciatingly
@@ -35,18 +35,16 @@ const stories = storiesOf('Spread', module)
 stories.addDecorator(withKnobs).add('default', () => (
   <StoryDocs
     docsUseCase={docsUseCase}
-    docsUseCaseTitle2='Use space prop to make sure there is space between element in case one of them grows'
+    docsUseCaseTitle2="Use space prop to make sure there is space between element in case one of them grows"
     docsUseCase2={docsUseCase2}
-    useCaseTitle='Use Spread to push elements far apart from each other'
-  >
-    <DemoBox width='full' noBg>
+    useCaseTitle="Use Spread to push elements far apart from each other">
+    <DemoBox width="full" noBg>
       <Spread
         vertical={boolean('vertical', false)}
         align={select('align', ['start', 'center', 'end'], 'center')}
-        space={number('space')}
-      >
-        <DemoBox size='lg' />
-        <DemoBox size='md' />
+        space={number('space')}>
+        <DemoBox size="lg" />
+        <DemoBox size="md" />
       </Spread>
     </DemoBox>
   </StoryDocs>

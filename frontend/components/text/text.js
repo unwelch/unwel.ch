@@ -34,13 +34,13 @@ const Text = styled.div`
     props.size &&
     `
     font-size: ${
-  fontSizes[breakpointToTextSize(props.size, props.breakpoint)]
-}px;
+      fontSizes[breakpointToTextSize(props.size, props.breakpoint)]
+    }px;
     line-height: ${
-  props.shortLineHeight
-    ? fontSizes[breakpointToTextSize(props.size, props.breakpoint)]
-    : lineHeights[breakpointToTextSize(props.size, props.breakpoint)]
-}px;
+      props.shortLineHeight
+        ? fontSizes[breakpointToTextSize(props.size, props.breakpoint)]
+        : lineHeights[breakpointToTextSize(props.size, props.breakpoint)]
+    }px;
   `}; ${props =>
   props.color &&
   `

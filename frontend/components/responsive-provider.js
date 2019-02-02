@@ -20,19 +20,19 @@ const widthToBreakpoint = width => {
 }
 
 class ResponsiveProvider extends Component {
-  updateDimensions () {
+  updateDimensions() {
     this.setState({ width: window.innerWidth, height: window.innerHeight })
   }
-  componentWillMount () {
+  componentWillMount() {
     this.updateDimensions()
   }
-  componentDidMount () {
+  componentDidMount() {
     window.addEventListener('resize', this.updateDimensions.bind(this))
   }
-  componentWillUnmount () {
+  componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimensions.bind(this))
   }
-  render () {
+  render() {
     const { children } = this.props
 
     const width = this.state.width
@@ -42,8 +42,7 @@ class ResponsiveProvider extends Component {
         value={{
           width,
           breakpoint: widthToBreakpoint(width)
-        }}
-      >
+        }}>
         {children}
       </Context.Provider>
     )

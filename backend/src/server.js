@@ -99,7 +99,7 @@ app.use(
   })
 )
 
-app.get('/check-token', async function (req, res) {
+app.get('/check-token', async function(req, res) {
   const user = await getUser(req)
   if (!user) {
     res.status(400)

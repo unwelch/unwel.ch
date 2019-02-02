@@ -87,7 +87,7 @@ const Content = styled.div`
 `
 
 class Popover extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -99,40 +99,40 @@ class Popover extends Component {
     this.handleClickOutside = this.handleClickOutside.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     if (typeof window === 'undefined') return
     window.addEventListener('click', this.handleClickOutside)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (typeof window === 'undefined') return
     window.removeEventListener('click', this.handleClickOutside)
   }
 
-  toggleContent () {
+  toggleContent() {
     this.setState({ open: !this.state.open })
   }
 
-  openContent () {
+  openContent() {
     this.setState({
       open: true
     })
   }
 
-  closeContent () {
+  closeContent() {
     this.setState({
       open: false
     })
   }
 
-  handleClickOutside (evt) {
+  handleClickOutside(evt) {
     if (ReactDOM.findDOMNode(this).contains(evt.target)) return // eslint-disable-line
     if (this.state.open) {
       this.closeContent()
     }
   }
 
-  handleMouseLeave () {
+  handleMouseLeave() {
     if (!this.props.openOnHover) {
       return
     }
@@ -142,7 +142,7 @@ class Popover extends Component {
     }, 200)
   }
 
-  handleMouseOver () {
+  handleMouseOver() {
     if (this.closeTimeout) {
       clearTimeout(this.closeTimeout)
     }
@@ -151,7 +151,7 @@ class Popover extends Component {
     }
   }
 
-  render () {
+  render() {
     const { triggerInline, openOnHover, ...rest } = this.props
 
     const ContentWrapper = this.props.animate ? Animate : 'div'
@@ -164,20 +164,16 @@ class Popover extends Component {
         triggerInline={triggerInline}
         onMouseLeave={this.handleMouseLeave}
         onMouseOver={() => this.handleMouseOver()}
-        {...rest}
-      >
+        {...rest}>
         <Trigger onClick={() => !openOnHover && this.toggleContent()}>
           {this.props.trigger}
         </Trigger>
         <ContentWrapper {...contentWrapperProps}>
-          {this.state.open
-            ? <Content
-              placement={this.props.placement}
-              space={this.props.space}
-              >
+          {this.state.open ? (
+            <Content placement={this.props.placement} space={this.props.space}>
               {this.props.content}
             </Content>
-            : null}
+          ) : null}
         </ContentWrapper>
       </Wrapper>
     )

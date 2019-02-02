@@ -10,19 +10,19 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy
 const googleOauth =
   process.env.NODE_ENV === 'production'
     ? {
-      id:
+        id:
           '499609547211-vvd7hvs7jegnrk4kvd2vncm4ekld1ldn.apps.googleusercontent.com',
-      secret: process.env.OAUTH_GOOGLE_SECRET,
-      callback: 'https://api.unwel.ch/auth/google/callback',
-      redirect: 'https://unwel.ch'
-    }
+        secret: process.env.OAUTH_GOOGLE_SECRET,
+        callback: 'https://api.unwel.ch/auth/google/callback',
+        redirect: 'https://unwel.ch'
+      }
     : {
-      id:
+        id:
           '499609547211-t00j4eum1isr2lv7d17otpimb0o4aaqu.apps.googleusercontent.com',
-      secret: process.env.UNWELCH_OAUTH_DEV_GOOGLE_SECRET,
-      callback: 'http://localhost:3000/auth/google/callback',
-      redirect: 'http://localhost:9000'
-    }
+        secret: process.env.UNWELCH_OAUTH_DEV_GOOGLE_SECRET,
+        callback: 'http://localhost:3000/auth/google/callback',
+        redirect: 'http://localhost:9000'
+      }
 
 export const googleAuthCallbackMiddleware = async (req, res) => {
   const userData = req.user

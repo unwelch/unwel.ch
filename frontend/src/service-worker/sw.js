@@ -24,4 +24,4 @@ self.addEventListener('notificationclick', event => {
   }
 })
 
-self.addEventListener('fetch', function () {})
+self.addEventListener('fetch', function() {})

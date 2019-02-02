@@ -1,6 +1,6 @@
 import { API_HOST } from './../config'
 
-export async function anonymousLogin (name) {
+export async function anonymousLogin(name) {
   if (!name) {
     name = window.prompt('name')
   }
@@ -26,7 +26,7 @@ export async function anonymousLogin (name) {
     token
 }
 
-export async function googleLogin (token) {
+export async function googleLogin(token) {
   // TODO: Use router redirect and ignore it in history
   window.location = API_HOST + '/auth/google' + (token ? `?token=${token}` : '')
 }
