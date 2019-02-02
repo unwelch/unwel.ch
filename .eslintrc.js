@@ -31,7 +31,7 @@ module.exports = {
   globals: { fixture: true, FS: true },
   rules: {
     // complexity: ['warn', { max: 7 }],
-    "prettier/prettier": 0,
+    "prettier/prettier": "error",
     "react/jsx-sort-props": 0,
     "react/prop-types": "warn",
     "react/jsx-no-bind": 0,
