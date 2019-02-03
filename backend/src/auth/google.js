@@ -36,6 +36,7 @@ export const googleAuthCallbackMiddleware = async (req, res) => {
     user = await UserDB.get(decodedToken.userId)
     user.googleId = userData.googleId
     user.avatar = userData.avatar
+    user.email = userData.email
 
     // TODO this will fail if the google account is already asociated with another unwelch account
     user = await UserDB.update(user)
@@ -78,11 +79,16 @@ export const googleStrategy = new GoogleStrategy(
     const photos = prop('photos', profile)
     const avatar = (photos ? prop('value', head(photos)) : null) || null
     const name = prop('displayName', profile)
+    const email = prop(
+      'value',
+      head(prop('emails', profile).filter(email => email.type === 'account'))
+    )
 
     const user = {
       googleId: id,
       name,
-      avatar
+      avatar,
+      email
     }
 
     return cb(null, user)
