@@ -4,15 +4,15 @@ import { storiesOf } from '@storybook/react'
 import Statement from '.'
 
 storiesOf('Statement', module)
-  .add('with two players', () =>
+  .add('with two players', () => (
     <Statement
-      betIntro='You said to Marçal '
-      betStatement='Neymar will score the next match'
+      betIntro="You said to Marçal "
+      betStatement="Neymar will score the next match"
     />
-  )
-  .add('with one players', () =>
+  ))
+  .add('with one players', () => (
     <Statement
-      betIntro='You said '
-      betStatement='Neymar will score the next match'
+      betIntro="You said "
+      betStatement="Neymar will score the next match"
     />
-  )
+  ))

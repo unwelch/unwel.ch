@@ -4,9 +4,9 @@ import runtime from 'serviceworker-webpack-plugin/lib/runtime'
 const publicVapidKey =
   'BFiZMcD9coHZp00RK7x6DLgfkOUc_koVc228begnhoqylXO8uHqGgEKpdxCbm6SdaS1fPmu2KjrOEjKQtvbESGc'
 
-function requestPermission () {
+function requestPermission() {
   return new Promise((resolve, reject) => {
-    const permissionResult = window.Notification.requestPermission(function (
+    const permissionResult = window.Notification.requestPermission(function(
       result
     ) {
       // Handling deprecated version with callback.
@@ -23,7 +23,7 @@ function requestPermission () {
   })
 }
 
-function urlBase64ToUint8Array (base64String) {
+function urlBase64ToUint8Array(base64String) {
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
   const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/')
 
@@ -36,11 +36,11 @@ function urlBase64ToUint8Array (base64String) {
   return outputArray
 }
 
-async function register () {
+async function register() {
   return runtime.register()
 }
 
-async function subscribe (token) {
+async function subscribe(token) {
   if (!registration) {
     throw new Error(
       'Cannot enable push: Service worker registration not available'
@@ -65,7 +65,7 @@ async function subscribe (token) {
 }
 
 let registration
-export async function registerServiceWorker () {
+export async function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
     registration = await register()
   } else {
@@ -75,7 +75,7 @@ export async function registerServiceWorker () {
 
 export const isPushSupported = () => 'PushManager' in window
 
-export async function setupPush (token) {
+export async function setupPush(token) {
   if (isPushSupported()) {
     await requestPermission()
     await subscribe(token)

@@ -9,27 +9,26 @@ import Spacer from '../spacer'
 const docsUseCase = (
   <div>
     <Spacer bottom={1}>
-      <Content type='title'>{exampleText.title}</Content>
+      <Content type="title">{exampleText.title}</Content>
     </Spacer>
 
     <Spacer bottom={2}>
-      <Content type='subtitle'>{exampleText.short}</Content>
+      <Content type="subtitle">{exampleText.short}</Content>
     </Spacer>
 
     <Spacer bottom={1}>
-      <Content type='sectionTitle'>{exampleText.title2}</Content>
+      <Content type="sectionTitle">{exampleText.title2}</Content>
     </Spacer>
 
-    <Content type='body'>{exampleText.long}</Content>
+    <Content type="body">{exampleText.long}</Content>
   </div>
 )
 
 const stories = storiesOf('App specific|Content', module)
 stories.addDecorator(withKnobs).add('default', () => (
   <StoryDocs
-    useCaseTitle='Use Content for specific type of text: title, subtitle, section title and body'
-    docsUseCase={docsUseCase}
-  >
+    useCaseTitle="Use Content for specific type of text: title, subtitle, section title and body"
+    docsUseCase={docsUseCase}>
     <Content type={select('type', availableTypes, 'body')}>
       {exampleText.long}
     </Content>

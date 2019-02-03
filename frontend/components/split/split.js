@@ -17,7 +17,7 @@ const splitItemWidths = {
   lg: `width: ${widths.lg * 8}px`,
   xlg: `width: ${widths.xlg * 8}px`,
   full: `width: 100%;`,
-  remaining: `flex: 1;`,
+  remaining: `flex: 1;`
 }
 
 const Split = styled.div`

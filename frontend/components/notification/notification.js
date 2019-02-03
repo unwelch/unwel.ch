@@ -40,7 +40,7 @@ const ListItem = styled.div`
 `
 
 class Notification extends Component {
-  render () {
+  render() {
     const { id, sender, bet, message, viewed, visited, createdAt } = this.props
 
     const isHyperLinkFormat = and(startsWith('{{'), endsWith('}}'))
@@ -70,13 +70,12 @@ class Notification extends Component {
         key={id}
         onClick={this.props.onClick}
         colored={!viewed}
-        dimmed={visited}
-      >
+        dimmed={visited}>
         <br />
         <Avatar size={4} user={sender} />
         <Spacer left={2}>
-          <Text size='size1'>{intersperse(' ', newMessage)}</Text>
-          <Text size='size0' dimmed>
+          <Text size="size1">{intersperse(' ', newMessage)}</Text>
+          <Text size="size0" dimmed>
             {timeAgo(new Date(createdAt))}
           </Text>
         </Spacer>

@@ -40,7 +40,7 @@ const Unknown = styled.div`
   border-radius: 50%;
 `
 
-const hashCode = function (string) {
+const hashCode = function(string) {
   let hash = 0
   let chr = ''
   if (string.length === 0) return hash
@@ -62,7 +62,7 @@ const Letter = styled.span`
 
 const Avatar = ({ placeholder, size = 8, user }) => {
   if (placeholder) {
-    return <Placeholder shape='circle' width={size} height={size} />
+    return <Placeholder shape="circle" width={size} height={size} />
   }
 
   if (!user) {

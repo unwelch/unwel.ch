@@ -9,15 +9,14 @@ const StatementWrapper = styled.span`
   color: ${colors.primary};
 `
 
-const Statement = ({ betIntro, betStatement }) =>
+const Statement = ({ betIntro, betStatement }) => (
   <div>
-    <Text size='size5' fontWeight='black'>
+    <Text size="size5" fontWeight="black">
       {betIntro}
-      <StatementWrapper>
-        {betStatement}
-      </StatementWrapper>
+      <StatementWrapper>{betStatement}</StatementWrapper>
     </Text>
   </div>
+)
 
 Statement.propTypes = {
   betIntro: PropTypes.string,

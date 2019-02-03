@@ -22,24 +22,23 @@ class Logo extends Component {
     color: 'black'
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.interval = setInterval(() => this.forceUpdate(), 2000)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     clearInterval(this.interval)
   }
 
-  render () {
+  render() {
     return (
       <LogoWrapper space={1}>
         <Text
           color={this.props.color}
-          size='size4'
-          fontWeight='black'
+          size="size4"
+          fontWeight="black"
           inline
-          shortLineHeight
-        >
+          shortLineHeight>
           unwelch
         </Text>
       </LogoWrapper>

@@ -10,19 +10,19 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy
 const googleOauth =
   process.env.NODE_ENV === 'production'
     ? {
-      id:
+        id:
           '499609547211-vvd7hvs7jegnrk4kvd2vncm4ekld1ldn.apps.googleusercontent.com',
-      secret: process.env.OAUTH_GOOGLE_SECRET,
-      callback: 'https://api.unwel.ch/auth/google/callback',
-      redirect: 'https://unwel.ch'
-    }
+        secret: process.env.OAUTH_GOOGLE_SECRET,
+        callback: 'https://api.unwel.ch/auth/google/callback',
+        redirect: 'https://unwel.ch'
+      }
     : {
-      id:
+        id:
           '499609547211-t00j4eum1isr2lv7d17otpimb0o4aaqu.apps.googleusercontent.com',
-      secret: process.env.UNWELCH_OAUTH_DEV_GOOGLE_SECRET,
-      callback: 'http://localhost:3000/auth/google/callback',
-      redirect: 'http://localhost:9000'
-    }
+        secret: process.env.UNWELCH_OAUTH_DEV_GOOGLE_SECRET,
+        callback: 'http://localhost:3000/auth/google/callback',
+        redirect: 'http://localhost:9000'
+      }
 
 export const googleAuthCallbackMiddleware = async (req, res) => {
   const userData = req.user
@@ -36,6 +36,7 @@ export const googleAuthCallbackMiddleware = async (req, res) => {
     user = await UserDB.get(decodedToken.userId)
     user.googleId = userData.googleId
     user.avatar = userData.avatar
+    user.email = userData.email
 
     // TODO this will fail if the google account is already asociated with another unwelch account
     user = await UserDB.update(user)
@@ -78,11 +79,16 @@ export const googleStrategy = new GoogleStrategy(
     const photos = prop('photos', profile)
     const avatar = (photos ? prop('value', head(photos)) : null) || null
     const name = prop('displayName', profile)
+    const email = prop(
+      'value',
+      head(prop('emails', profile).filter(email => email.type === 'account'))
+    )
 
     const user = {
       googleId: id,
       name,
-      avatar
+      avatar,
+      email
     }
 
     return cb(null, user)

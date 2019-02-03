@@ -18,9 +18,9 @@ const Distribute = styled.div`
 
     &:not(:last-child) {
       ${props =>
-    props.vertical
-      ? 'margin-bottom:' + props.space * 8 + 'px'
-      : 'margin-right:' + props.space * 8 + 'px'};
+        props.vertical
+          ? 'margin-bottom:' + props.space * 8 + 'px'
+          : 'margin-right:' + props.space * 8 + 'px'};
     }
   }
 

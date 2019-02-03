@@ -36,7 +36,7 @@ const OptionsListGroup = styled.div`
 `
 
 class PopoverMenu extends Component {
-  render () {
+  render() {
     const { options, trigger, maxWidth, placement, space, ...rest } = this.props
 
     const renderBasicOption = (option, index) => (
@@ -47,8 +47,7 @@ class PopoverMenu extends Component {
         }}
         key={index}
         data-qa={option.dataQa}
-        {...rest}
-      >
+        {...rest}>
         <Text color={option.color} ellipsis>
           {option.title}
         </Text>
@@ -72,10 +71,10 @@ class PopoverMenu extends Component {
         ref={el => (this.popover = el)}
         trigger={trigger}
         placement={placement}
-        width='none'
+        width="none"
         space={space}
         content={
-          <Card shadow='shadow2' innerSpace='none'>
+          <Card shadow="shadow2" innerSpace="none">
             <OptionsWrapper maxWidth={maxWidth}>{Options}</OptionsWrapper>
           </Card>
         }

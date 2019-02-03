@@ -63,7 +63,7 @@ export const NotificationQuery = {
     type: new GraphQLList(NotificationType),
     resolve: (root, args, { user }) => {
       if (user) {
-        return db.getBy('recieverUserId',user.id)
+        return db.getBy('recieverUserId', user.id)
       } else {
         throw new Error('Not logged in')
       }

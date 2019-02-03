@@ -9,7 +9,9 @@ export const getToken = ClientFunction(() =>
   window.localStorage.getItem('token')
 )
 
-export const clearLocalStorage = ClientFunction(() => window.localStorage.clear())
+export const clearLocalStorage = ClientFunction(() =>
+  window.localStorage.clear()
+)
 
 export const dataQaSelector = dataQa => `[data-qa="${dataQa}"]`
 export const dataQaExists = dataQa => Selector(dataQaSelector(dataQa)).exists
