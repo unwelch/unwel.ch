@@ -4,9 +4,21 @@ import styled, { keyframes } from 'styled-components'
 
 import Button from './../button'
 import Spacer from './../spacer'
-import Input from '../input'
+import Input from './input'
 import Animate from '../animate'
 import Text from '../text'
+
+const quantityIdeas = [
+  'one coffee',
+  'a beer',
+  'a dinner',
+  'the last pizza slice'
+]
+
+const statementIdeas = [
+  'I will finish a marathon',
+  'it will be warmer next year'
+]
 
 const fadeIn = keyframes`
   0% {
@@ -19,12 +31,31 @@ const fadeIn = keyframes`
   }
 `
 
+const fadeInDelayed = keyframes`
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  40% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`
+
 const Root = styled.div``
 
-const AnimateWrapper = styled.div`
-  animation: ${fadeIn} 0.5s both;
+const AnimateWrapperQuantity = styled.div`
+  animation: ${fadeIn} 0.5s;
   transition: 0.25s;
-  ${props => (props.delay ? `animation-delay: ${props.delay * 200}ms` : '')};
+`
+
+const AnimateWrapperStatement = styled.div`
+  animation: ${fadeInDelayed} 0.8s;
+  transition: 0.25s;
 `
 
 const isEnterKey = fn => {
@@ -81,7 +112,7 @@ class Bet extends Component {
 
     return (
       <Root onKeyDown={isEnterKey(this.submitHandler)}>
-        <AnimateWrapper delay={1}>
+        <AnimateWrapperQuantity>
           <Text fontWeight="regular" size="size5">
             {starter}
           </Text>
@@ -93,12 +124,14 @@ class Bet extends Component {
             onChange={this.onChange('quantityValue')}
             value={quantityValue}
             placeholder={'1 coffee'}
-            data-qa="bet-input-quantity"
+            dataQa="bet-input-quantity"
+            ideas={quantityIdeas}
+            ideaColumns={2}
           />
-        </AnimateWrapper>
+        </AnimateWrapperQuantity>
         <Spacer top={2} />
 
-        <AnimateWrapper delay={3}>
+        <AnimateWrapperStatement>
           <Text fontWeight="regular" size="size5">
             {middle}
           </Text>
@@ -110,9 +143,11 @@ class Bet extends Component {
             onChange={this.onChange('statementValue')}
             value={statementValue}
             placeholder={'something'}
-            data-qa="bet-input-statement"
+            dataQa="bet-input-statement"
+            ideas={statementIdeas}
+            ideaColumns={1}
           />
-        </AnimateWrapper>
+        </AnimateWrapperStatement>
 
         <Animate
           type="slideUp"

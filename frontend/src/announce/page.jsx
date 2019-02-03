@@ -49,14 +49,15 @@ const Announce = styled.div`
   justify-content: center;
   padding: 18px 24px;
   background: ${colors.primary};
-  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3),
+    0 4px 8px 3px rgba(60, 64, 67, 0.15);
 
   animation: ${appear} 3.5s forwards;
-  border-radius: 6px;
+  border-radius: 8px;
 `
 
 class Announcer extends Component {
-  render () {
+  render() {
     const { announce } = this.props
 
     if (!announce) return null
@@ -72,7 +73,7 @@ class Announcer extends Component {
           <Root>
             {announce && (
               <Announce key={announce.key}>
-                <Text size='size2' color={colors.background}>
+                <Text size="size2" color={colors.background}>
                   {t(announce.message)}
                 </Text>
               </Announce>
