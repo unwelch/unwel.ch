@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import { prop, head } from 'ramda'
 
 import UserDB from '../user/db'
-import SECRET from '../user/secret'
+import { getTokenSecret, decode as decodeToken } from './token'
 
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 
@@ -32,7 +32,7 @@ export const googleAuthCallbackMiddleware = async (req, res) => {
   let user
   if (oldToken) {
     // Existing anonymous user trying to save account
-    const decodedToken = jwt.verify(oldToken, SECRET)
+    const decodedToken = decodeToken(oldToken)
     user = await UserDB.get(decodedToken.userId)
     user.googleId = userData.googleId
     user.avatar = userData.avatar
@@ -54,7 +54,7 @@ export const googleAuthCallbackMiddleware = async (req, res) => {
 
   const token = jwt.sign(
     { userId: user.id, logged_at: Math.floor(Date.now() / 1000) },
-    SECRET
+    getTokenSecret
   )
 
   res.redirect(googleOauth.redirect + '?token=' + token)
