@@ -67,7 +67,7 @@ const clearTokenIfInvalid = async token => {
     if (error.error === 'old-version') {
       const newToken = error.newToken
       window.localStorage.setItem('token', newToken)
-      window.location.refresh()
+      window.location.reload()
     }
 
     window.location = getAuthErrorUrl()
