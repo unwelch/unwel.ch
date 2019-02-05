@@ -54,7 +54,7 @@ export const googleAuthCallbackMiddleware = async (req, res) => {
 
   const token = jwt.sign(
     { userId: user.id, logged_at: Math.floor(Date.now() / 1000) },
-    getTokenSecret
+    getTokenSecret()
   )
 
   res.redirect(googleOauth.redirect + '?token=' + token)
