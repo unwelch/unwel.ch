@@ -27,6 +27,29 @@ export const createBet = async (token, quantity, statement) => {
   return data.addBet.id
 }
 
+export const acceptBet = async (token, betId) => {
+  await fetch(`${HOST}/graphql`, {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      operationName: 'acceptBetMutation',
+      variables: { id: betId },
+      query: `
+      mutation acceptBetMutation($id: String!) {
+        acceptBet(id: $id) {
+          id
+        }
+      }`
+    })
+  })
+}
+
+// {"operationName":"acceptBetMutation","variables":{"id":"3fbed347-7ef7-4db2-9ac8-00626001627d"},"query":"mutation acceptBetMutation($id: String!) {\n  acceptBet(id: $id) {\n    userResponse\n    user2Response\n    __typename\n  }\n}\n"}
+
 export const createUser = async name => {
   const resp = await fetch(`${HOST}/auth/anonymous`, {
     headers: {

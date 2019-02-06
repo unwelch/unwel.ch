@@ -14,3 +14,13 @@ export const fillAnonymousLogin = async (t, name) => {
 export const acceptBet = async t => {
   await t.click(dataQaSelector('accept-bet-button'))
 }
+
+export const chooseWon = async t => {
+  await t.click(dataQaSelector('decide-who-won-button'))
+  await t.click(dataQaSelector('choose-won-button'))
+}
+
+export const chooseLost = async t => {
+  await t.click(dataQaSelector('decide-who-won-button'))
+  await t.click(dataQaSelector('choose-lost-button'))
+}

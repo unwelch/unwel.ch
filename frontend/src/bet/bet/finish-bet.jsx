@@ -46,10 +46,18 @@ class FinishBet extends Component {
     if (bet.user.id === currentUser.id) {
       return (
         <BetActionWrapper>
-          <Button type="level2" onClick={chooseWon} fullWidth>
+          <Button
+            type="level2"
+            onClick={chooseWon}
+            fullWidth
+            dataQa="choose-won-button">
             I was right
           </Button>
-          <Button type="level1" onClick={chooseLost} fullWidth>
+          <Button
+            type="level1"
+            onClick={chooseLost}
+            fullWidth
+            dataQa="choose-lost-button">
             I was wrong
           </Button>
         </BetActionWrapper>
@@ -58,10 +66,18 @@ class FinishBet extends Component {
 
     return (
       <BetActionWrapper space={3 / 2} align="center">
-        <Button type="level2" onClick={chooseLost} fullWidth>
+        <Button
+          type="level2"
+          onClick={chooseLost}
+          fullWidth
+          dataQa="choose-lost-button">
           {bet.user.name} was right
         </Button>
-        <Button type="level1" onClick={chooseWon} fullWidth>
+        <Button
+          type="level1"
+          onClick={chooseWon}
+          fullWidth
+          dataQa="choose-won-button">
           {bet.user.name} was wrong
         </Button>
       </BetActionWrapper>
