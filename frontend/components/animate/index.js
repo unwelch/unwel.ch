@@ -1,1 +1,1 @@
-module.exports = require('./animate')
+module.exports = require('./animate.jsx')

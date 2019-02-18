@@ -7,7 +7,7 @@ const anonymousAuthMiddleware = async function(req, res) {
   const { name } = req.body
 
   const user = await UserDB.insert({
-    name
+    name: name || 'test'
   })
 
   const token = jwt.sign(

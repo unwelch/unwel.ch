@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled, { keyframes } from 'styled-components'
 
-import Button from './../button'
-import Spacer from './../spacer'
 import Input from './input'
+import Button from '../button'
 import Animate from '../animate'
+import Spacer from '../spacer'
 import Text from '../text'
 
 const quantityIdeas = [
@@ -75,15 +75,6 @@ class Bet extends Component {
   static defaultProps = {
     quantity: '',
     statement: ''
-  }
-
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      quantityValue: props.quantity,
-      statementValue: props.statement
-    }
   }
 
   onChange = stateKey => {

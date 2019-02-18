@@ -44,8 +44,7 @@ class Layout extends Component {
     const showTabs = !(
       pathname === '/bets/new' ||
       pathname === '/save-account' ||
-      pathname === '/login' ||
-      pathname === '/anonymous-login'
+      pathname === '/login'
     )
 
     const tabsOnTop = globalWidth > 600

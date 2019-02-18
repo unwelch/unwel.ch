@@ -1,7 +1,7 @@
 import React from 'react'
 
-import Distribute from './distribute'
-import Button from './button'
+import Distribute from '../distribute'
+import Button from '../button'
 
 const LoginProviderButtons = ({ onClickGoogle }) => {
   return (

@@ -1,6 +1,6 @@
 /* eslint react/display-name: 0 */
 import React, { Component } from 'react'
-import { screenSizes } from './variables'
+import { screenSizes } from '../variables'
 
 const INITIAL_SIZE_CONTEXT = {
   width: 600,

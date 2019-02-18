@@ -44,7 +44,7 @@ class BetPage extends Component {
       trackEvent(events.betAccepted, { betId: this.props.betId })
     } else {
       saveTempAccept(this.props.betId)
-      this.props.goToPage('/anonymous-login')
+      this.props.goToPage('/login')
     }
   }
 

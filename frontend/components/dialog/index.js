@@ -1,1 +1,1 @@
-module.exports = require('./dialog')
+module.exports = require('./dialog.jsx')

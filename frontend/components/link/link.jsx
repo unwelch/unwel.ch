@@ -6,7 +6,7 @@ import {
   fontMono,
   fontWeights,
   colors
-} from './../variables'
+} from '../variables'
 
 const linkStyles = {
   withoutStyle: css`

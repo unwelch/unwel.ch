@@ -1,1 +1,1 @@
-module.exports = require('./split')
+module.exports = require('./split.jsx')

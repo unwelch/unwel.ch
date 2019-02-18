@@ -1,1 +1,1 @@
-module.exports = require('./link')
+module.exports = require('./link.jsx')

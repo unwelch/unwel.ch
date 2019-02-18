@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { colors, fontSizes, lineHeights, fontWeights } from './variables'
-import { breakpointToTextSize } from './text'
-import { withBreakpoint } from './responsive-provider'
+import { colors, fontSizes, lineHeights, fontWeights } from '../variables'
+import { breakpointToTextSize } from '../text'
+import { withBreakpoint } from '../responsive-provider'
 
 const Input = styled.input`
   background: ${colors.background};

@@ -1,1 +1,1 @@
-module.exports = require('./notification')
+module.exports = require('./notification.jsx')

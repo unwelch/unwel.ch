@@ -1,1 +1,1 @@
-module.exports = require('./base-styles')
+module.exports = require('./base-styles.jsx')

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { unit, colors } from './variables'
+import { unit, colors } from '../variables'
 
 const shapeToBorderRadius = shape => {
   switch (shape) {

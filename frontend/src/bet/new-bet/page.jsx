@@ -31,7 +31,7 @@ class NewBet extends Component {
   async handleBetConfirm (bet) {
     if (!this.props.isLoggedIn) {
       saveTempBet(bet)
-      await this.props.goToPage(`/anonymous-login`)
+      await this.props.goToPage(`/login`)
       return
     }
 

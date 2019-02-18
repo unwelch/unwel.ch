@@ -1,1 +1,1 @@
-module.exports = require('./content')
+module.exports = require('./content.jsx')

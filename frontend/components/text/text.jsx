@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { fontSizes, lineHeights, fontMono, fontWeights } from '../variables'
-import { withBreakpoint } from '../responsive-provider'
+import { withBreakpoint } from '../responsive-provider/responsive-provider'
 
 export const availableTextSizes = [
   'size6',

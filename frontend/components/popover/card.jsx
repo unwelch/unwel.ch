@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Popover, { availablePlacements } from './popover'
-import Card from './../card'
+import Card from '../card'
 import styled from 'styled-components'
-import { widths, unit } from './../variables'
+import { widths, unit } from '../variables'
 
 const cardWidths = {
   md: `width: ${widths.md * unit}px;`,

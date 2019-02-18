@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { shadows } from './variables'
+import { shadows } from '../variables'
 
 const CardWrapper = styled.div`
   background: white;

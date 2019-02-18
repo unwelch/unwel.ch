@@ -102,6 +102,7 @@ const ButtonWrapper = styled.button`
         }; pointer-events: none`
       : ''};
 `
+
 ButtonWrapper.displayName = 'ButtonWrapper'
 
 export const availableSizes = ['large', 'medium', 'small']
@@ -115,6 +116,8 @@ const Button = ({
   children,
   disabled,
   onClick,
+  onMouseEnter,
+  onMouseLeave,
   dataQa,
   icon
 }) => {
@@ -127,7 +130,9 @@ const Button = ({
       fullWidth={fullWidth}
       type={type}
       disabled={disabled}
-      onClick={onClick}>
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}>
       {icon}
       {icon ? <Spacer left={1} /> : null}
       {children}
@@ -144,6 +149,8 @@ Button.propTypes = {
   type: PropTypes.oneOf(Object.keys(buttonTypes)),
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
   children: PropTypes.node,
   icon: PropTypes.node
 }
@@ -154,6 +161,8 @@ Button.defaultProps = {
   type: 'level1',
   disabled: false,
   onClick: () => {},
+  onMouseEnter: () => {},
+  onMouseLeave: () => {},
   icon: null
 }
 
