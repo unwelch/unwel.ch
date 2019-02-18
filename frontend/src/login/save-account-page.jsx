@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import { compose } from 'ramda'
@@ -28,48 +28,44 @@ export const QUERY = gql`
   }
 `
 
-class SaveAccount extends Component {
-  componentDidMount () {
+const SaveAccount = ({ token, data: { currentUser, loading } }) => {
+  useEffect(() => {
     trackEvent(events.pageLoaded, { page: 'saveAccount' })
+  })
+
+  if (loading) {
+    return null
   }
 
-  render () {
-    const { currentUser, loading } = this.props.data
-
-    if (loading) {
-      return null
-    }
-
-    if (!currentUser.isAnonymous) {
-      this.props.goToPage('/bets')
-    }
-
-    return (
-      <DefaultContainer>
-        <Spacer top={4}>
-          <Text size='size4' fontWeight='regular'>
-            Save your account and bets.
-          </Text>
-        </Spacer>
-        <Spacer top={2}>
-          <Text>
-            Link it with your Google account and get access from other devices.
-          </Text>
-        </Spacer>
-        <Spacer top={2}>
-          <ProviderButtons
-            onClickGoogle={() => {
-              trackEvent(events.saveAccountRequest, {
-                type: 'oauth',
-                provider: 'google'
-              })
-              googleLogin(this.props.token)
-            }}
-          />
-        </Spacer>
-      </DefaultContainer>
-    )
+  if (!currentUser.isAnonymous) {
+    this.props.goToPage('/bets')
   }
+
+  const onGoogleClickHandler = () => {
+    trackEvent(events.saveAccountRequest, {
+      type: 'oauth',
+      provider: 'google'
+    })
+    googleLogin(token)
+  }
+
+  return (
+    <DefaultContainer>
+      <Spacer top={4}>
+        <Text size='size4' fontWeight='regular'>
+          Save your account and bets.
+        </Text>
+      </Spacer>
+      <Spacer top={2}>
+        <Text>
+          Link it with your Google account and get access from other devices.
+        </Text>
+      </Spacer>
+      <Spacer top={2}>
+        <ProviderButtons onClickGoogle={onGoogleClickHandler} />
+      </Spacer>
+    </DefaultContainer>
+  )
 }
 
 const mapStateToProps = state => {

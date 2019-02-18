@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { compose } from 'ramda'
 
@@ -19,55 +19,57 @@ const Root = styled(Distribute)`
   height: 100%;
 `
 
-class AnonymousLogin extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = { value: '' }
+const AnonymousLogin = () => {
+  const [value, setValue] = useState('')
+
+  const onChangeHandler = e => {
+    setValue(e.target.value)
   }
 
-  onChangeHandler = e => {
-    this.setState({ value: e.target.value })
+  const onKeyDownHandler = e => {
+    if (e.key === 'Enter') {
+      onAnonymousClickHandler()
+    }
   }
 
-  onAnonymousClickHandler = () => {
+  const onAnonymousClickHandler = () => {
     trackEvent(events.loginRequested, { type: 'anonymous' })
-    anonymousLogin(this.state.value)
+    anonymousLogin(value)
   }
 
-  render () {
-    return (
-      <div>
-        <Spacer inner top={3} />
-        <Content type='title' fontWeight='regular'>
-          Give us a name
-        </Content>
-        <Spacer top={1} />
-        <Content type='subtitle'>
-          Your friends will know who you are when you share the bet.
-        </Content>
-        <Spacer top={2} />
-        <Content type='title' fontWeight='regular'>
-          <Input
-            data-qa='anonymous-login-input'
-            value={this.state.value}
-            size='size4'
-            autoFocus
-            onChange={this.onChangeHandler}
-            placeholder='e.g Jim Carrey'
-          />
-        </Content>
-        <Spacer top={6} bottom={10}>
-          <Button
-            type='level2'
-            onClick={this.onAnonymousClickHandler}
-            dataQa='anonymous-login-confirm'
-          >
-            Create a new account
-          </Button>
-        </Spacer>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <Spacer inner top={3} />
+      <Content type='title' fontWeight='regular'>
+        Give us a name
+      </Content>
+      <Spacer top={1} />
+      <Content type='subtitle'>
+        Your friends will know who you are when you share the bet.
+      </Content>
+      <Spacer top={2} />
+      <Content type='title' fontWeight='regular'>
+        <Input
+          data-qa='anonymous-login-input'
+          value={value}
+          size='size4'
+          autoFocus
+          onChange={onChangeHandler}
+          onKeyDown={onKeyDownHandler}
+          placeholder='e.g Jim Carrey'
+        />
+      </Content>
+      <Spacer top={6} bottom={10}>
+        <Button
+          type='level2'
+          onClick={onAnonymousClickHandler}
+          dataQa='anonymous-login-confirm'
+        >
+          Create a new account
+        </Button>
+      </Spacer>
+    </div>
+  )
 }
 
 const onGoogleClickHandler = () => {
@@ -80,8 +82,7 @@ const onGoogleClickHandler = () => {
 
 const OAuthLogin = () => {
   return (
-    <div>
-      <Spacer top={4} />
+    <Spacer top={4}>
       <Content type='title' fontWeight='regular'>
         Welcome 👋
       </Content>
@@ -92,34 +93,34 @@ const OAuthLogin = () => {
       <Spacer top={6} bottom={6}>
         <ProviderButtons onClickGoogle={onGoogleClickHandler} />
       </Spacer>
-    </div>
+    </Spacer>
   )
 }
 
-class Login extends Component {
-  componentDidMount () {
-    trackEvent(events.pageLoaded, {
-      page: 'login',
-      anonymousLogin: this.props.anonymous
-    })
-
-    if (this.props.isLoggedIn) {
-      this.props.goToPage('/bets')
-    }
+const Login = ({ goToPage, anonymous, isLoggedIn }) => {
+  if (isLoggedIn) {
+    goToPage('/bets')
   }
 
-  render () {
-    const { anonymous } = this.props
-    return (
-      <div>
-        <Root align='center' position='center'>
-          <DefaultContainer>
-            {anonymous ? <AnonymousLogin /> : <OAuthLogin />}
-          </DefaultContainer>
-        </Root>
-      </div>
-    )
-  }
+  useEffect(
+    () => {
+      trackEvent(events.pageLoaded, {
+        page: 'login',
+        anonymousLogin: anonymous
+      })
+    },
+    [anonymous]
+  )
+
+  return (
+    <div>
+      <Root align='center' position='center'>
+        <DefaultContainer>
+          {anonymous ? <AnonymousLogin /> : <OAuthLogin />}
+        </DefaultContainer>
+      </Root>
+    </div>
+  )
 }
 
 export default compose(

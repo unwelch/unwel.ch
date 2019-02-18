@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { compose, propEq, filter, length } from 'ramda'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
@@ -89,81 +89,78 @@ const NotificationsBadge = styled.div`
 
 const Root = styled.div``
 
-class Navigation extends Component {
-  render () {
-    const { verticalLabels } = this.props
-    const { currentUser, loading, notifications } = this.props.data
+const Navigation = ({
+  onSelectLink,
+  verticalLabels,
+  data: { currentUser, loading, notifications }
+}) => {
+  if (loading) return <div />
+  if (!currentUser) return <div />
 
-    if (loading) return <div />
-    if (!currentUser) return <div />
+  const haveUnviewedNotifications = propEq('viewed', false)
+  const unViewedNotifications =
+    notifications && length(filter(haveUnviewedNotifications, notifications))
 
-    const haveUnviewedNotifications = propEq('viewed', false)
-    const unViewedNotifications =
-      notifications && length(filter(haveUnviewedNotifications, notifications))
-
-    return (
-      <Root>
-        <DefaultContainer>
-          <Nav>
-            <List>
-              <ListItem
-                to='/bets'
-                selected={window.location.href.includes('bet')}
-                onClick={this.props.onSelectLink}
-                vertical={verticalLabels}
-              >
-                <IconWrapper>
-                  <ListIcon />
-                </IconWrapper>
-                <Label selected={window.location.href.includes('bet')}>
-                  <Text size='size0' fontWeight='regular'>
-                    Bets
-                  </Text>
-                </Label>
-              </ListItem>
-              <ListItem
-                to={`/profiles/${currentUser.id}`}
-                selected={window.location.href.includes('profile')}
-                onClick={this.props.onSelectLink}
-                vertical={verticalLabels}
-              >
-                <IconWrapper>
-                  <UserIcon />
-                </IconWrapper>
-                <Label selected={window.location.href.includes('profile')}>
-                  <Text size='size0' fontWeight='regular'>
-                    Profile
-                  </Text>
-                </Label>
-              </ListItem>
-              <ListItem
-                to='/notifications'
-                selected={window.location.href.includes('notifications')}
-                onClick={this.props.onSelectLink}
-                vertical={verticalLabels}
-              >
-                <IconWrapper>
-                  <BellIcon />
-                  {unViewedNotifications > 0 && (
-                    <NotificationsBadge>
-                      {unViewedNotifications}
-                    </NotificationsBadge>
-                  )}
-                </IconWrapper>
-                <Label
-                  selected={window.location.href.includes('notifications')}
-                >
-                  <Text size='size0' fontWeight='regular'>
-                    Notifications
-                  </Text>
-                </Label>
-              </ListItem>
-            </List>
-          </Nav>
-        </DefaultContainer>
-      </Root>
-    )
-  }
+  return (
+    <Root>
+      <DefaultContainer>
+        <Nav>
+          <List>
+            <ListItem
+              to='/bets'
+              selected={window.location.href.includes('bet')}
+              onClick={onSelectLink}
+              vertical={verticalLabels}
+            >
+              <IconWrapper>
+                <ListIcon />
+              </IconWrapper>
+              <Label selected={window.location.href.includes('bet')}>
+                <Text size='size0' fontWeight='regular'>
+                  Bets
+                </Text>
+              </Label>
+            </ListItem>
+            <ListItem
+              to={`/profiles/${currentUser.id}`}
+              selected={window.location.href.includes('profile')}
+              onClick={onSelectLink}
+              vertical={verticalLabels}
+            >
+              <IconWrapper>
+                <UserIcon />
+              </IconWrapper>
+              <Label selected={window.location.href.includes('profile')}>
+                <Text size='size0' fontWeight='regular'>
+                  Profile
+                </Text>
+              </Label>
+            </ListItem>
+            <ListItem
+              to='/notifications'
+              selected={window.location.href.includes('notifications')}
+              onClick={onSelectLink}
+              vertical={verticalLabels}
+            >
+              <IconWrapper>
+                <BellIcon />
+                {unViewedNotifications > 0 && (
+                  <NotificationsBadge>
+                    {unViewedNotifications}
+                  </NotificationsBadge>
+                )}
+              </IconWrapper>
+              <Label selected={window.location.href.includes('notifications')}>
+                <Text size='size0' fontWeight='regular'>
+                  Notifications
+                </Text>
+              </Label>
+            </ListItem>
+          </List>
+        </Nav>
+      </DefaultContainer>
+    </Root>
+  )
 }
 
 export default compose(

@@ -139,12 +139,11 @@ class Settings extends Component {
           />
         </Distribute>
         <Split />
-        {isPushSupported() &&
-          window.Notification.permission !== 'denied' && (
+        {isPushSupported() && window.Notification.permission !== 'denied' && (
           <Fragment>
             <Distribute space={2} align='center'>
               <Text size='size2' fontWeight='regular'>
-                  Notifications
+                Notifications
               </Text>
               <Switch
                 onChange={this.handleNotificationsChange}
