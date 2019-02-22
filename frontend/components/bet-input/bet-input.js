@@ -9,15 +9,15 @@ import Animate from '../animate'
 import Text from '../text'
 
 const quantityIdeas = [
-  'one coffee',
-  'a beer',
-  'a dinner',
-  'the last pizza slice'
+  { color: '#E9CA9F99', emoji: '☕️', content: 'one coffee' },
+  { color: '#FF878B99', emoji: '🍕', content: 'the last pizza slice' },
+  { color: '#A0BAFF99', emoji: '🍽', content: 'a dinner' },
+  { color: '#FDD57F99', emoji: '🍺', content: 'a beer' }
 ]
 
 const statementIdeas = [
-  'I will finish a marathon',
-  'it will be warmer next year'
+  { color: '#9FD2E999', emoji: '😎', content: 'it will be warmer next year' },
+  { color: '#FF878B99', emoji: '🏃‍', content: 'I will finish a marathon' }
 ]
 
 const fadeIn = keyframes`
@@ -126,7 +126,7 @@ class Bet extends Component {
             placeholder={'1 coffee'}
             dataQa="bet-input-quantity"
             ideas={quantityIdeas}
-            ideaColumns={2}
+            ideaColumns={1}
           />
         </AnimateWrapperQuantity>
         <Spacer top={2} />

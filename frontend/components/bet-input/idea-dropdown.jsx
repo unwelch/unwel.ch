@@ -3,17 +3,7 @@ import PropTypes from 'prop-types'
 import styled, { keyframes } from 'styled-components'
 
 import Text from '../text'
-
-const fadeIn = keyframes`
-  0% {
-    transform: translateY(10px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-`
+import Distribute from '../distribute'
 
 const Root = styled.div`
   transition: all 0.3s ease;
@@ -39,15 +29,25 @@ const Dropdown = styled.div`
 `
 
 const Idea = styled.div`
+  padding 0 8px;
   height: 64px;
   border-radius: 5px;
-  background: #CCC;
-  padding: 0 8px;
+  background: ${props => props.color || 'white'};
   display: flex;
   align-items: center;
   justify-content: center;
-	padding 0 8px;
 	cursor: pointer;
+`
+
+const Emoji = styled.span`
+  margin: 0px 8px;
+  font-size: 200%;
+`
+
+const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
 `
 
 const IdeaDropdown = ({ onIdeaClick, ideas, visible, columns }) => {
@@ -55,10 +55,17 @@ const IdeaDropdown = ({ onIdeaClick, ideas, visible, columns }) => {
     <Root visible={visible}>
       <Dropdown columns={columns}>
         {ideas.map(idea => (
-          <Idea key={idea} onClick={onIdeaClick.bind(null, idea)}>
-            <Text size="size3" textAlign="center" shortLineHeight>
-              {idea}
-            </Text>
+          <Idea
+            color={idea.color}
+            key={idea}
+            onClick={onIdeaClick.bind(null, idea.content)}
+          >
+            <Wrapper>
+              <Emoji>{idea.emoji}</Emoji>
+              <Text size='size2' shortLineHeight>
+                {idea.content}
+              </Text>
+            </Wrapper>
           </Idea>
         ))}
       </Dropdown>
