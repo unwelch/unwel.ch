@@ -14,10 +14,10 @@ export const createBet = async (token, quantity, statement) => {
       operationName: 'addBetMutation',
       variables: { statement, quantity },
       query: `
-      mutation addBetMutation($quantity: String!, $statement: String!) {
-        addBet(quantity: $quantity, statement: $statement) {
-          id
-        }
+        mutation addBetMutation($quantity: String!, $statement: String!) {
+          addBet(quantity: $quantity, statement: $statement) {
+            id
+          }
       }`
     })
   })
@@ -39,10 +39,10 @@ export const acceptBet = async (token, betId) => {
       operationName: 'acceptBetMutation',
       variables: { id: betId },
       query: `
-      mutation acceptBetMutation($id: String!) {
-        acceptBet(id: $id) {
-          id
-        }
+        mutation acceptBetMutation($id: String!) {
+          acceptBet(id: $id) {
+            id
+          }
       }`
     })
   })

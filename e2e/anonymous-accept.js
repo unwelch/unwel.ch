@@ -15,6 +15,8 @@ test('I can accept a bet by loggin in', async t => {
 
   await t.navigateTo(`${HOST}/bet/${newBetId}`)
 
+  const logs = await t.getBrowserConsoleMessages()
+  console.log('logs:', logs)
   await acceptBet(t)
 
   await t

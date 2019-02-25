@@ -19,11 +19,16 @@ test('Creator wins', async t => {
   await setToken(acceptorToken)
 
   await t.navigateTo(`${HOST}/bet/${betId}`)
+  const logs = await t.getBrowserConsoleMessages()
+  console.log('logs:', logs)
+
   await chooseLost(t)
 
   await setToken(creatorToken)
 
   await t.navigateTo(`${HOST}/bet/${betId}`)
+  const logs2 = await t.getBrowserConsoleMessages()
+  console.log('logs:', logs2)
   await chooseWon(t)
 
   await t.expect(dataQaExists('text-label-won')).ok()
