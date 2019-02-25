@@ -57,6 +57,7 @@ after_install:
 
 script:
   - yarn start & export APP_PID=$!
+  - sleep 60
   - yarn test:e2e
   - kill $APP_PID
   - killall node
