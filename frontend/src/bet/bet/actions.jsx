@@ -28,7 +28,7 @@ class Actions extends Component {
     showAnnounce: PropTypes.func
   }
 
-  componentDidMount () {
+  componentDidMount() {
     trackEvent(events.pageLoaded, { page: 'bet' })
   }
 
@@ -55,7 +55,7 @@ class Actions extends Component {
     }
   }
 
-  render () {
+  render() {
     const { bet, currentUser, t } = this.props
     const betStatus = getBetStatus(bet, currentUser)
 
@@ -64,23 +64,21 @@ class Actions extends Component {
         return (
           <Distribute vertical space={2}>
             <Button
-              type='level2'
+              type="level2"
               onClick={this.shareLink(
                 t('copy-message.body'),
                 t('copy-message.title'),
                 `${BET_PAGE}/${bet.id}`
               )}
-              icon={<ShareIcon />}
-            >
+              icon={<ShareIcon />}>
               {t(
                 webShareEnabled() ? 'bet-actions.share' : 'bet-actions.copy-url'
               )}
             </Button>
             <Button
-              type='warning'
+              type="warning"
               icon={<TrashIcon />}
-              onClick={this.props.deleteBet}
-            >
+              onClick={this.props.deleteBet}>
               {t('bet-actions.delete')}
             </Button>
           </Distribute>
@@ -88,10 +86,9 @@ class Actions extends Component {
       case betStatuses.AVAILABLE_BET:
         return (
           <Button
-            type='level2'
+            type="level2"
             onClick={this.props.acceptBet}
-            dataQa='accept-bet-button'
-          >
+            dataQa="accept-bet-button">
             {t('bet-actions.accept-bet')}
           </Button>
         )
@@ -108,7 +105,7 @@ class Actions extends Component {
         const opponent = bet.user.id === currentUser.id ? bet.user2 : bet.user
 
         return (
-          <Text dimmed size='size2'>
+          <Text dimmed size="size2">
             {t('bet-status.waiting-for-opponent-response', {
               opponent: opponent.name
             })}
@@ -116,19 +113,27 @@ class Actions extends Component {
         )
       case betStatuses.LOST:
         return (
-          <Text fontWeight='black' size='size2'>
+          <Text fontWeight="black" size="size2" data-qa="text-label-lost">
             {t('bet-status.lost.long')}
           </Text>
         )
       case betStatuses.WON:
         return (
-          <Text fontWeight='black' color={colors.primary} size='size2'>
+          <Text
+            fontWeight="black"
+            color={colors.primary}
+            size="size2"
+            data-qa="text-label-won">
             {t('bet-status.won.long')}
           </Text>
         )
       case betStatuses.DISPUTED:
         return (
-          <Text fontWeight='black' color={colors.error} size='size2'>
+          <Text
+            fontWeight="black"
+            color={colors.error}
+            size="size2"
+            data-qa="text-label-disputed">
             {t('bet-status.dispute.long')}
           </Text>
         )

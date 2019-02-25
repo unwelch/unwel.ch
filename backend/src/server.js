@@ -19,6 +19,11 @@ import {
 } from './auth/google'
 import { pushSubscribeMiddleware } from './push'
 import anonymousAuthMiddleware from './auth/test-login'
+import {
+  getTokenVersion,
+  getTokenFromRequest,
+  upgradeToken
+} from './auth/token'
 
 require('dotenv').config()
 
@@ -99,15 +104,31 @@ app.use(
   })
 )
 
-app.get('/check-token', async (req, res) => {
-  const user = await getUser(req)
-  if (!user) {
+app.get('/check-token', async function(req, res) {
+  const token = getTokenFromRequest(req)
+
+  if (!token) {
     res.status(400)
-    res.send()
+    res.send({ error: 'no-token' })
     return
   }
 
-  res.send()
+  const version = getTokenVersion(token)
+
+  if (version === '1') {
+    res.send({})
+    return
+  }
+
+  if (version === '0') {
+    const newToken = upgradeToken(token)
+    res.status(400)
+    res.send({ error: 'old-version', newToken })
+    return
+  }
+
+  res.status(400)
+  res.send({ error: 'invalid-token' })
 })
 
 app.get('/_health', (_, res) => {

@@ -1,6 +1,7 @@
-import UserDB from '../user/db'
-import SECRET from '../user/secret'
 import jwt from 'jsonwebtoken'
+
+import UserDB from '../user/db'
+import { getTokenSecret } from './token'
 
 const anonymousAuthMiddleware = async function(req, res) {
   const { name } = req.body
@@ -11,7 +12,7 @@ const anonymousAuthMiddleware = async function(req, res) {
 
   const token = jwt.sign(
     { userId: user.id, logged_at: Math.floor(Date.now() / 1000) },
-    SECRET
+    getTokenSecret()
   )
 
   res.send(

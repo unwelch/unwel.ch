@@ -36,11 +36,11 @@ const Root = styled.div`
 `
 
 class Notifications extends Component {
-  componentDidMount () {
+  componentDidMount() {
     trackEvent(events.pageLoaded, { page: 'notifications' })
   }
 
-  renderPlaceholderItems () {
+  renderPlaceholderItems() {
     return [1, 2].map(key => (
       <ListItem key={key}>
         <Placeholder fullWidth height={2} />
@@ -48,30 +48,32 @@ class Notifications extends Component {
     ))
   }
 
-  renderNotification (notifications) {
+  renderNotification(notifications) {
     return (
       notifications &&
-      notifications.map(notification => (
-        <ListItem key={notification.id}>
-          <Notification
-            onClick={() => {
-              this.props.markNotificationsAsVisited(notification.id)
-              this.props.goToPage(`bet/${notification.bet.id}`)
-            }}
-            id={notification.id}
-            sender={notification.sender}
-            message={notification.message}
-            bet={notification.bet}
-            viewed={notification.viewed}
-            visited={notification.visited}
-            createdAt={notification.createdAt}
-          />
-        </ListItem>
-      ))
+      notifications
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .map(notification => (
+          <ListItem key={notification.id}>
+            <Notification
+              onClick={() => {
+                this.props.markNotificationsAsVisited(notification.id)
+                this.props.goToPage(`bet/${notification.bet.id}`)
+              }}
+              id={notification.id}
+              sender={notification.sender}
+              message={notification.message}
+              bet={notification.bet}
+              viewed={notification.viewed}
+              visited={notification.visited}
+              createdAt={notification.createdAt}
+            />
+          </ListItem>
+        ))
     )
   }
 
-  componentDidUpdate () {
+  componentDidUpdate() {
     const { data, markNotificationsAsViewed } = this.props
     if (!data.loading && data.notifications) {
       const notificationsId = data.notifications.map(prop('id'))
@@ -79,7 +81,7 @@ class Notifications extends Component {
     }
   }
 
-  render () {
+  render() {
     const { loading } = this.props.data
     const { notifications } = this.props.data
 
@@ -94,7 +96,7 @@ class Notifications extends Component {
       <Root>
         <DefaultContainer>
           <Spacer inner top={3} />
-          <Text size='size3' fontWeight='bold'>
+          <Text size="size3" fontWeight="bold">
             Notifications
           </Text>
 

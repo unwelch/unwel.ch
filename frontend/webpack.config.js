@@ -23,7 +23,6 @@ module.exports = {
       }
     }),
     new HtmlWebpackPlugin({
-      title: 'unwelch',
       template: './index.template.html'
     }),
     new ServiceWorkerWebpackPlugin({

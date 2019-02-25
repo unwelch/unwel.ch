@@ -45,7 +45,8 @@ const getAuthErrorUrl = () =>
   '//' +
   window.location.hostname +
   ':' +
-  window.location.port
+  window.location.port +
+  '/login'
 
 const clearTokenIfInvalid = async token => {
   if (!token) {
@@ -59,7 +60,16 @@ const clearTokenIfInvalid = async token => {
     }
   })
 
-  if (response.status === 400) {
+  if (response.status !== 200) {
+    const error = await response.json()
+
+    // TODO remove once all tokens are using new version
+    if (error.error === 'old-version') {
+      const newToken = error.newToken
+      window.localStorage.setItem('token', newToken)
+      window.location.reload()
+    }
+
     window.location = getAuthErrorUrl()
     window.localStorage.clear()
   }
