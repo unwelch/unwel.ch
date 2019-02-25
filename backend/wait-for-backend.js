@@ -13,6 +13,7 @@ const main = async () => {
     // const json = await response.json()
     // console.log(json)
 
+    console.log('Connected to Backend')
     process.exit(0)
   } catch (err) {
     // console.log(err.message)
