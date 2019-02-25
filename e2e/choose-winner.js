@@ -1,3 +1,4 @@
+import { waitForReact } from 'testcafe-react-selectors'
 import { dataQaExists, setToken } from './utils'
 import { HOST } from './config'
 
@@ -5,7 +6,9 @@ import { chooseWon, chooseLost } from './helpers'
 
 import * as api from './api'
 
-fixture`Choosing winner`.page`${HOST}`
+fixture`Choosing winner`.page`${HOST}`.beforeEach(async () => {
+  await waitForReact()
+})
 
 test('Creator wins', async t => {
   const creatorToken = await api.createUser('creator')

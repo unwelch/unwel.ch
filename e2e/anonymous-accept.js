@@ -1,11 +1,13 @@
+import { waitForReact } from 'testcafe-react-selectors'
 import { getLocation, dataQaExists } from './utils'
 import { HOST } from './config'
-
 import { fillAnonymousLogin, acceptBet } from './helpers'
 
 import * as api from './api'
 
-fixture`Anonymous login by accepting`.page`${HOST}`
+fixture`Anonymous login by accepting`.page`${HOST}`.beforeEach(async () => {
+  await waitForReact()
+})
 
 test('I can accept a bet by loggin in', async t => {
   const creatorToken = await api.createUser('creator')

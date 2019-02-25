@@ -1,8 +1,11 @@
+import { waitForReact } from 'testcafe-react-selectors'
 import { getLocation, dataQaSelector, dataQaExists } from './utils'
 import { HOST } from './config'
 import { fillNewBet, fillAnonymousLogin } from './helpers'
 
-fixture`Anonymous login by creation`.page`${HOST}`
+fixture`Anonymous login by creation`.page`${HOST}`.beforeEach(async () => {
+  await waitForReact()
+})
 
 test('I can create a bet and login anonymously', async t => {
   await t.click(dataQaSelector('make-bet-button'))
