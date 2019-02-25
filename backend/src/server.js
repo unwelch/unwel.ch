@@ -136,5 +136,9 @@ if (process.env.NODE_ENV === 'production') {
   app.use(sentryHandlers.errorHandler())
 }
 
+app.get('/_health', (_, res) => {
+  res.json({ ok: true })
+})
+
 console.log('Starting server...')
 app.listen(3000)

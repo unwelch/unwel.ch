@@ -13,7 +13,7 @@
     "start:backend": "cd backend; yarn run dev",
     "start": "concurrently -k 'yarn start:frontend' 'yarn start:backend'",
     "lint": "eslint . --quiet",
-    "test:e2e": "testcafe -c 4 'chrome:headless' ./e2e",
+    "test:e2e": "babel-node backend/wait-for-backend.js && testcafe 'chrome:headless' ./e2e",
     "test:e2e:debug": "testcafe 'chrome' ./e2e"
   },
   "husky": {
@@ -28,6 +28,7 @@
     ]
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^10.0.1",
     "concurrently": "^3.5.1",
     "eslint": "^5.8.0",
