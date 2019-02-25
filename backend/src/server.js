@@ -99,7 +99,7 @@ app.use(
   })
 )
 
-app.get('/check-token', async function(req, res) {
+app.get('/check-token', async (req, res) => {
   const user = await getUser(req)
   if (!user) {
     res.status(400)
@@ -108,6 +108,10 @@ app.get('/check-token', async function(req, res) {
   }
 
   res.send()
+})
+
+app.get('/_health', (_, res) => {
+  res.json({ ok: true })
 })
 
 if (process.env.NODE_ENV === 'production') {
