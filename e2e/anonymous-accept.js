@@ -13,6 +13,9 @@ test('I can accept a bet by loggin in', async t => {
   const creatorToken = await api.createUser('creator')
   const newBetId = await api.createBet(creatorToken, '1 coffee', 'something')
 
+  console.log(creatorToken)
+  console.log(newBetId)
+
   await t.navigateTo(`${HOST}/bet/${newBetId}`)
 
   const logs = await t.getBrowserConsoleMessages()
