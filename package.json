@@ -13,7 +13,7 @@
     "start:backend": "cd backend; yarn run dev",
     "start": "concurrently -k 'yarn start:frontend' 'yarn start:backend'",
     "lint": "eslint . --quiet",
-    "test:e2e": "babel-node backend/wait-for-backend.js && testcafe 'chrome:headless' ./e2e",
+    "test:e2e": "babel-node backend/wait-for-backend.js && testcafe 'chrome:headless' ./e2e -s ./e2e/screenshots --screenshots-on-fails",
     "test:e2e:debug": "testcafe 'chrome' ./e2e"
   },
   "husky": {
@@ -43,6 +43,7 @@
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-standard": "^4.0.0",
     "husky": "^1.1.2",
+    "imgur": "^0.3.1",
     "lint-staged": "^7.3.0",
     "node-fetch": "^2.3.0",
     "prettier": "^1.14.3",
