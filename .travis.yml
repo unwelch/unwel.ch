@@ -58,7 +58,7 @@ after_install:
 script:
   - yarn start & export APP_PID=$!
   - yarn test:e2e
-  - imgur ./e2e/screenshots/*
+  - imgur ./e2e/screenshots/**/*.png
   - kill $APP_PID
   - killall node
 
