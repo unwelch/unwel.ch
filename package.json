@@ -13,7 +13,7 @@
     "start:backend": "cd backend; yarn run dev",
     "start": "concurrently -k 'yarn start:frontend' 'yarn start:backend'",
     "lint": "eslint . --quiet",
-    "test:e2e": "babel-node backend/wait-for-backend.js && testcafe 'chrome:headless' ./e2e -s ./e2e/screenshots --screenshots-on-fails",
+    "test:e2e": "babel-node backend/wait-for-backend.js && testcafe 'chrome:headless' ./e2e/anonymous-accept.js -s ./e2e/screenshots --screenshots-on-fails",
     "test:e2e:debug": "testcafe 'chrome' ./e2e"
   },
   "husky": {
