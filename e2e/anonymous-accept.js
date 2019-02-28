@@ -4,6 +4,7 @@ import { HOST } from './config'
 import { fillAnonymousLogin, acceptBet } from './helpers'
 
 import * as api from './api'
+import { ClientFunction } from 'testcafe'
 
 fixture`Anonymous login by accepting`.page`${HOST}`.beforeEach(async () => {
   await waitForReact()
@@ -13,13 +14,11 @@ test('I can accept a bet by loggin in', async t => {
   const creatorToken = await api.createUser('creator')
   const newBetId = await api.createBet(creatorToken, '1 coffee', 'something')
 
-  console.log(creatorToken)
-  console.log(newBetId)
-
+  console.log('newBetId', newBetId)
   await t.navigateTo(`${HOST}/bet/${newBetId}`)
+  const getLocation = ClientFunction(() => document.location)
+  console.log('location', getLocation())
 
-  const logs = await t.getBrowserConsoleMessages()
-  console.log('logs:', logs)
   await acceptBet(t)
 
   await t
