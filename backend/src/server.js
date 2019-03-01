@@ -94,6 +94,9 @@ app.use(
         if (process.env.NODE_ENV === 'production') {
           sentryCaptureException(error)
         }
+        console.log(error.message)
+        console.log(error.locations)
+        console.log(error.path)
         return {
           message: error.message,
           locations: error.locations,
