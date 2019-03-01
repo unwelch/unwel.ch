@@ -1,5 +1,5 @@
 import { waitForReact } from 'testcafe-react-selectors'
-import { getLocation, dataQaExists } from './utils'
+import { getLocation, dataQaExists, dataQaSelector } from './utils'
 import { HOST } from './config'
 import { fillAnonymousLogin, acceptBet } from './helpers'
 
@@ -17,7 +17,8 @@ test('I can accept a bet by loggin in', async t => {
   console.log('newBetId', newBetId)
   await t.navigateTo(`${HOST}/bet/${newBetId}`)
   const getLocation = ClientFunction(() => document.location)
-  console.log('location', getLocation())
+  console.log('location', await getLocation())
+  console.log('error text', await dataQaSelector('error').innerText)
 
   await acceptBet(t)
 

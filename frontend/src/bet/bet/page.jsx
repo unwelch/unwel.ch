@@ -94,9 +94,9 @@ class BetPage extends Component {
           {t => (
             <DefaultContainer data-qa="bet-page">
               <Spacer inner top={6} />
+              <div data-qa="error">{this.props.betId}</div>
+              <div>{error}</div>
               <Text size="size3" textAlign="center">
-                <div>{this.props.betId}</div>
-                <div>{error}</div>
                 {t('bet-404')}
               </Text>
             </DefaultContainer>
