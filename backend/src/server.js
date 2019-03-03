@@ -131,6 +131,10 @@ app.get('/check-token', async function(req, res) {
   res.send({ error: 'invalid-token' })
 })
 
+app.get('/_health', (_, res) => {
+  res.json({ ok: true })
+})
+
 if (process.env.NODE_ENV === 'production') {
   // The error handler must be before any other error middleware
   app.use(sentryHandlers.errorHandler())

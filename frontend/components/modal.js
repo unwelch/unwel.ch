@@ -26,8 +26,9 @@ const ModalWrapper = styled.div`
   margin: 16px;
   background: ${colors.background};
 
-  border-radius: 6px;
-  box-shadow: 0px 4px 80px rgba(0, 0, 0, 0.35);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3),
+    0 4px 8px 3px rgba(60, 64, 67, 0.15);
 
   opacity: ${props => (props.isOpen ? '1' : '0')};
   transform: translateY(${props => (props.isOpen ? '0' : '120')}px)

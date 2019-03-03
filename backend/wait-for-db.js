@@ -15,6 +15,7 @@ const main = async () => {
 
   try {
     await client.connect()
+    console.log('Connected to DB')
     process.exit(0)
   } catch (err) {}
 }
