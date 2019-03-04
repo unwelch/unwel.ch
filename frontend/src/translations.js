@@ -36,7 +36,6 @@ const translations = {
     'announce.bet-marked-won': 'Bet marked as won',
     'announce.bet-marked-lost': 'Bet marked as lost',
     'announce.new-bet-created': 'New bet created',
-    'copy-message.body': 'Are you accepting this bet?',
     'copy-message.title': 'unwel.ch - Friendly betting'
   },
   es: {

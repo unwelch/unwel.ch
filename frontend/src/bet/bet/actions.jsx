@@ -32,12 +32,11 @@ class Actions extends Component {
     trackEvent(events.pageLoaded, { page: 'bet' })
   }
 
-  shareLink = (title, text, url) => {
+  shareLink = (text, url) => {
     return () => {
       if (webShareEnabled()) {
         navigator
           .share({
-            title,
             text,
             url
           })
@@ -66,7 +65,6 @@ class Actions extends Component {
             <Button
               type="level2"
               onClick={this.shareLink(
-                t('copy-message.body'),
                 t('copy-message.title'),
                 `${BET_PAGE}/${bet.id}`
               )}
