@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Placeholder from 'components/placeholder'
 
-import { unit, colors, fontWeights } from './variables'
+import { unit, colors, fontWeights } from '../variables'
 
 const Image = styled.img`
   display: block;

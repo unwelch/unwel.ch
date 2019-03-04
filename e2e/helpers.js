@@ -7,6 +7,7 @@ export const fillNewBet = async (t, statement, quantity) => {
 }
 
 export const fillAnonymousLogin = async (t, name) => {
+  await t.click(dataQaSelector('skip-login'))
   await t.typeText(dataQaSelector('anonymous-login-input'), name)
   await t.click(dataQaSelector('anonymous-login-confirm'))
 }

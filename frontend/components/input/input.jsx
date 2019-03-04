@@ -1,13 +1,14 @@
 import styled from 'styled-components'
-import { colors, fontSizes, lineHeights, fontWeights } from './variables'
-import { breakpointToTextSize } from './text'
-import { withBreakpoint } from './responsive-provider'
+import { colors, fontSizes, lineHeights, fontWeights } from '../variables'
+import { breakpointToTextSize } from '../text'
+import { withBreakpoint } from '../responsive-provider'
 
 const Input = styled.input`
   background: ${colors.background};
   outline: none;
   border: none;
   border-radius: 0;
+  padding: 0;
   font-family: inherit;
   line-height: inherit;
   cursor: pointer;

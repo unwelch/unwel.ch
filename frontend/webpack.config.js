@@ -39,6 +39,7 @@ module.exports = {
       orientation: 'portrait',
       display: 'standalone',
       inject: true,
+      ios: true,
       icons: [
         {
           src: path.resolve('src/assets/logo.png'),

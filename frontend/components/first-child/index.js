@@ -1,1 +1,1 @@
-module.exports = require('./first-child')
+module.exports = require('./first-child.jsx')

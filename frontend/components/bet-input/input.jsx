@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import NativeInput from '../input'
-
 import IdeaDropdown from './idea-dropdown'
 
 class Input extends Component {
@@ -26,7 +25,7 @@ class Input extends Component {
     this.props.onChange({ target: { value: idea } })
   }
 
-  render() {
+  render () {
     const {
       fontWeight,
       size,

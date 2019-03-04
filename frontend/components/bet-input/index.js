@@ -1,1 +1,1 @@
-module.exports = require('./bet-input')
+module.exports = require('./bet-input.jsx')

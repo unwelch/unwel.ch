@@ -1,1 +1,1 @@
-module.exports = require('./text')
+module.exports = require('./text.jsx')

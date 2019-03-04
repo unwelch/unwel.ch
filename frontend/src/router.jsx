@@ -61,10 +61,6 @@ const Router = () => (
         <Route path='/settings' component={() => <AsyncSettings />} />
         <Route path='/login' component={() => <AsyncLoginPage />} />
         <Route
-          path='/anonymous-login'
-          component={() => <AsyncLoginPage anonymous />}
-        />
-        <Route
           path='/save-account'
           component={() => <AsyncSaveAccountPage />}
         />

@@ -30,7 +30,7 @@ import Spacer from 'components/spacer'
 import Placeholder from 'components/placeholder'
 
 class BetPage extends Component {
-  componentDidMount () {
+  componentDidMount() {
     trackEvent(events.pageLoaded, { page: 'bet' })
   }
 
@@ -44,7 +44,7 @@ class BetPage extends Component {
       trackEvent(events.betAccepted, { betId: this.props.betId })
     } else {
       saveTempAccept(this.props.betId)
-      this.props.goToPage('/anonymous-login')
+      this.props.goToPage('/login')
     }
   }
 
@@ -66,7 +66,7 @@ class BetPage extends Component {
     }
   }
 
-  render () {
+  render() {
     const { showAnnounce } = this.props
     const { bet, currentUser, loading } = this.props.data
 
@@ -92,9 +92,9 @@ class BetPage extends Component {
       return (
         <TranslatorConsumer>
           {t => (
-            <DefaultContainer data-qa='bet-page'>
+            <DefaultContainer data-qa="bet-page">
               <Spacer inner top={6} />
-              <Text size='size3' textAlign='center'>
+              <Text size="size3" textAlign="center">
                 {t('bet-404')}
               </Text>
             </DefaultContainer>
@@ -111,13 +111,13 @@ class BetPage extends Component {
     return (
       <TranslatorConsumer>
         {t => (
-          <DefaultContainer data-qa='bet-page'>
+          <DefaultContainer data-qa="bet-page">
             <Spacer inner top={6} />
-            <Distribute space={1} align='center'>
+            <Distribute space={1} align="center">
               <Link to={`/profiles/${bet.user.id}`}>
                 <Avatar user={bet.user} />
               </Link>
-              <Text size='size4' fontWeight='black' italics>
+              <Text size="size4" fontWeight="black" italics>
                 vs
               </Text>
               {bet.user2 ? (

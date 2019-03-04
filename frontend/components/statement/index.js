@@ -1,1 +1,1 @@
-module.exports = require('./statement')
+module.exports = require('./statement.jsx')

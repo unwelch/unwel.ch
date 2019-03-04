@@ -1,1 +1,1 @@
-module.exports = require('./spacer')
+module.exports = require('./spacer.jsx')

@@ -1,1 +1,1 @@
-module.exports = require('./spread')
+module.exports = require('./spread.jsx')

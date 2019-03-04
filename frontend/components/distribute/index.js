@@ -1,1 +1,1 @@
-module.exports = require('./distribute')
+module.exports = require('./distribute.jsx')
