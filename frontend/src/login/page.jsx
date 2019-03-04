@@ -60,35 +60,34 @@ const AnonymousLogin = () => {
 
   return (
     <Fragment>
-      <Content type='title' fontWeight='regular'>
+      <Content type="title" fontWeight="regular">
         Give us a name 🤙
       </Content>
       <Spacer top={1} />
-      <Content type='subtitle'>Your friends will know who you are...</Content>
+      <Content type="subtitle">Your friends will know who you are...</Content>
       <Spacer top={2} />
       <Distribute>
-        <Content type='title' fontWeight='regular'>
+        <Content type="title" fontWeight="regular">
           <Input
-            data-qa='anonymous-login-input'
+            data-qa="anonymous-login-input"
             value={value}
-            size='size4'
+            size="size4"
             onChange={onChangeHandler}
             onFocus={onInputFocus}
             onBlur={onInputBlur}
             onKeyDown={onKeyDownHandler}
-            placeholder='e.g Jim Carrey'
+            placeholder="e.g Jim Carrey"
           />
         </Content>
       </Distribute>
       <Spacer top={6} bottom={10}>
-        <Animate type='slideUp' isVisible={inputFocus}>
+        <Animate type="slideUp" isVisible={inputFocus}>
           <Button
-            type='level2'
+            type="level2"
             onClick={onAnonymousClickHandler(value)}
             onMouseEnter={() => setButtonHover(true)}
             onMouseLeave={() => setButtonHover(false)}
-            dataQa='anonymous-login-confirm'
-          >
+            dataQa="anonymous-login-confirm">
             Create a new account
           </Button>
         </Animate>
@@ -107,11 +106,11 @@ const Divider = styled.div`
 const OAuth = ({ onLaterClickHandler }) => {
   return (
     <Fragment>
-      <Content type='title' fontWeight='regular'>
+      <Content type="title" fontWeight="regular">
         Welcome 👋
       </Content>
       <Spacer top={1} />
-      <Content type='subtitle'>
+      <Content type="subtitle">
         Sign into your account and start challenging your friends.
       </Content>
       <Spacer top={6} bottom={6}>
@@ -119,11 +118,10 @@ const OAuth = ({ onLaterClickHandler }) => {
           <ProviderButtons onClickGoogle={onGoogleClickHandler} />
           <Divider />
           <Button
-            dataQa='skip-login'
-            size='large'
-            type='inverted'
-            onClick={onLaterClickHandler}
-          >
+            dataQa="skip-login"
+            size="large"
+            type="inverted"
+            onClick={onLaterClickHandler}>
             Later
           </Button>
         </Distribute>
@@ -139,15 +137,12 @@ const Login = ({ goToPage, isLoggedIn }) => {
     goToPage('/bets')
   }
 
-  useEffect(
-    () => {
-      trackEvent(events.pageLoaded, {
-        page: 'login',
-        anonymousLogin: anonymous
-      })
-    },
-    [anonymous]
-  )
+  useEffect(() => {
+    trackEvent(events.pageLoaded, {
+      page: 'login',
+      anonymousLogin: anonymous
+    })
+  }, [anonymous])
 
   const skipLogin = () => {
     setAnonymous(true)
@@ -155,7 +150,7 @@ const Login = ({ goToPage, isLoggedIn }) => {
 
   return (
     <div>
-      <Root align='center' position='center'>
+      <Root align="center" position="center">
         <DefaultContainer>
           <Spacer top={4}>
             {!anonymous ? (

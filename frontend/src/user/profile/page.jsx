@@ -64,7 +64,7 @@ const Split = styled.div`
 `
 
 class Profile extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = { selectedTab: 'bets' }
@@ -73,19 +73,19 @@ class Profile extends Component {
     this.saveAccountHandler = this.saveAccountHandler.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     trackEvent(events.pageLoaded, { page: 'profile' })
   }
 
-  handleSettingsIconClick () {
+  handleSettingsIconClick() {
     this.props.goToPage('/settings')
   }
 
-  saveAccountHandler () {
+  saveAccountHandler() {
     this.props.goToPage('/save-account')
   }
 
-  render () {
+  render() {
     const { user, currentUser } = this.props.data
 
     if (!user || !currentUser) {
@@ -104,10 +104,10 @@ class Profile extends Component {
         {t => (
           <Root>
             <Spacer top={3} bottom={3}>
-              <Spread align='center'>
-                <Distribute space={2} align='center'>
+              <Spread align="center">
+                <Distribute space={2} align="center">
                   <Avatar size={7} user={user} />
-                  <Text size='size3' fontWeight='bold'>
+                  <Text size="size3" fontWeight="bold">
                     {user.name}
                   </Text>
                 </Distribute>
@@ -122,13 +122,12 @@ class Profile extends Component {
             {isCurrentUser && isAnonymous && (
               <Fragment>
                 <SaveAccountWrapper>
-                  <Text size='size1'>{t('save-account-message')}</Text>
+                  <Text size="size1">{t('save-account-message')}</Text>
                   <Spacer top={1} />
                   <Button
-                    type='level2'
+                    type="level2"
                     fullWidth
-                    onClick={this.saveAccountHandler}
-                  >
+                    onClick={this.saveAccountHandler}>
                     {t('create-account')}
                   </Button>
                 </SaveAccountWrapper>
@@ -146,7 +145,7 @@ class Profile extends Component {
               <Fragment>
                 <Split />
                 <div>
-                  <Text size='size3' fontWeight='regular'>
+                  <Text size="size3" fontWeight="regular">
                     {t('you')} vs {user.name}
                   </Text>
                   <Spacer top={2}>

@@ -1,120 +1,63 @@
 import React, { Component } from 'react'
-import styled, { css } from 'styled-components'
-
-import { colors } from '../variables'
-
-const placeholder = css`
-  position: relative;
-
-  &:after{
-    content: '${p => p.placeholder}';
-    position: absolute;
-    width: 100%;
-    text-decoration: underline;
-    display: inline-block;
-    z-index: -1;
-    opacity: 0.5;
-    color: ${colors.primary};
-    left: 0;
-  }
-`
-
-const Root = styled.div`
-  display: ${p => (p.flex ? 'flex' : 'block')};
-`
-
-const Prefix = styled.span`
-  color: ${colors.body};
-  white-space: nowrap;
-  margin-right: 0.2em;
-`
-
-const InputWrapper = styled.span`
-  ${p => p.isPlaceholder && placeholder};
-  flex: 1;
-  display: ${p => (p.flex ? 'flex' : 'inline')};
-`
-
-const InputSpan = styled.span`
-  outline: none;
-  font-weight: inherit;
-  font-family: inherit;
-  line-height: inherit;
-  cursor: pointer;
-  color: ${colors.primary};
-  flex: 1;
-  display: ${p => (p.block ? 'inline-block' : 'inline')};
-  min-width: ${p => (p.block ? '100%' : '100px')};
-`
+import NativeInput from '../input'
+import IdeaDropdown from './idea-dropdown'
 
 class Input extends Component {
-  constructor(props) {
-    super(props)
+  state = { showDropdown: false }
 
-    this.emitChange = this.emitChange.bind(this)
-    this.onKeyDown = this.onKeyDown.bind(this)
-  }
-
-  onKeyDown(e) {
-    const code = e.keyCode ? e.keyCode : e.which
-
-    // Prevent new lines on enter
-    if (code === 13) {
-      e.preventDefault()
-      e.stopPropagation()
-      return false
+  handleInputFocus = () => {
+    if (this.props.value === '') {
+      this.setState({ showDropdown: true })
     }
   }
 
-  componentDidMount() {
-    this.ref.innerHTML = this.props.html
+  handleInputBlur = () => {
+    setTimeout(() => this.setState({ showDropdown: false }), 300)
   }
 
-  emitChange() {
-    const html = this.ref.innerHTML
-    if (this.props.onChange && html !== this.lastHtml) {
-      this.props.onChange({
-        target: {
-          value: html
-        }
-      })
-    }
-    this.lastHtml = html
+  handleInputChange = evt => {
+    this.props.onChange(evt)
+    this.setState({ showDropdown: evt.target.value === '' })
   }
 
-  render() {
+  handleIdeaClick = idea => {
+    this.setState({ showDropdown: false })
+    this.props.onChange({ target: { value: idea } })
+  }
+
+  render () {
+    const {
+      fontWeight,
+      size,
+      fullWidth,
+      value,
+      placeholder,
+      ideas,
+      ideaColumns,
+      dataQa
+    } = this.props
     return (
-      <InputSpan
-        innerRef={node => {
-          this.ref = node
-        }}
-        onKeyDown={this.onKeyDown}
-        onInput={this.emitChange}
-        onBlur={this.emitChange}
-        contentEditable
-        block={this.props.block}
-        data-qa={this.props.dataQa}
-      />
+      <div style={{ position: 'relative' }}>
+        <NativeInput
+          fontWeight={fontWeight}
+          size={size}
+          fullWidth={fullWidth}
+          onChange={this.handleInputChange}
+          value={value}
+          placeholder={placeholder}
+          data-qa={dataQa}
+          onFocus={this.handleInputFocus}
+          onBlur={this.handleInputBlur}
+        />
+        <IdeaDropdown
+          visible={this.state.showDropdown}
+          ideas={ideas}
+          onIdeaClick={this.handleIdeaClick}
+          columns={ideaColumns}
+        />
+      </div>
     )
   }
 }
 
-const FancyInput = ({ prefix, value, onChange, placeholder, dataQa }) => {
-  const empty = value == null || value === ''
-
-  return (
-    <Root flex={empty}>
-      <Prefix>{prefix}</Prefix>
-      <InputWrapper
-        flex={empty}
-        placeholder={placeholder}
-        isPlaceholder={empty}>
-        <Input html={value} block={empty} onChange={onChange} dataQa={dataQa} />
-      </InputWrapper>
-    </Root>
-  )
-}
-
-FancyInput.displayName = 'FancyInput'
-
-export default FancyInput
+export default Input
