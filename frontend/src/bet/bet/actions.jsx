@@ -65,7 +65,7 @@ class Actions extends Component {
             <Button
               type="level2"
               onClick={this.shareLink(
-                t('copy-message.title'),
+                t('copy-message.body', { statement: bet.statement.statement }),
                 `${BET_PAGE}/${bet.id}`
               )}
               icon={<ShareIcon />}>
