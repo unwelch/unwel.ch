@@ -52,7 +52,8 @@ module.exports = {
     modules: [path.resolve('./src'), path.resolve('./node_modules')],
     alias: {
       components: path.resolve('./components'),
-      src: path.resolve('./src')
+      src: path.resolve('./src'),
+      shared: path.resolve('../resolve')
     }
   },
   module: {

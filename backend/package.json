@@ -4,7 +4,7 @@
   "license": "GPL-3.0-only",
   "main": "src/server.js",
   "scripts": {
-    "build": "babel src --out-dir lib",
+    "build": "webpack",
     "prod": "npm run migrate && npm run serve",
     "serve": "NODE_ENV=production node lib/server.js",
     "dev": "npm run cleandb && concurrently -k \"npm run startdb\" \"babel-node wait-for-db.js && npm run migrate && npm run start\"",
@@ -39,13 +39,21 @@
     "web-push": "^3.3.3"
   },
   "devDependencies": {
-    "babel-cli": "^6.11.4",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-loader": "^8.0.5",
     "babel-preset-env": "^1.6.1",
     "concurrently": "^3.5.1",
     "jest": "^21.2.1",
     "node-fetch": "^2.3.0",
-    "nodemon": "^1.10.0"
+    "nodemon": "^1.10.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3",
+    "webpack-node-externals": "^1.7.2"
   }
 }
