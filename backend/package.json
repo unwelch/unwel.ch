@@ -51,7 +51,7 @@
     "concurrently": "^3.5.1",
     "jest": "^21.2.1",
     "node-fetch": "^2.3.0",
-    "nodemon": "^1.10.0",
+    "nodemon": "^1.18.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
     "webpack-node-externals": "^1.7.2"
