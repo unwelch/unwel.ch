@@ -14,17 +14,12 @@ module.exports = {
   name: 'server',
   plugins: [new webpack.NamedModulesPlugin()],
   target: 'node',
-  entry: [path.resolve(path.join(__dirname, 'src/server.js'))],
+  entry: path.resolve(__dirname, 'src/server.js'),
   output: {
     publicPath: './',
     path: path.resolve(__dirname, 'build'),
     filename: 'server.js',
     libraryTarget: 'commonjs2'
-  },
-  resolve: {
-    alias: {
-      shared: path.resolve('../shared')
-    }
   },
   module: {
     rules: [
