@@ -49,7 +49,7 @@ module.exports = {
     })
   ],
   resolve: {
-    modules: [path.resolve('./src'), path.resolve('./node_modules')],
+    modules: [path.resolve('./src'), 'node_modules'],
     alias: {
       components: path.resolve('./components'),
       src: path.resolve('./src')
@@ -70,23 +70,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(ttf|eot|woff|woff2)$/,
-        use: [
-          {
-            loader: 'file-loader'
-          }
-        ]
-      },
-      {
-        test: /\.(png|jpg|gif)$/,
-        use: [
-          {
-            loader: 'file-loader'
-          }
-        ]
-      },
-      {
-        test: /\.(svg)$/,
+        test: /\.(ttf|eot|woff|woff2|png|jpg|gif|svg)$/,
         use: [
           {
             loader: 'file-loader'
