@@ -17,7 +17,7 @@ module.exports = {
   entry: path.resolve(__dirname, 'src/server.js'),
   output: {
     publicPath: './',
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, 'lib'),
     filename: 'server.js',
     libraryTarget: 'commonjs2'
   },
