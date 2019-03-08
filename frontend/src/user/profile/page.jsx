@@ -133,6 +133,7 @@ class Profile extends Component {
                 <Button
                   type="level2"
                   fullWidth
+                  dataQa="challenge-button"
                   onClick={this.handleChallengeButtonClick}>
                   {t('challenge-a-friend', { userName: user.name })}
                 </Button>

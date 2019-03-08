@@ -79,7 +79,11 @@ class NewBet extends Component {
                 <Text inline jsize="size0">
                   versus{' '}
                 </Text>
-                <Text inline size="size0" fontWeight="black">
+                <Text
+                  inline
+                  size="size0"
+                  fontWeight="black"
+                  data-qa="target-name">
                   {user.name}
                 </Text>
               </div>

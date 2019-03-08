@@ -8,8 +8,8 @@ import * as api from './api'
 fixture`Choosing winner`.page`${HOST}`
 
 test('Creator wins', async t => {
-  const creatorToken = await api.createUser('creator')
-  const acceptorToken = await api.createUser('acceptor')
+  const { token: creatorToken } = await api.createUser('creator')
+  const { token: acceptorToken } = await api.createUser('acceptor')
   const betId = await api.createBet(creatorToken, '1 coffee', 'something')
   await api.acceptBet(acceptorToken, betId)
 
@@ -32,8 +32,8 @@ test('Creator wins', async t => {
 })
 
 test('Creator loses', async t => {
-  const creatorToken = await api.createUser('creator')
-  const acceptorToken = await api.createUser('acceptor')
+  const { token: creatorToken } = await api.createUser('creator')
+  const { token: acceptorToken } = await api.createUser('acceptor')
   const betId = await api.createBet(creatorToken, '1 coffee', 'something')
   await api.acceptBet(acceptorToken, betId)
 
@@ -56,8 +56,8 @@ test('Creator loses', async t => {
 })
 
 test('Both win', async t => {
-  const creatorToken = await api.createUser('creator')
-  const acceptorToken = await api.createUser('acceptor')
+  const { token: creatorToken } = await api.createUser('creator')
+  const { token: acceptorToken } = await api.createUser('acceptor')
   const betId = await api.createBet(creatorToken, '1 coffee', 'something')
   await api.acceptBet(acceptorToken, betId)
 
@@ -80,8 +80,8 @@ test('Both win', async t => {
 })
 
 test('Both lost', async t => {
-  const creatorToken = await api.createUser('creator')
-  const acceptorToken = await api.createUser('acceptor')
+  const { token: creatorToken } = await api.createUser('creator')
+  const { token: acceptorToken } = await api.createUser('acceptor')
   const betId = await api.createBet(creatorToken, '1 coffee', 'something')
   await api.acceptBet(acceptorToken, betId)
 
