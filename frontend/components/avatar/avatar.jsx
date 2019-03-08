@@ -56,8 +56,6 @@ const Letter = styled.span`
   align-self: center;
   width: 100%;
   text-align: center;
-  margin-left: 1px;
-  margin-top: 1px;
 `
 
 const Avatar = ({ placeholder, size = 8, user }) => {
