@@ -1,5 +1,10 @@
-import { GraphQLObjectType, GraphQLString, GraphQLBoolean } from 'graphql'
-import { complement, prop } from 'ramda'
+import {
+  GraphQLObjectType,
+  GraphQLList,
+  GraphQLString,
+  GraphQLBoolean
+} from 'graphql'
+import { complement, prop, chain, uniq } from 'ramda'
 
 import db from './db'
 import BetDB from '../bet/db'
@@ -9,6 +14,15 @@ import {
   calculateGlobalStats,
   calculateAgainstStats
 } from './../stats/calculator'
+
+const getFriends = async userId => {
+  const userBets = await BetDB.getByUserOrUser2(userId)
+  const allIds = uniq(chain(bet => [bet.userId, bet.user2Id], userBets))
+  const opponentIds = allIds
+    .filter(id => id !== userId)
+    .filter(id => id != null)
+  return opponentIds
+}
 
 export const UserType = new GraphQLObjectType({
   name: 'User',
@@ -34,6 +48,14 @@ export const UserType = new GraphQLObjectType({
     pushEnabled: {
       type: GraphQLBoolean,
       resolve: prop('pushEnabled')
+    },
+    friends: {
+      type: new GraphQLList(UserType),
+      resolve: async root => {
+        const friendIds = await getFriends(root.id)
+        const friends = await Promise.all(friendIds.map(id => db.get(id)))
+        return friends
+      }
     },
     stats: {
       type: StatsType,
