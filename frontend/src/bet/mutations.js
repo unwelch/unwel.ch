@@ -27,8 +27,16 @@ export const CHOOSE_WINNER_MUTATION = gql`
 `
 
 export const ADD_BET_MUTATION = gql`
-  mutation addBetMutation($quantity: String!, $statement: String!) {
-    addBet(quantity: $quantity, statement: $statement) {
+  mutation addBetMutation(
+    $quantity: String!
+    $statement: String!
+    $targetUserId: String
+  ) {
+    addBet(
+      quantity: $quantity
+      statement: $statement
+      targetUserId: $targetUserId
+    ) {
       id
     }
   }

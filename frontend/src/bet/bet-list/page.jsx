@@ -75,7 +75,7 @@ class BetList extends Component {
   }
 
   render() {
-    const { bets, currentUser } = this.props.data
+    const { bets } = this.props.data
 
     let items = []
     if (!bets) {
@@ -90,7 +90,7 @@ class BetList extends Component {
           <Spacer inner top={3} />
           <TranslatorConsumer>
             {t => (
-              <Text size='size3' fontWeight='bold'>
+              <Text size="size3" fontWeight="bold">
                 {t('bet-list.title')}
               </Text>
             )}

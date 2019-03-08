@@ -12,6 +12,7 @@ const translations = {
       'Waiting for {{opponent}} to decide who won',
     'bet-status.won': 'Won',
     'bet-status.lost': 'Lost',
+    'bet-status.cannot-accept': 'You cannot accept this bet',
     'bet-status.dispute': 'Dispute',
     'bet-status.won.long': 'You won!',
     'bet-status.lost.long': 'You lost!',

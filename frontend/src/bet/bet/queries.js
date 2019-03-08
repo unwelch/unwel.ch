@@ -15,6 +15,11 @@ export const BET_INFO = gql`
         name
         avatar
       }
+      targetUser {
+        id
+        name
+        avatar
+      }
       userResponse
       user2Response
       statement {

@@ -7,7 +7,8 @@ const NOTIFICATION_TYPES = {
   ACCEPTED: `{{userName}} accepted your bet`,
   WON: 'You won a bet',
   LOST: 'You lost a bet',
-  DISPUTED: 'Oh... you got disputed!'
+  DISPUTED: 'Oh... you got disputed!',
+  CHALLENGE: 'You got challenged by {{userName}}'
 }
 
 const newNotification = async (
