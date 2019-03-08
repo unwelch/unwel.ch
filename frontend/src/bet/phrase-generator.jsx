@@ -15,13 +15,13 @@ export const getIntroText = (
   const subject = isCreator ? t('you') : statementUser.name
 
   return (
-    <Text fontWeight='regular' size={fontSize}>
+    <Text fontWeight="regular" size={fontSize}>
       {subject} {t('bet-phrase.verb')}{' '}
-      <Text inline size={fontSize} fontWeight='black'>
+      <Text inline size={fontSize} fontWeight="black">
         {toLower(quantity)}
       </Text>{' '}
       {t('bet-phrase.preposition')}{' '}
-      <Text inline size={fontSize} fontWeight='black' italics>
+      <Text inline size={fontSize} fontWeight="black" italics>
         {statement}
       </Text>
     </Text>
@@ -32,6 +32,7 @@ export const getAccepterText = (
   currentUser,
   statementUser,
   accepter,
+  target,
   quantity,
   statement,
   fontSize,
@@ -39,7 +40,17 @@ export const getAccepterText = (
 ) => {
   let text = ''
   if (!accepter) {
-    text = t('bet-status.waiting-for-opponent')
+    if (target) {
+      if (target.id === currentUser.id) {
+        text = t('bet-status.waiting-for-you')
+      } else {
+        text = t('bet-status.waiting-for-target-opponent', {
+          userName: target.name
+        })
+      }
+    } else {
+      text = t('bet-status.waiting-for-opponent')
+    }
   } else {
     const isAccepter = currentUser && currentUser.id === accepter.id
     if (isAccepter) {
@@ -50,7 +61,7 @@ export const getAccepterText = (
   }
 
   return (
-    <Text fontWeight='regular' size={fontSize}>
+    <Text fontWeight="regular" size={fontSize}>
       {text}
     </Text>
   )

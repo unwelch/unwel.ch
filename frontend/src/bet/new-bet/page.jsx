@@ -83,7 +83,6 @@ class NewBet extends Component {
                   {user.name}
                 </Text>
               </div>
-
               <Avatar size={4} user={user} />
             </Distribute>
           )
@@ -107,7 +106,7 @@ class NewBet extends Component {
               />
             </Spacer>
             {targetUserId && (
-              <Spacer top={6}>{this.renderVersus(targetUserId)}</Spacer>
+              <Spacer top={3}>{this.renderVersus(targetUserId)}</Spacer>
             )}
           </DefaultContainer>
         )}

@@ -86,11 +86,7 @@ class Actions extends Component {
           bet.targetUser &&
           (!currentUser || bet.targetUser.id !== currentUser.id)
         ) {
-          return (
-            <Text size="size0" dimmed data-qa="text-label-cannot-accept">
-              {t('bet-status.cannot-accept')}
-            </Text>
-          )
+          return null
         }
 
         return (
