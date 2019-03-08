@@ -21,7 +21,7 @@ injectGlobal`
           url('${CeraBoldWoff}') format('woff');
       font-weight: 600;
       font-style: normal;
-      font-display: swap;
+      font-display: block;
   }
 
   @font-face {
@@ -31,7 +31,7 @@ injectGlobal`
           url('${CeraMediumWoff}') format('woff');
       font-weight: 500;
       font-style: normal;
-      font-display: swap;
+      font-display: block;
   }
   @font-face {
       font-family: 'Cera';
@@ -40,7 +40,7 @@ injectGlobal`
           url('${CeraBlackWoff}') format('woff');
       font-weight: 800;
       font-style: normal;
-      font-display: swap;
+      font-display: block;
   }
 
   @font-face {
@@ -50,7 +50,7 @@ injectGlobal`
           url('${CeraBlackItalicWoff}') format('woff');
       font-weight: 800;
       font-style: italic;
-      font-display: swap;
+      font-display: block;
   }
 
 

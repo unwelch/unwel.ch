@@ -82,6 +82,17 @@ class Actions extends Component {
           </Distribute>
         )
       case betStatuses.AVAILABLE_BET:
+        if (
+          bet.targetUser &&
+          (!currentUser || bet.targetUser.id !== currentUser.id)
+        ) {
+          return (
+            <Text size="size0" dimmed data-qa="text-label-cannot-accept">
+              {t('bet-status.cannot-accept')}
+            </Text>
+          )
+        }
+
         return (
           <Button
             type="level2"

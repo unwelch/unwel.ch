@@ -20,6 +20,11 @@ const Root = styled(Distribute)`
   height: 100%;
 `
 
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`
+
 const onGoogleClickHandler = () => {
   trackEvent(events.loginRequested, {
     type: 'oauth',
@@ -96,13 +101,6 @@ const AnonymousLogin = () => {
   )
 }
 
-const Divider = styled.div`
-  height: 100%;
-  width: 2px;
-  background-color: #eee;
-  padding: 0px 8px;
-`
-
 const OAuth = ({ onLaterClickHandler }) => {
   return (
     <Fragment>
@@ -114,9 +112,10 @@ const OAuth = ({ onLaterClickHandler }) => {
         Sign into your account and start challenging your friends.
       </Content>
       <Spacer top={6} bottom={6}>
-        <Distribute>
-          <ProviderButtons onClickGoogle={onGoogleClickHandler} />
-          <Divider />
+        <ButtonWrapper>
+          <Spacer right={2} bottom={2}>
+            <ProviderButtons onClickGoogle={onGoogleClickHandler} />
+          </Spacer>
           <Button
             dataQa="skip-login"
             size="large"
@@ -124,7 +123,7 @@ const OAuth = ({ onLaterClickHandler }) => {
             onClick={onLaterClickHandler}>
             Later
           </Button>
-        </Distribute>
+        </ButtonWrapper>
       </Spacer>
     </Fragment>
   )

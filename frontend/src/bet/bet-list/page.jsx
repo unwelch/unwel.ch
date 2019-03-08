@@ -26,33 +26,32 @@ const ListWrapper = styled.div`
 `
 
 class BetList extends Component {
-  componentDidMount () {
+  componentDidMount() {
     trackEvent(events.pageLoaded, { page: 'betList' })
     if (!this.props.isLoggedIn) {
       this.props.goToPage(`/`)
     }
   }
 
-  renderPlaceholderItems (n) {
+  renderPlaceholderItems(n) {
     return range(0, n).map(i => {
       return <ListItem key={i} placeholder />
     })
   }
 
-  renderEmptyState () {
+  renderEmptyState() {
     return (
       <TranslatorConsumer>
         {t => (
           <div>
             <Spacer bottom={2} />
-            <Content type='subtitle' fontWeight='regular'>
+            <Content type="subtitle" fontWeight="regular">
               {t('bet-list.empty.title')}
             </Content>
             <Spacer bottom={3} />
             <Button
-              type='level2'
-              onClick={() => this.props.goToPage(`/bets/new`)}
-            >
+              type="level2"
+              onClick={() => this.props.goToPage(`/bets/new`)}>
               {t('create-a-bet')}
             </Button>
           </div>
@@ -61,7 +60,7 @@ class BetList extends Component {
     )
   }
 
-  renderItems (bets) {
+  renderItems(bets) {
     return bets.map(bet => {
       return (
         <ListItem
@@ -75,7 +74,7 @@ class BetList extends Component {
     })
   }
 
-  render () {
+  render() {
     const { bets } = this.props.data
 
     let items = []
@@ -91,7 +90,7 @@ class BetList extends Component {
           <Spacer inner top={3} />
           <TranslatorConsumer>
             {t => (
-              <Text size='size3' fontWeight='bold'>
+              <Text size="size3" fontWeight="bold">
                 {t('bet-list.title')}
               </Text>
             )}

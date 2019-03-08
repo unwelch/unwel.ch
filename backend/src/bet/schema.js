@@ -40,6 +40,12 @@ export const BetType = new GraphQLObjectType({
         return UserDB.get(bet.user2Id)
       }
     },
+    targetUser: {
+      type: UserType,
+      resolve: bet => {
+        return UserDB.get(bet.targetUserId)
+      }
+    },
     userResponse: {
       type: GraphQLBoolean,
       resolve: prop('userResponse')
@@ -68,19 +74,24 @@ export const BetMutation = {
     resolve: async (root, { id }, { user }) => {
       if (user) {
         const bet = await db.get(id)
+
         if (bet.userId === user.id) {
           throw new Error('Can not accept your own bet')
-        } else {
-          bet.user2Id = user.id
-          await newNotification(
-            bet.user2Id,
-            bet.userId,
-            bet.id,
-            types.ACCEPTED,
-            { userName: user.name }
-          )
-          return db.update(bet)
         }
+
+        if (bet.targetUserId && bet.targetUserId !== user.id) {
+          throw new Error(
+            'You cannot accept this bet, it is targeted at another user'
+          )
+        }
+
+        bet.user2Id = user.id
+
+        await newNotification(bet.user2Id, bet.userId, bet.id, types.ACCEPTED, {
+          userName: user.name
+        })
+
+        return db.update(bet)
       } else {
         throw new Error('Not logged in')
       }
@@ -90,20 +101,35 @@ export const BetMutation = {
     type: BetType,
     args: {
       quantity: { type: GraphQLString },
-      statement: { type: GraphQLString }
+      statement: { type: GraphQLString },
+      targetUserId: { type: GraphQLString }
     },
-    resolve: async (root, { quantity, statement }, { user }) => {
+    resolve: async (root, { quantity, statement, targetUserId }, { user }) => {
       if (user) {
         const newStatement = await StatementDB.insert({
           statement,
           userId: user.id
         })
 
-        return db.insert({
+        let bet = {
           quantity,
           userId: user.id,
           statementId: newStatement.id
-        })
+        }
+
+        if (targetUserId) {
+          bet.targetUserId = targetUserId
+        }
+
+        bet = await db.insert(bet)
+
+        if (targetUserId) {
+          newNotification(user.id, targetUserId, bet.id, types.CHALLENGE, {
+            userName: user.name
+          })
+        }
+
+        return bet
       } else {
         throw new Error('Not logged in')
       }
