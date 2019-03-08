@@ -20,6 +20,7 @@ export const BET_INFO = gql`
         name
         avatar
       }
+      isPrivate
       userResponse
       user2Response
       statement {

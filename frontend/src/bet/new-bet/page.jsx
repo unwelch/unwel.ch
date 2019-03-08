@@ -4,8 +4,9 @@ import gql from 'graphql-tag'
 import { compose } from 'ramda'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-
 import queryString from 'query-string'
+import LockIcon from 'react-feather/dist/icons/lock'
+import UnLockIcon from 'react-feather/dist/icons/unlock'
 
 import DefaultContainer from 'components/default-container'
 import BetInput from 'components/bet-input'
@@ -13,6 +14,8 @@ import Spacer from 'components/spacer'
 import Avatar from 'components/avatar'
 import Text from 'components/text'
 import Distribute from 'components/distribute'
+import Split from 'components/split'
+import { colors } from 'components/variables'
 
 import { saveTempBet } from '../services'
 import { showAnnounce } from '../../announce/actions'
@@ -35,9 +38,8 @@ export const USER_QUERY = gql`
 `
 
 class NewBet extends Component {
-  constructor() {
-    super()
-    this.handleBetConfirm = this.handleBetConfirm.bind(this)
+  state = {
+    isPrivate: false
   }
 
   componentDidMount() {
@@ -48,7 +50,7 @@ class NewBet extends Component {
     return queryString.parse(window.location.search).targetUserId
   }
 
-  async handleBetConfirm(bet) {
+  handleBetConfirm = async bet => {
     if (!this.props.isLoggedIn) {
       saveTempBet(bet)
       await this.props.goToPage(`/login`)
@@ -63,6 +65,12 @@ class NewBet extends Component {
       this.getTargetUserId()
     )
     await this.props.goToPage(`/bet/${result.data.addBet.id}`)
+  }
+
+  handleVisibilityChange = () => {
+    this.setState({
+      isPrivate: !this.state.isPrivate
+    })
   }
 
   renderVersus(targetUserId) {
@@ -94,6 +102,7 @@ class NewBet extends Component {
 
   render() {
     const targetUserId = this.getTargetUserId()
+    const VisibilityIcon = this.state.isPrivate ? LockIcon : UnLockIcon
 
     return (
       <TranslatorConsumer>
@@ -105,6 +114,15 @@ class NewBet extends Component {
                 middle={t('new-bet-phrase.preposition')}
                 onConfirm={this.handleBetConfirm}
               />
+              <Spacer top={3} onClick={this.handleVisibilityChange}>
+                <Distribute space={2} align="center">
+                  <Text size="size1">Visibility</Text>
+                  <VisibilityIcon
+                    color={this.state.isPrivate ? colors.grey5 : colors.primary}
+                  />
+                </Distribute>
+                <Split />
+              </Spacer>
             </Spacer>
             {targetUserId && (
               <Spacer top={6}>{this.renderVersus(targetUserId)}</Spacer>
