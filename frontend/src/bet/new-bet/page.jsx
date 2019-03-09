@@ -79,11 +79,14 @@ class NewBet extends Component {
                 <Text inline jsize="size0">
                   versus{' '}
                 </Text>
-                <Text inline size="size0" fontWeight="black">
+                <Text
+                  inline
+                  size="size0"
+                  fontWeight="black"
+                  data-qa="target-name">
                   {user.name}
                 </Text>
               </div>
-
               <Avatar size={4} user={user} />
             </Distribute>
           )
@@ -107,7 +110,7 @@ class NewBet extends Component {
               />
             </Spacer>
             {targetUserId && (
-              <Spacer top={6}>{this.renderVersus(targetUserId)}</Spacer>
+              <Spacer top={3}>{this.renderVersus(targetUserId)}</Spacer>
             )}
           </DefaultContainer>
         )}

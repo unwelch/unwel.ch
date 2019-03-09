@@ -147,6 +147,7 @@ class BetPage extends Component {
               currentUser,
               bet.statement.user,
               bet.user2,
+              bet.targetUser,
               bet.quantity,
               bet.statement.statement,
               'size2',

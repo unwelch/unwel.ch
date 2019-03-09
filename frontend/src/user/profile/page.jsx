@@ -71,6 +71,7 @@ class Profile extends Component {
 
     this.handleSettingsIconClick = this.handleSettingsIconClick.bind(this)
     this.saveAccountHandler = this.saveAccountHandler.bind(this)
+    this.handleChallengeButtonClick = this.handleChallengeButtonClick.bind(this)
   }
 
   componentDidMount() {
@@ -83,6 +84,16 @@ class Profile extends Component {
 
   saveAccountHandler() {
     this.props.goToPage('/save-account')
+  }
+
+  handleChallengeButtonClick() {
+    const user = this.props.data && this.props.data.user
+    if (user) {
+      this.props.goToPage({
+        pathname: '/bets/new',
+        search: '?targetUserId=' + user.id
+      })
+    }
   }
 
   render() {
@@ -117,6 +128,18 @@ class Profile extends Component {
               </Spread>
             </Spacer>
 
+            {!isCurrentUser && currentUser != null && (
+              <Fragment>
+                <Button
+                  type="level2"
+                  fullWidth
+                  dataQa="challenge-button"
+                  onClick={this.handleChallengeButtonClick}>
+                  {t('challenge-a-friend', { userName: user.name })}
+                </Button>
+              </Fragment>
+            )}
+
             <Split />
 
             {isCurrentUser && isAnonymous && (
@@ -135,25 +158,36 @@ class Profile extends Component {
               </Fragment>
             )}
 
-            <BasicStats stats={user.stats} />
-
-            <Split />
-
-            <WonLostPie stats={user.stats} />
-
-            {!isCurrentUser && (
+            {user.stats.betsCreated + user.stats.betsAccepted > 0 && (
               <Fragment>
+                <BasicStats stats={user.stats} />
                 <Split />
-                <div>
-                  <Text size="size3" fontWeight="regular">
-                    {t('you')} vs {user.name}
-                  </Text>
-                  <Spacer top={2}>
-                    <WonLostBar stats={user.statsAgainstYou} />
-                  </Spacer>
-                </div>
               </Fragment>
             )}
+
+            {user.stats.betsLost + user.stats.betsWon > 0 && (
+              <Fragment>
+                <WonLostPie stats={user.stats} />
+                <Split />
+              </Fragment>
+            )}
+
+            {!isCurrentUser &&
+              user.statsAgainstYou.betsWon + user.statsAgainstYou.betsLost >
+                0 && (
+                <Fragment>
+                  <Split />
+                  <div>
+                    <Text size="size3" fontWeight="regular">
+                      {t('you')} vs {user.name}
+                    </Text>
+                    <Spacer top={2}>
+                      <WonLostBar stats={user.statsAgainstYou} />
+                    </Spacer>
+                  </div>
+                </Fragment>
+              )}
+            <Spacer inner top={4} />
           </Root>
         )}
       </TranslatorConsumer>

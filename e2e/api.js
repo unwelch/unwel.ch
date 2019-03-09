@@ -64,5 +64,5 @@ export const createUser = async name => {
 
   const body = await resp.json()
 
-  return body.token
+  return { token: body.token, userId: body.id }
 }

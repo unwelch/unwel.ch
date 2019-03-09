@@ -14,23 +14,23 @@ const BasicStatsWrapper = styled.div`
 
 export const BasicStats = ({ stats }) => (
   <BasicStatsWrapper>
-    <Distribute vertical align='center'>
-      <Text size='size5' fontWeight='black'>
+    <Distribute vertical align="center">
+      <Text size="size5" fontWeight="black">
         {stats.betsCreated}
       </Text>
-      <Text size='size1'>Created</Text>
+      <Text size="size1">Created</Text>
     </Distribute>
-    <Distribute vertical align='center'>
-      <Text size='size5' fontWeight='black'>
+    <Distribute vertical align="center">
+      <Text size="size5" fontWeight="black">
         {stats.betsAccepted}
       </Text>
-      <Text size='size1'>Accepted</Text>
+      <Text size="size1">Accepted</Text>
     </Distribute>
-    <Distribute vertical align='center'>
-      <Text color={colors.error} size='size5' fontWeight='black'>
+    <Distribute vertical align="center">
+      <Text color={colors.error} size="size5" fontWeight="black">
         {stats.betsDisputed}
       </Text>
-      <Text color={colors.error} size='size1'>
+      <Text color={colors.error} size="size1">
         Disputes
       </Text>
     </Distribute>
@@ -97,7 +97,11 @@ const WonLostPieWrapper = styled.div`
 
 export const WonLostPie = ({ stats }) => {
   if (stats.betsWon + stats.betsLost + stats.betsDisputed <= 0) {
-    return null
+    return (
+      <WonLostPieWrapper>
+        <Text dimmed>No finished bets</Text>
+      </WonLostPieWrapper>
+    )
   }
 
   const data = [
@@ -135,17 +139,17 @@ export const WonLostPie = ({ stats }) => {
         padAngle={3}
         cornerRadius={6}
         colorBy={data => data.color}
-        borderColor='inherit'
+        borderColor="inherit"
         radialLabelsSkipAngle={10}
         radialLabelsTextXOffset={6}
-        radialLabelsTextColor='#070707'
+        radialLabelsTextColor="#070707"
         radialLabelsLinkOffset={0}
         radialLabelsLinkDiagonalLength={8}
         radialLabelsLinkHorizontalLength={8}
         radialLabelsLinkStrokeWidth={1}
-        radialLabelsLinkColor='inherit'
+        radialLabelsLinkColor="inherit"
         slicesLabelsSkipAngle={10}
-        slicesLabelsTextColor='#FFFFFF'
+        slicesLabelsTextColor="#FFFFFF"
         animate={false}
         isInteractive={false}
         theme={{ labels: { text: { fontSize: 14, fontWeight: 'bold' } } }}
