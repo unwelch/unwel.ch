@@ -54,15 +54,14 @@ const IdeaDropdown = ({ onIdeaClick, ideas, visible, columns }) => {
   return (
     <Root visible={visible}>
       <Dropdown columns={columns}>
-        {ideas.map(idea => (
+        {ideas.map((idea, index) => (
           <Idea
             color={idea.color}
-            key={idea}
-            onClick={onIdeaClick.bind(null, idea.content)}
-          >
+            key={index}
+            onClick={onIdeaClick.bind(null, idea.content)}>
             <Wrapper>
               <Emoji>{idea.emoji}</Emoji>
-              <Text size='size2' shortLineHeight>
+              <Text size="size2" shortLineHeight>
                 {idea.content}
               </Text>
             </Wrapper>
