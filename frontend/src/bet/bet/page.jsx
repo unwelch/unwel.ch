@@ -4,6 +4,7 @@ import { graphql } from 'react-apollo'
 import { compose } from 'ramda'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import LockIcon from 'react-feather/dist/icons/lock'
 
 import { saveTempAccept } from '../services'
 import {
@@ -107,6 +108,9 @@ class BetPage extends Component {
       currentUser && bet.user.id === currentUser.id
     const betStatus = getBetStatus(bet, currentUser)
     const canEditBet = betStatus === betStatuses.WAITING_FOR_OPONENT
+    const { isPrivate } = bet
+
+    console.log('bet.isPrivate', bet.isPrivate)
 
     return (
       <TranslatorConsumer>
@@ -156,6 +160,17 @@ class BetPage extends Component {
 
             {isCurrentUserTheCreator && canEditBet ? (
               <Link to={`/bet/${bet.id}/edit`} />
+            ) : null}
+
+            {isPrivate ? (
+              <Spacer top={1} left={1} bottom={1}>
+                <Distribute align="center">
+                  <LockIcon size={20} />
+                  <Spacer left={1}>
+                    <Text size="sizeN1">That's a private bet</Text>
+                  </Spacer>
+                </Distribute>
+              </Spacer>
             ) : null}
 
             <Spacer bottom={20}>

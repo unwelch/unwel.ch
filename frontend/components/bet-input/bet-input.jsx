@@ -77,7 +77,7 @@ class Bet extends Component {
     statement: ''
   }
 
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {
@@ -94,7 +94,7 @@ class Bet extends Component {
     }
   }
 
-  canSubmit(state) {
+  canSubmit (state) {
     return state.quantityValue.length > 0 && state.statementValue.length > 0
   }
 
@@ -106,25 +106,25 @@ class Bet extends Component {
     }
   }
 
-  render() {
+  render () {
     const { starter, middle } = this.props
     const { quantityValue, statementValue } = this.state
 
     return (
       <Root onKeyDown={isEnterKey(this.submitHandler)}>
         <AnimateWrapperQuantity>
-          <Text fontWeight="regular" size="size5">
+          <Text fontWeight='regular' size='size5'>
             {starter}
           </Text>
           <Spacer top={1} />
           <Input
-            fontWeight="black"
-            size="size5"
+            fontWeight='black'
+            size='size5'
             fullWidth
             onChange={this.onChange('quantityValue')}
             value={quantityValue}
             placeholder={'1 coffee'}
-            dataQa="bet-input-quantity"
+            dataQa='bet-input-quantity'
             ideas={quantityIdeas}
             ideaColumns={1}
           />
@@ -132,35 +132,37 @@ class Bet extends Component {
         <Spacer top={2} />
 
         <AnimateWrapperStatement>
-          <Text fontWeight="regular" size="size5">
+          <Text fontWeight='regular' size='size5'>
             {middle}
           </Text>
           <Input
             italics
-            fontWeight="black"
-            size="size5"
+            fontWeight='black'
+            size='size5'
             fullWidth
             onChange={this.onChange('statementValue')}
             value={statementValue}
             placeholder={'something'}
-            dataQa="bet-input-statement"
+            dataQa='bet-input-statement'
             ideas={statementIdeas}
             ideaColumns={1}
           />
         </AnimateWrapperStatement>
 
         <Animate
-          type="slideUp"
+          type='slideUp'
           delay={1}
-          isVisible={this.canSubmit(this.state)}>
+          isVisible={this.canSubmit(this.state)}
+        >
           <Spacer top={4}>
             <Button
-              size="large"
+              size='large'
               fullWidth
               onClick={this.submitHandler}
-              type="level2"
+              type='level2'
               disabled={!this.canSubmit(this.state)}
-              dataQa="create-bet-button">
+              dataQa='create-bet-button'
+            >
               Save your bet
             </Button>
           </Spacer>

@@ -3,6 +3,7 @@ import { graphql, Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import { compose } from 'ramda'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
 import { bindActionCreators } from 'redux'
 import queryString from 'query-string'
 import LockIcon from 'react-feather/dist/icons/lock'
@@ -37,6 +38,12 @@ export const USER_QUERY = gql`
   }
 `
 
+const Visibility = styled(Spacer).attrs({
+  top: 4
+})`
+  cursor: pointer;
+`
+
 class NewBet extends Component {
   state = {
     isPrivate: false
@@ -62,7 +69,8 @@ class NewBet extends Component {
     const result = await this.props.addBet(
       bet.statement,
       bet.quantity,
-      this.getTargetUserId()
+      this.getTargetUserId(),
+      this.state.isPrivate
     )
     await this.props.goToPage(`/bet/${result.data.addBet.id}`)
   }
@@ -114,15 +122,17 @@ class NewBet extends Component {
                 middle={t('new-bet-phrase.preposition')}
                 onConfirm={this.handleBetConfirm}
               />
-              <Spacer top={3} onClick={this.handleVisibilityChange}>
+              <Visibility onClick={this.handleVisibilityChange}>
                 <Distribute space={2} align="center">
-                  <Text size="size1">Visibility</Text>
+                  <Text size="size1">
+                    {this.state.isPrivate ? 'Private' : 'Public'}
+                  </Text>
                   <VisibilityIcon
                     color={this.state.isPrivate ? colors.grey5 : colors.primary}
                   />
                 </Distribute>
                 <Split />
-              </Spacer>
+              </Visibility>
             </Spacer>
             {targetUserId && (
               <Spacer top={6}>{this.renderVersus(targetUserId)}</Spacer>
@@ -147,8 +157,8 @@ const mapDispatchToProps = dispatch => {
 export default compose(
   graphql(ADD_BET_MUTATION, {
     props: ({ mutate }) => ({
-      addBet: (statement, quantity, targetUserId) =>
-        mutate({ variables: { statement, quantity, targetUserId } })
+      addBet: (statement, quantity, targetUserId, isPrivate) =>
+        mutate({ variables: { statement, quantity, targetUserId, isPrivate } })
     }),
     options: () => ({
       refetchQueries: [

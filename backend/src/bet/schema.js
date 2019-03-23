@@ -106,8 +106,8 @@ export const BetMutation = {
     args: {
       quantity: { type: GraphQLString },
       statement: { type: GraphQLString },
-      isPrivate: { type: GraphQLString },
-      targetUserId: { type: GraphQLString }
+      targetUserId: { type: GraphQLString },
+      isPrivate: { type: GraphQLBoolean }
     },
     resolve: async (
       root,
