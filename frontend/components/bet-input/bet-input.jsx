@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 
 import Button from './../button'
@@ -66,110 +65,82 @@ const isEnterKey = fn => {
   }
 }
 
-class Bet extends Component {
-  static propTypes = {
-    quantity: PropTypes.string,
-    statement: PropTypes.string
-  }
+const Bet = ({
+  initialQuantity = '',
+  initialStatement = '',
+  starter,
+  middle,
+  onConfirm
+}) => {
+  const [quantity, setQuantity] = useState(initialQuantity)
+  const [statement, setStatement] = useState(initialStatement)
+  const canSubmit =
+    quantity && quantity.length > 0 && statement && statement.length > 0
 
-  static defaultProps = {
-    quantity: '',
-    statement: ''
-  }
-
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      quantityValue: props.quantity,
-      statementValue: props.statement
+  const submit = () => {
+    if (canSubmit) {
+      onConfirm({ quantity, statement })
     }
   }
 
-  onChange = stateKey => {
-    return ({ target }) => {
-      this.setState({
-        [stateKey]: target.value
-      })
-    }
-  }
+  return (
+    <Root onKeyDown={isEnterKey(submit)}>
+      <AnimateWrapperQuantity>
+        <Text fontWeight="regular" size="size5">
+          {starter}
+        </Text>
+        <Spacer top={1} />
+        <Input
+          fontWeight="black"
+          size="size5"
+          fullWidth
+          onChange={event => {
+            setQuantity(event.target.value)
+          }}
+          value={quantity}
+          placeholder={'1 coffee'}
+          dataQa="bet-input-quantity"
+          ideas={quantityIdeas}
+          ideaColumns={1}
+        />
+      </AnimateWrapperQuantity>
+      <Spacer top={2} />
 
-  canSubmit (state) {
-    return state.quantityValue.length > 0 && state.statementValue.length > 0
-  }
+      <AnimateWrapperStatement>
+        <Text fontWeight="regular" size="size5">
+          {middle}
+        </Text>
+        <Input
+          italics
+          fontWeight="black"
+          size="size5"
+          fullWidth
+          onChange={event => {
+            setStatement(event.target.value)
+          }}
+          value={statement}
+          placeholder={'something'}
+          dataQa="bet-input-statement"
+          ideas={statementIdeas}
+          ideaColumns={1}
+        />
+      </AnimateWrapperStatement>
 
-  submitHandler = () => {
-    const { quantityValue: quantity, statementValue: statement } = this.state
-
-    if (this.canSubmit(this.state)) {
-      this.props.onConfirm({ quantity, statement })
-    }
-  }
-
-  render () {
-    const { starter, middle } = this.props
-    const { quantityValue, statementValue } = this.state
-
-    return (
-      <Root onKeyDown={isEnterKey(this.submitHandler)}>
-        <AnimateWrapperQuantity>
-          <Text fontWeight='regular' size='size5'>
-            {starter}
-          </Text>
-          <Spacer top={1} />
-          <Input
-            fontWeight='black'
-            size='size5'
+      <Animate type="slideUp" delay={1} isVisible={canSubmit}>
+        <Spacer top={4}>
+          <Button
+            size="large"
             fullWidth
-            onChange={this.onChange('quantityValue')}
-            value={quantityValue}
-            placeholder={'1 coffee'}
-            dataQa='bet-input-quantity'
-            ideas={quantityIdeas}
-            ideaColumns={1}
-          />
-        </AnimateWrapperQuantity>
-        <Spacer top={2} />
-
-        <AnimateWrapperStatement>
-          <Text fontWeight='regular' size='size5'>
-            {middle}
-          </Text>
-          <Input
-            italics
-            fontWeight='black'
-            size='size5'
-            fullWidth
-            onChange={this.onChange('statementValue')}
-            value={statementValue}
-            placeholder={'something'}
-            dataQa='bet-input-statement'
-            ideas={statementIdeas}
-            ideaColumns={1}
-          />
-        </AnimateWrapperStatement>
-
-        <Animate
-          type='slideUp'
-          delay={1}
-          isVisible={this.canSubmit(this.state)}
-        >
-          <Spacer top={4}>
-            <Button
-              size='large'
-              fullWidth
-              onClick={this.submitHandler}
-              type='level2'
-              disabled={!this.canSubmit(this.state)}
-              dataQa='create-bet-button'
-            >
-              Save your bet
-            </Button>
-          </Spacer>
-        </Animate>
-      </Root>
-    )
-  }
+            onClick={submit}
+            type="level2"
+            disabled={!canSubmit}
+            dataQa="create-bet-button">
+            Save your bet
+          </Button>
+        </Spacer>
+      </Animate>
+    </Root>
+  )
 }
 
 export default Bet

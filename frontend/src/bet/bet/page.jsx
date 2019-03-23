@@ -110,8 +110,6 @@ class BetPage extends Component {
     const canEditBet = betStatus === betStatuses.WAITING_FOR_OPONENT
     const { isPrivate } = bet
 
-    console.log('bet.isPrivate', bet.isPrivate)
-
     return (
       <TranslatorConsumer>
         {t => (
