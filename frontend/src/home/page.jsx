@@ -146,7 +146,7 @@ class Home extends Component {
       const bet = getTempBet()
       const betId = getTempAccept()
       if (bet) {
-        this.props.addBet(bet.statement, bet.quantity)
+        this.props.addBet(bet.statement, bet.quantity, bet.isPrivate)
         this.props.goToPage('/bets')
         return
       } else if (betId) {
@@ -388,8 +388,8 @@ export default compose(
   }),
   graphql(ADD_BET_MUTATION, {
     props: ({ mutate }) => ({
-      addBet: (statement, quantity) =>
-        mutate({ variables: { statement, quantity } })
+      addBet: (statement, quantity, isPrivate) =>
+        mutate({ variables: { statement, quantity, isPrivate } })
     })
   }),
   withNavigate,

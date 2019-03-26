@@ -33,11 +33,11 @@ const removeLoader = () => {
 }
 
 class SpinnerRemover extends Component {
-  componentWillUnmount () {
+  componentWillUnmount() {
     removeLoader()
   }
 
-  render () {
+  render() {
     return null
   }
 }
@@ -107,12 +107,12 @@ const App = () => (
   <ApolloProvider client={client}>
     <StoreProvider store={store}>
       <Suspense fallback={<SpinnerRemover />}>
-        <TranslatorProvider language='en'>
+        <TranslatorProvider language="en">
           <ResponsiveProvider>
             <ConnectedRouter history={history}>
               <BaseStyles>
                 <Switch>
-                  <Route exact path='/' component={() => <AsyncHome />} />
+                  <Route exact path="/" component={() => <AsyncHome />} />
                   <Route component={() => <AsyncRouter />} />
                 </Switch>
               </BaseStyles>
