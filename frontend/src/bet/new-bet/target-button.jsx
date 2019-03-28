@@ -47,7 +47,7 @@ const TargetName = ({ user, t }) => (
         {user ? user.name : t('anyone')}
       </Text>
     </div>
-    {user && <Avatar size={4} user={user} />}
+    {user && <Avatar size={3} user={user} />}
   </Distribute>
 )
 
