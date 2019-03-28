@@ -10,10 +10,10 @@ export default ({ checked, onChange, checkedIcon, uncheckedIcon }) => (
     handleDiameter={28}
     offColor={colors.gray4}
     onColor={colors.primary}
-    offHandleColor={colors.black}
+    offHandleColor={colors.white}
     onHandleColor={colors.white}
-    height={40}
-    width={80}
+    height={36}
+    width={68}
     uncheckedIcon={uncheckedIcon}
     checkedIcon={checkedIcon}
   />

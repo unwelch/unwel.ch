@@ -13,6 +13,7 @@ import GlobeIcon from 'react-feather/dist/icons/globe'
 import DefaultContainer from 'components/default-container'
 import BetInput from 'components/bet-input'
 import Spacer from 'components/spacer'
+import Spread from 'components/spread'
 import Avatar from 'components/avatar'
 import Switch from 'components/switch'
 import Text from 'components/text'
@@ -53,12 +54,6 @@ export const QUERY = gql`
   }
 `
 
-const Visibility = styled(Spacer).attrs({
-  top: 4
-})`
-  cursor: pointer;
-`
-
 class NewBet extends Component {
   constructor (props) {
     super(props)
@@ -78,10 +73,6 @@ class NewBet extends Component {
     this.setState({ targetUserId: friendUserId })
   }
 
-  getTargetUserId () {
-    return queryString.parse(window.location.search).targetUserId
-  }
-
   handleBetConfirm = async bet => {
     if (!this.props.isLoggedIn) {
       saveTempBet({ ...bet, isPrivate: this.state.isPrivate })
@@ -94,7 +85,7 @@ class NewBet extends Component {
     const result = await this.props.addBet(
       bet.statement,
       bet.quantity,
-      this.getTargetUserId(),
+      this.state.targetUserId,
       this.state.isPrivate
     )
     await this.props.goToPage(`/bet/${result.data.addBet.id}`)
@@ -106,40 +97,10 @@ class NewBet extends Component {
     })
   }
 
-  renderVersus (targetUserId) {
-    return (
-      <Query query={USER_QUERY} variables={{ userId: targetUserId }}>
-        {({ loading, error, data }) => {
-          if (loading) return null
-          if (error) return null
-          const user = data.user
-
-          return (
-            <Distribute align='center' position='end' space={1}>
-              <div>
-                <Text inline jsize='size0'>
-                  versus{' '}
-                </Text>
-                <Text
-                  inline
-                  size='size0'
-                  fontWeight='black'
-                  data-qa='target-name'
-                >
-                  {user.name}
-                </Text>
-              </div>
-              <Avatar size={4} user={user} />
-            </Distribute>
-          )
-        }}
-      </Query>
-    )
-  }
-
   render () {
     const targetUserId = this.state.targetUserId
 
+    console.log(targetUserId)
     return (
       <TranslatorConsumer>
         {t => (
@@ -150,8 +111,10 @@ class NewBet extends Component {
                 middle={t('new-bet-phrase.preposition')}
                 onConfirm={this.handleBetConfirm}
               />
-              <Visibility>
-                <Distribute space={2} align='center'>
+            </Spacer>
+            <Spacer top={4}>
+              <Spread>
+                <Distribute space={1} align='center'>
                   <Switch
                     onChange={this.handleVisibilityChange}
                     checked={!this.state.isPrivate}
@@ -182,16 +145,13 @@ class NewBet extends Component {
                       </div>
                     }
                   />
-                  <Text size='size1' onClick={this.handleVisibilityChange}>
+                  <Text size='size0' onClick={this.handleVisibilityChange}>
                     {this.state.isPrivate
                       ? t('bet.visibility.private')
                       : t('bet.visibility.public')}
                   </Text>
                 </Distribute>
-              </Visibility>
-            </Spacer>
-            <Spacer top={3}>
-              <Distribute position='end'>
+
                 <TargetButton
                   onFriendSelect={this.handleFriendSelect}
                   targetUserId={targetUserId}
@@ -201,7 +161,7 @@ class NewBet extends Component {
                     this.props.data.currentUser.id
                   }
                 />
-              </Distribute>
+              </Spread>
             </Spacer>
           </DefaultContainer>
         )}

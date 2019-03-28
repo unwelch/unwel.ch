@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react'
+import React, { Fragment, Component, useState } from 'react'
 import styled from 'styled-components'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
@@ -25,94 +25,61 @@ export const USER_QUERY = gql`
 
 const Root = styled.div`
   background: ${colors.grey2};
-  padding: 0 16px;
+  padding: 0 12px;
   border-radius: 3px;
-  height: 48px;
+  height: 40px;
   display: flex;
   align-items: center;
 `
 
-class TargetButton extends Component {
-  constructor(props) {
-    super(props)
+const TargetName = ({ user, t }) => (
+  <Distribute align='center' position='end' space={1}>
+    <div>
+      <Text inline size='size1'>
+        {t('versus') + ' '}
+      </Text>
+      <Text inline size='size1' fontWeight='black' data-qa='target-name'>
+        {user ? user.name : t('anyone')}
+      </Text>
+    </div>
+    {user && <Avatar size={4} user={user} />}
+  </Distribute>
+)
 
-    this.handleClose = this.handleClose.bind(this)
-    this.handleOpen = this.handleOpen.bind(this)
+const TargetButton = ({ currentUserId, targetUserId, onFriendSelect }) => {
+  const [showModal, setShowModal] = useState(false)
 
-    this.state = { showModal: false }
-  }
+  if (!currentUserId) return null
 
-  handleClose() {
-    this.setState({ showModal: false })
-  }
-
-  handleOpen() {
-    this.setState({ showModal: true })
-  }
-
-  render() {
-    const { currentUserId, targetUserId, onFriendSelect } = this.props
-
-    if (!currentUserId) return null
-
-    return (
-      <TranslatorConsumer>
-        {t => (
-          <Fragment>
-            <ChooseFriendModal
-              userId={currentUserId}
-              isOpen={this.state.showModal}
-              onClose={this.handleClose}
-              onFriendSelect={onFriendSelect}
-            />
-            <Root onClick={this.handleOpen}>
+  return (
+    <TranslatorConsumer>
+      {t => (
+        <Fragment>
+          <ChooseFriendModal
+            userId={currentUserId}
+            isOpen={showModal}
+            onClose={() => setShowModal(false)}
+            onFriendSelect={onFriendSelect}
+          />
+          <Root onClick={() => setShowModal(true)}>
+            {targetUserId == null && <TargetName t={t} />}
+            {targetUserId != null && (
               <Query query={USER_QUERY} variables={{ userId: targetUserId }}>
                 {({ loading, error, data }) => {
                   if (loading || error) {
-                    return (
-                      <Distribute align="center" position="end" space={1}>
-                        <div>
-                          <Text inline size="size1">
-                            {t('versus') + ' '}
-                          </Text>
-                          <Text
-                            inline
-                            size="size1"
-                            fontWeight="black"
-                            data-qa="target-name">
-                            {t('anyone')}
-                          </Text>
-                        </div>
-                      </Distribute>
-                    )
+                    return null
                   }
                   const user = data.user
 
-                  return (
-                    <Distribute align="center" position="end" space={1}>
-                      <div>
-                        <Text inline size="size1">
-                          {t('versus') + ' '}
-                        </Text>
-                        <Text
-                          inline
-                          size="size1"
-                          fontWeight="black"
-                          data-qa="target-name">
-                          {user.name}
-                        </Text>
-                      </div>
-                      <Avatar size={4} user={user} />
-                    </Distribute>
-                  )
+                  return <TargetName t={t} user={user} />
                 }}
               </Query>
-            </Root>
-          </Fragment>
-        )}
-      </TranslatorConsumer>
-    )
-  }
+            )}
+          </Root>
+        </Fragment>
+      )}
+    </TranslatorConsumer>
+  )
 }
 
 export default TargetButton
