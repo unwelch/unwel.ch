@@ -4,6 +4,7 @@ import { graphql } from 'react-apollo'
 import { compose } from 'ramda'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import LockIcon from 'react-feather/dist/icons/lock'
 
 import { saveTempAccept } from '../services'
 import {
@@ -24,13 +25,14 @@ import { TranslatorConsumer } from '../../translations'
 
 import DefaultContainer from 'components/default-container'
 import Distribute from 'components/distribute'
+import Spread from 'components/spread'
 import Avatar from 'components/avatar'
 import Text from 'components/text'
 import Spacer from 'components/spacer'
 import Placeholder from 'components/placeholder'
 
 class BetPage extends Component {
-  componentDidMount() {
+  componentDidMount () {
     trackEvent(events.pageLoaded, { page: 'bet' })
   }
 
@@ -66,7 +68,7 @@ class BetPage extends Component {
     }
   }
 
-  render() {
+  render () {
     const { showAnnounce } = this.props
     const { bet, currentUser, loading } = this.props.data
 
@@ -92,9 +94,9 @@ class BetPage extends Component {
       return (
         <TranslatorConsumer>
           {t => (
-            <DefaultContainer data-qa="bet-page">
+            <DefaultContainer data-qa='bet-page'>
               <Spacer inner top={6} />
-              <Text size="size3" textAlign="center">
+              <Text size='size3' textAlign='center'>
                 {t('bet-404')}
               </Text>
             </DefaultContainer>
@@ -107,27 +109,38 @@ class BetPage extends Component {
       currentUser && bet.user.id === currentUser.id
     const betStatus = getBetStatus(bet, currentUser)
     const canEditBet = betStatus === betStatuses.WAITING_FOR_OPONENT
+    const { isPrivate } = bet
 
     return (
       <TranslatorConsumer>
         {t => (
-          <DefaultContainer data-qa="bet-page">
-            <Spacer inner top={6} />
-            <Distribute space={1} align="center">
-              <Link to={`/profiles/${bet.user.id}`}>
-                <Avatar user={bet.user} />
-              </Link>
-              <Text size="size4" fontWeight="black" italics>
-                vs
-              </Text>
-              {bet.user2 ? (
-                <Link to={`/profiles/${bet.user2.id}`}>
-                  <Avatar user={bet.user2} />
+          <DefaultContainer data-qa='bet-page'>
+            <Spacer inner top={4} />
+            <Spread>
+              <Distribute space={1} align='center'>
+                <Link to={`/profiles/${bet.user.id}`}>
+                  <Avatar user={bet.user} />
                 </Link>
-              ) : (
-                <Avatar unknown />
-              )}
-            </Distribute>
+                <Text size='size4' fontWeight='black' italics>
+                  vs
+                </Text>
+                {bet.user2 ? (
+                  <Link to={`/profiles/${bet.user2.id}`}>
+                    <Avatar user={bet.user2} />
+                  </Link>
+                ) : (
+                  <Avatar unknown />
+                )}
+              </Distribute>
+              {isPrivate ? (
+                <Distribute align='center'>
+                  <LockIcon size={20} />
+                  <Spacer left={1}>
+                    <Text size='sizeN1'>{t('bet.visibility.private')}</Text>
+                  </Spacer>
+                </Distribute>
+              ) : null}
+            </Spread>
 
             <Spacer top={3} />
 

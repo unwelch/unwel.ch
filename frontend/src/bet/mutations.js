@@ -31,11 +31,13 @@ export const ADD_BET_MUTATION = gql`
     $quantity: String!
     $statement: String!
     $targetUserId: String
+    $isPrivate: Boolean
   ) {
     addBet(
       quantity: $quantity
       statement: $statement
       targetUserId: $targetUserId
+      isPrivate: $isPrivate
     ) {
       id
     }

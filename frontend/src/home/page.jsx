@@ -28,6 +28,7 @@ import MobileSection from './mobile-section'
 import IPHONE_NEW_BET from './assets/iphone-x-new-bet@2x.png'
 import IPHONE_WHATSAPP from './assets/iphone-x-whatsapp@2x.png'
 import IPHONE_WHO_IS_RIGHT from './assets/iphone-x-who-is-right@2x.png'
+import pattern from './assets/pattern.svg'
 
 const TYPEFORM_URL = 'https://unwelchers.typeform.com/to/efbovO'
 
@@ -51,7 +52,10 @@ const DistributeWrapper = styled.div`
 
 const Hero = styled.div`
   width: 100%;
+  background-image: url(${pattern});
   background-color: #ffeeba;
+  box-shadow: #ffeeba 0px 0px 50vw 20px inset;
+  background-size: 300px;
   padding-top: 16px;
   padding-bottom: 40px;
 `
@@ -67,9 +71,9 @@ const ConversationWrapper = styled.div`
 
     &:not(:last-child) {
       ${props =>
-    props.vertical
-      ? 'margin-bottom:' + props.space * 8 + 'px'
-      : 'margin-right:' + props.space * 8 + 'px'};
+        props.vertical
+          ? 'margin-bottom:' + props.space * 8 + 'px'
+          : 'margin-right:' + props.space * 8 + 'px'};
     }
   }
 `
@@ -135,14 +139,14 @@ class Home extends Component {
     this.props.goToPage('/bets/new')
   }
 
-  componentDidMount () {
+  componentDidMount() {
     trackEvent(events.pageLoaded, { page: 'landing' })
 
     if (this.props.isLoggedIn) {
       const bet = getTempBet()
       const betId = getTempAccept()
       if (bet) {
-        this.props.addBet(bet.statement, bet.quantity)
+        this.props.addBet(bet.statement, bet.quantity, bet.isPrivate)
         this.props.goToPage('/bets')
         return
       } else if (betId) {
@@ -155,7 +159,7 @@ class Home extends Component {
     }
   }
 
-  render () {
+  render() {
     const { breakpoint } = this.props
     const isBigScreen = breakpoint === 'lg'
 
@@ -165,30 +169,29 @@ class Home extends Component {
           <DefaultContainer>
             <DistributeWrapper>
               <Logo />
-              <Button onClick={this.onLogin} type='inverted' size='small'>
+              <Button onClick={this.onLogin} type="inverted" size="small">
                 Log in
               </Button>
             </DistributeWrapper>
             <Spacer top={8} bottom={isBigScreen ? 8 : 4}>
-              <Distribute space={4} vertical position='center' align='center'>
+              <Distribute space={4} vertical position="center" align="center">
                 <Spacer bottom={10}>
                   <WaypointAnimate
-                    topOffset='0%'
-                    direction='down'
-                    distance={10}
-                  >
-                    <Content align='center' type='title' fontWeight='bold'>
+                    topOffset="0%"
+                    direction="down"
+                    distance={10}>
+                    <Content align="center" type="title" fontWeight="bold">
                       Friendly betting
                     </Content>
                   </WaypointAnimate>
                 </Spacer>
-                <WaypointAnimate topOffset='0%' direction='down' distance={10}>
-                  <Content align='center' type='heading' fontWeight='regular'>
+                <WaypointAnimate topOffset="0%" direction="down" distance={10}>
+                  <Content align="center" type="heading" fontWeight="regular">
                     Challenge your friends by <b>betting on anything</b> that
                     you disagree on.
                   </Content>
                   <Spacer top={3}>
-                    <Content align='center' type='heading' fontWeight='regular'>
+                    <Content align="center" type="heading" fontWeight="regular">
                       Keep track of who
                       {"'"}s the best.
                     </Content>
@@ -200,20 +203,19 @@ class Home extends Component {
         </Hero>
 
         <Spacer top={-3}>
-          <Distribute position='center'>
+          <Distribute position="center">
             <Button
               onClick={this.onCreateBet}
-              type='level2'
-              size='large'
-              dataQa='make-bet-button'
-            >
+              type="level2"
+              size="large"
+              dataQa="make-bet-button">
               Make a new Bet
             </Button>
           </Distribute>
         </Spacer>
 
         <Spacer top={8} bottom={4}>
-          <Text textAlign='center' size='size4' fontWeight='bold'>
+          <Text textAlign="center" size="size4" fontWeight="bold">
             Just 3 easy steps
           </Text>
 
@@ -224,7 +226,7 @@ class Home extends Component {
               description={
                 'Bet on anything you want. Choose wisely which words to use...'
               }
-              alt='iPhone X New Bet'
+              alt="iPhone X New Bet"
               src={IPHONE_NEW_BET}
             />
           </DefaultContainer>
@@ -235,7 +237,7 @@ class Home extends Component {
               isBigScreen={isBigScreen}
               title={'Share the bet'}
               description={'So your friend can accept it and become your rival'}
-              alt='iPhone X WhatsApp Bet on marathon'
+              alt="iPhone X WhatsApp Bet on marathon"
               src={IPHONE_WHATSAPP}
             />
           </DefaultContainer>
@@ -247,7 +249,7 @@ class Home extends Component {
               description={
                 'Try to not lie, otherwise you would have a dicorded bet!'
               }
-              alt='iPhone X Decide who is right'
+              alt="iPhone X Decide who is right"
               src={IPHONE_WHO_IS_RIGHT}
             />
           </DefaultContainer>
@@ -256,10 +258,9 @@ class Home extends Component {
         <DefaultContainer notPadded={!isBigScreen}>
           <ConversationWrapper
             space={isBigScreen ? 3 : 1}
-            vertical={!isBigScreen}
-          >
+            vertical={!isBigScreen}>
             <Spacer top={3} bottom={5}>
-              <Content align='center' type='heading' fontWeight='regular'>
+              <Content align="center" type="heading" fontWeight="regular">
                 Your friends don’t believe in you?
                 <br />
                 <strong>Make them bet a dinner on it!</strong>
@@ -269,8 +270,8 @@ class Home extends Component {
         </DefaultContainer>
 
         <Spacer top={1} bottom={6}>
-          <Distribute position='center'>
-            <Button onClick={this.onCreateBet} type='level2'>
+          <Distribute position="center">
+            <Button onClick={this.onCreateBet} type="level2">
               Create your first bet!
             </Button>
           </Distribute>
@@ -281,16 +282,15 @@ class Home extends Component {
             <Spacer
               inner
               top={isBigScreen ? 8 : 4}
-              bottom={isBigScreen ? 8 : 4}
-            >
-              <Distribute vertical={!isBigScreen} align='center'>
+              bottom={isBigScreen ? 8 : 4}>
+              <Distribute vertical={!isBigScreen} align="center">
                 <Flex>
                   <Spacer bottom={2}>
-                    <Content type='subtitle' fontWeight='bold'>
+                    <Content type="subtitle" fontWeight="bold">
                       Open Source
                     </Content>
                   </Spacer>
-                  <Content type='heading' fontWeight='regular'>
+                  <Content type="heading" fontWeight="regular">
                     We believe in transparency, so we made unwelch open source.
                     Be part of it and help improve it.
                   </Content>
@@ -298,9 +298,8 @@ class Home extends Component {
                 <Spacer top={isBigScreen ? 0 : 3}>
                   <Button
                     onClick={this.handleGithubClick}
-                    fullWidth={!isBigScreen}
-                  >
-                    <Distribute align='center'>
+                    fullWidth={!isBigScreen}>
+                    <Distribute align="center">
                       <Text>Fork on GitHub</Text>
                       <Spacer left={2}>
                         <Distribute>
@@ -321,7 +320,7 @@ class Home extends Component {
               <Spacer bottom={2}>
                 <Logo color={colors.grey2} />
               </Spacer>
-              <Text size='size0' color={colors.grey3}>
+              <Text size="size0" color={colors.grey3}>
                 We hate sport
                 {"'"}s betting online but we love it doing it with a friend.
                 <br />
@@ -334,9 +333,8 @@ class Home extends Component {
                     onClick={() => {
                       promptInstall()
                     }}
-                    size='small'
-                    type='level2'
-                  >
+                    size="small"
+                    type="level2">
                     Add to your Homescreen
                   </Button>
                 </Spacer>
@@ -346,8 +344,7 @@ class Home extends Component {
                 <Link
                   size={'size0'}
                   color={colors.grey3}
-                  onClick={this.handleFeedbackClick}
-                >
+                  onClick={this.handleFeedbackClick}>
                   Send us your thoughts
                 </Link>
               </Spacer>
@@ -360,22 +357,19 @@ class Home extends Component {
             <Text
               size={isBigScreen ? 'size0' : 'sizeN1'}
               color={colors.grey3}
-              fontWeight='regular'
-            >
+              fontWeight="regular">
               Created by{' '}
               <Link
-                href='https://gerard.sh'
-                rel='noopener noreferrer'
-                target='_blank'
-              >
+                href="https://gerard.sh"
+                rel="noopener noreferrer"
+                target="_blank">
                 <b>Gerard Abelló</b>
               </Link>{' '}
               and{' '}
               <Link
-                href='https://twitter.com/davesnx'
-                rel='noopener noreferrer'
-                target='_blank'
-              >
+                href="https://twitter.com/davesnx"
+                rel="noopener noreferrer"
+                target="_blank">
                 <b>David Sancho</b>
               </Link>
             </Text>
@@ -394,8 +388,8 @@ export default compose(
   }),
   graphql(ADD_BET_MUTATION, {
     props: ({ mutate }) => ({
-      addBet: (statement, quantity) =>
-        mutate({ variables: { statement, quantity } })
+      addBet: (statement, quantity, isPrivate) =>
+        mutate({ variables: { statement, quantity, isPrivate } })
     })
   }),
   withNavigate,
