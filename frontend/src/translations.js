@@ -3,6 +3,8 @@ import React from 'react'
 const translations = {
   en: {
     'bet-list.title': 'List of bets',
+    'bet.visibility.private': 'Private',
+    'bet.visibility.public': 'Public',
     'bet-status.waiting-for-opponent': 'Nobody accepted this bet yet',
     'bet-status.available-bet': 'Availabe',
     'bet-status.accepted-by-you': 'You accepted this bet',

@@ -8,11 +8,13 @@ import { bindActionCreators } from 'redux'
 import queryString from 'query-string'
 import LockIcon from 'react-feather/dist/icons/lock'
 import UnLockIcon from 'react-feather/dist/icons/unlock'
+import GlobeIcon from 'react-feather/dist/icons/globe'
 
 import DefaultContainer from 'components/default-container'
 import BetInput from 'components/bet-input'
 import Spacer from 'components/spacer'
 import Avatar from 'components/avatar'
+import Switch from 'components/switch'
 import Text from 'components/text'
 import Distribute from 'components/distribute'
 import Split from 'components/split'
@@ -49,11 +51,11 @@ class NewBet extends Component {
     isPrivate: false
   }
 
-  componentDidMount() {
+  componentDidMount () {
     trackEvent(events.pageLoaded, { page: 'newBet' })
   }
 
-  getTargetUserId() {
+  getTargetUserId () {
     return queryString.parse(window.location.search).targetUserId
   }
 
@@ -81,7 +83,7 @@ class NewBet extends Component {
     })
   }
 
-  renderVersus(targetUserId) {
+  renderVersus (targetUserId) {
     return (
       <Query query={USER_QUERY} variables={{ userId: targetUserId }}>
         {({ loading, error, data }) => {
@@ -90,12 +92,12 @@ class NewBet extends Component {
           const user = data.user
 
           return (
-            <Distribute align="center" position="end" space={1}>
+            <Distribute align='center' position='end' space={1}>
               <div>
-                <Text inline jsize="size0">
+                <Text inline jsize='size0'>
                   versus{' '}
                 </Text>
-                <Text inline size="size0" fontWeight="black">
+                <Text inline size='size0' fontWeight='black'>
                   {user.name}
                 </Text>
               </div>
@@ -108,9 +110,8 @@ class NewBet extends Component {
     )
   }
 
-  render() {
+  render () {
     const targetUserId = this.getTargetUserId()
-    const VisibilityIcon = this.state.isPrivate ? LockIcon : UnLockIcon
 
     return (
       <TranslatorConsumer>
@@ -122,16 +123,44 @@ class NewBet extends Component {
                 middle={t('new-bet-phrase.preposition')}
                 onConfirm={this.handleBetConfirm}
               />
-              <Visibility onClick={this.handleVisibilityChange}>
-                <Distribute space={2} align="center">
-                  <Text size="size1">
-                    {this.state.isPrivate ? 'Private' : 'Public'}
-                  </Text>
-                  <VisibilityIcon
-                    color={this.state.isPrivate ? colors.grey5 : colors.primary}
+              <Visibility>
+                <Distribute space={2} align='center'>
+                  <Switch
+                    onChange={this.handleVisibilityChange}
+                    checked={!this.state.isPrivate}
+                    checkedIcon={
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          height: '100%',
+                          paddingRight: 2
+                        }}
+                      >
+                        <GlobeIcon color='white' />
+                      </div>
+                    }
+                    uncheckedIcon={
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          height: '100%',
+                          paddingRight: 2
+                        }}
+                      >
+                        <LockIcon color='white' />
+                      </div>
+                    }
                   />
+                  <Text size='size1' onClick={this.handleVisibilityChange}>
+                    {this.state.isPrivate
+                      ? t('bet.visibility.private')
+                      : t('bet.visibility.public')}
+                  </Text>
                 </Distribute>
-                <Split />
               </Visibility>
             </Spacer>
             {targetUserId && (
