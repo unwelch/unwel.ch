@@ -38,7 +38,12 @@ const TargetName = ({ user, t }) => (
       <Text inline size='size1'>
         {t('versus') + ' '}
       </Text>
-      <Text inline size='size1' fontWeight='black' data-qa='target-name'>
+      <Text
+        inline
+        size='size1'
+        fontWeight='black'
+        data-qa={user ? 'target-name' : 'target-anonymous'}
+      >
         {user ? user.name : t('anyone')}
       </Text>
     </div>
@@ -61,7 +66,7 @@ const TargetButton = ({ currentUserId, targetUserId, onFriendSelect }) => {
             onClose={() => setShowModal(false)}
             onFriendSelect={onFriendSelect}
           />
-          <Root onClick={() => setShowModal(true)}>
+          <Root data-qa='target-button' onClick={() => setShowModal(true)}>
             {targetUserId == null && <TargetName t={t} />}
             {targetUserId != null && (
               <Query query={USER_QUERY} variables={{ userId: targetUserId }}>
