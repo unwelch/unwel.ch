@@ -12,6 +12,7 @@ import UserDB from './../user/db'
 import StatementDB from './../statement/db'
 import { newNotification, types } from './../notifications/service'
 import db from './db'
+import { getBetStatus, betStatuses } from '../bet-status'
 
 export const BetType = new GraphQLObjectType({
   name: 'Bet',
@@ -50,6 +51,10 @@ export const BetType = new GraphQLObjectType({
       type: GraphQLBoolean,
       resolve: prop('userResponse')
     },
+    isPrivate: {
+      type: GraphQLBoolean,
+      resolve: prop('isPrivate')
+    },
     user2Response: {
       type: GraphQLBoolean,
       resolve: prop('user2Response')
@@ -71,7 +76,7 @@ export const BetMutation = {
     args: {
       id: { type: GraphQLString }
     },
-    resolve: async (root, { id }, { user }) => {
+    resolve: async (_, { id }, { user }) => {
       if (user) {
         const bet = await db.get(id)
 
@@ -102,9 +107,14 @@ export const BetMutation = {
     args: {
       quantity: { type: GraphQLString },
       statement: { type: GraphQLString },
-      targetUserId: { type: GraphQLString }
+      targetUserId: { type: GraphQLString },
+      isPrivate: { type: GraphQLBoolean }
     },
-    resolve: async (root, { quantity, statement, targetUserId }, { user }) => {
+    resolve: async (
+      root,
+      { quantity, statement, isPrivate = false, targetUserId },
+      { user }
+    ) => {
       if (user) {
         const newStatement = await StatementDB.insert({
           statement,
@@ -114,7 +124,8 @@ export const BetMutation = {
         let bet = {
           quantity,
           userId: user.id,
-          statementId: newStatement.id
+          statementId: newStatement.id,
+          isPrivate
         }
 
         if (targetUserId) {
@@ -250,8 +261,18 @@ const betQuery = {
   args: {
     id: { type: GraphQLString }
   },
-  resolve: (root, args) => {
-    return db.get(args.id)
+  resolve: async (root, args, { user }) => {
+    const bet = await db.get(args.id)
+    if (bet.isPrivate === true) {
+      if (bet.userId != null && bet.user2Id != null) {
+        if (!user) throw new Error('Need to login to get this bet')
+        if (getBetStatus(bet, user.id) === betStatuses.THIRD_PARTY_BET) {
+          throw new Error('Cannot get bet: Permission denied')
+        }
+      }
+    }
+
+    return bet
   }
 }
 

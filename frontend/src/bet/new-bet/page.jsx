@@ -3,16 +3,22 @@ import { graphql, Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import { compose } from 'ramda'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
 import { bindActionCreators } from 'redux'
-
 import queryString from 'query-string'
+import LockIcon from 'react-feather/dist/icons/lock'
+import UnLockIcon from 'react-feather/dist/icons/unlock'
+import GlobeIcon from 'react-feather/dist/icons/globe'
 
 import DefaultContainer from 'components/default-container'
 import BetInput from 'components/bet-input'
 import Spacer from 'components/spacer'
 import Avatar from 'components/avatar'
+import Switch from 'components/switch'
 import Text from 'components/text'
 import Distribute from 'components/distribute'
+import Split from 'components/split'
+import { colors } from 'components/variables'
 
 import { saveTempBet } from '../services'
 import { showAnnounce } from '../../announce/actions'
@@ -34,23 +40,28 @@ export const USER_QUERY = gql`
   }
 `
 
+const Visibility = styled(Spacer).attrs({
+  top: 4
+})`
+  cursor: pointer;
+`
+
 class NewBet extends Component {
-  constructor() {
-    super()
-    this.handleBetConfirm = this.handleBetConfirm.bind(this)
+  state = {
+    isPrivate: false
   }
 
-  componentDidMount() {
+  componentDidMount () {
     trackEvent(events.pageLoaded, { page: 'newBet' })
   }
 
-  getTargetUserId() {
+  getTargetUserId () {
     return queryString.parse(window.location.search).targetUserId
   }
 
-  async handleBetConfirm(bet) {
+  handleBetConfirm = async bet => {
     if (!this.props.isLoggedIn) {
-      saveTempBet(bet)
+      saveTempBet({ ...bet, isPrivate: this.state.isPrivate })
       await this.props.goToPage(`/login`)
       return
     }
@@ -60,12 +71,19 @@ class NewBet extends Component {
     const result = await this.props.addBet(
       bet.statement,
       bet.quantity,
-      this.getTargetUserId()
+      this.getTargetUserId(),
+      this.state.isPrivate
     )
     await this.props.goToPage(`/bet/${result.data.addBet.id}`)
   }
 
-  renderVersus(targetUserId) {
+  handleVisibilityChange = () => {
+    this.setState({
+      isPrivate: !this.state.isPrivate
+    })
+  }
+
+  renderVersus (targetUserId) {
     return (
       <Query query={USER_QUERY} variables={{ userId: targetUserId }}>
         {({ loading, error, data }) => {
@@ -74,9 +92,9 @@ class NewBet extends Component {
           const user = data.user
 
           return (
-            <Distribute align="center" position="end" space={1}>
+            <Distribute align='center' position='end' space={1}>
               <div>
-                <Text inline jsize="size0">
+                <Text inline jsize='size0'>
                   versus{' '}
                 </Text>
                 <Text
@@ -95,7 +113,7 @@ class NewBet extends Component {
     )
   }
 
-  render() {
+  render () {
     const targetUserId = this.getTargetUserId()
 
     return (
@@ -108,6 +126,45 @@ class NewBet extends Component {
                 middle={t('new-bet-phrase.preposition')}
                 onConfirm={this.handleBetConfirm}
               />
+              <Visibility>
+                <Distribute space={2} align='center'>
+                  <Switch
+                    onChange={this.handleVisibilityChange}
+                    checked={!this.state.isPrivate}
+                    checkedIcon={
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          height: '100%',
+                          paddingRight: 2
+                        }}
+                      >
+                        <GlobeIcon color='white' />
+                      </div>
+                    }
+                    uncheckedIcon={
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          height: '100%',
+                          paddingRight: 2
+                        }}
+                      >
+                        <LockIcon color='white' />
+                      </div>
+                    }
+                  />
+                  <Text size='size1' onClick={this.handleVisibilityChange}>
+                    {this.state.isPrivate
+                      ? t('bet.visibility.private')
+                      : t('bet.visibility.public')}
+                  </Text>
+                </Distribute>
+              </Visibility>
             </Spacer>
             {targetUserId && (
               <Spacer top={3}>{this.renderVersus(targetUserId)}</Spacer>
@@ -132,8 +189,8 @@ const mapDispatchToProps = dispatch => {
 export default compose(
   graphql(ADD_BET_MUTATION, {
     props: ({ mutate }) => ({
-      addBet: (statement, quantity, targetUserId) =>
-        mutate({ variables: { statement, quantity, targetUserId } })
+      addBet: (statement, quantity, targetUserId, isPrivate) =>
+        mutate({ variables: { statement, quantity, targetUserId, isPrivate } })
     }),
     options: () => ({
       refetchQueries: [

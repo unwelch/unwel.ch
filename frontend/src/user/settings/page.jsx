@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-import Switch from 'react-switch'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { graphql } from 'react-apollo'
@@ -10,6 +9,7 @@ import DefaultContainer from 'components/default-container'
 import Input from 'components/input'
 import Distribute from 'components/distribute'
 import Button from 'components/button'
+import Switch from 'components/switch'
 import Text from 'components/text'
 import Spacer from 'components/spacer'
 import { colors } from 'components/variables'
@@ -148,7 +148,6 @@ class Settings extends Component {
               <Switch
                 onChange={this.handleNotificationsChange}
                 checked={currentUser.pushEnabled}
-                onColor={colors.primary}
               />
             </Distribute>
             <Split />
