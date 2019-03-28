@@ -6,6 +6,9 @@ const translations = {
     'bet.visibility.private': 'Private',
     'bet.visibility.public': 'Public',
     'bet-status.waiting-for-opponent': 'Nobody accepted this bet yet',
+    'bet-status.waiting-for-target-opponent':
+      'Waiting for {{userName}} to accept',
+    'bet-status.waiting-for-you': 'Waiting for you to accept',
     'bet-status.available-bet': 'Availabe',
     'bet-status.accepted-by-you': 'You accepted this bet',
     'bet-status.accepted-by-user': '{{user}} accepted this bet',
@@ -14,7 +17,6 @@ const translations = {
       'Waiting for {{opponent}} to decide who won',
     'bet-status.won': 'Won',
     'bet-status.lost': 'Lost',
-    'bet-status.cannot-accept': 'You cannot accept this bet',
     'bet-status.dispute': 'Dispute',
     'bet-status.won.long': 'You won!',
     'bet-status.lost.long': 'You lost!',
@@ -25,6 +27,7 @@ const translations = {
     'bet-actions.delete': 'Delete',
     'bet-list.empty.title': 'You have no bets yet',
     'bet-404': 'Bet not found',
+    'challenge-a-friend': 'Challenge {{userName}}',
     'create-a-bet': 'Create a bet',
     'create-account': 'Create account',
     'save-account-message':

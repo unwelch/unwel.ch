@@ -10,6 +10,8 @@ test('I can create a bet and login anonymously', async t => {
     .expect(await getLocation())
     .eql(`/bets/new`, 'redirects to new bet page')
 
+  await t.expect(dataQaExists('target-name')).notOk()
+
   await fillNewBet(t, 'something for sure!', 'something')
 
   await t.expect(await getLocation()).eql(`/login`, 'redirects to login')
