@@ -12,6 +12,7 @@ import UserDB from './../user/db'
 import StatementDB from './../statement/db'
 import { newNotification, types } from './../notifications/service'
 import db from './db'
+import { getBetStatus, betStatuses } from '../bet-status'
 
 export const BetType = new GraphQLObjectType({
   name: 'Bet',
@@ -260,8 +261,18 @@ const betQuery = {
   args: {
     id: { type: GraphQLString }
   },
-  resolve: (root, args) => {
-    return db.get(args.id)
+  resolve: async (root, args, { user }) => {
+    const bet = await db.get(args.id)
+    if (bet.isPrivate === true) {
+      if (bet.userId != null && bet.user2Id != null) {
+        if (!user) throw new Error('Need to login to get this bet')
+        if (getBetStatus(bet, user.id) === betStatuses.THIRD_PARTY_BET) {
+          throw new Error('Cannot get bet: Permission denied')
+        }
+      }
+    }
+
+    return bet
   }
 }
 
