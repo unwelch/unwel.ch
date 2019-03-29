@@ -18,8 +18,9 @@ const TabWrapper = styled.div`
     ${colors.grey3};
   z-index: 900;
 
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
   transform: translateY(${p => (p.visible ? '0' : '100%')});
+  opacity: ${p => (p.visible ? '1' : '0')};
 `
 
 const Content = styled.div`

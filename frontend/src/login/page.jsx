@@ -116,13 +116,15 @@ const OAuth = ({ onLaterClickHandler }) => {
           <Spacer right={2} bottom={2}>
             <ProviderButtons onClickGoogle={onGoogleClickHandler} />
           </Spacer>
-          <Button
-            dataQa="skip-login"
-            size="large"
-            type="inverted"
-            onClick={onLaterClickHandler}>
-            Later
-          </Button>
+          <Spacer right={2} bottom={2}>
+            <Button
+              dataQa="skip-login"
+              size="large"
+              type="inverted"
+              onClick={onLaterClickHandler}>
+              Later
+            </Button>
+          </Spacer>
         </ButtonWrapper>
       </Spacer>
     </Fragment>

@@ -22,6 +22,7 @@ const Input = ({
   }
 
   const handleInputBlur = () => {
+    //TODO fix: this causes a state chenge after unmounting
     setTimeout(() => setShowDropdown(false), 300)
   }
 

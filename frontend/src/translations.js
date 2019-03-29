@@ -42,7 +42,9 @@ const translations = {
     'announce.bet-marked-won': 'Bet marked as won',
     'announce.bet-marked-lost': 'Bet marked as lost',
     'announce.new-bet-created': 'New bet created',
-    'copy-message.body': 'I think that {{statement}}. Wanna bet on it?'
+    'copy-message.body': 'I think that {{statement}}. Wanna bet on it?',
+    anyone: 'Anyone',
+    versus: 'versus'
   },
   es: {
     'titles.bet-list': 'Lista de apuestas',

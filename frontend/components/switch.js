@@ -1,20 +1,22 @@
-import React, { Component, Fragment } from 'react'
+import React from 'react'
 import Switch from 'react-switch'
 
 import { colors } from 'components/variables'
 
-export default ({ checked, onChange, checkedIcon, uncheckedIcon }) => (
+const CustomSwitch = ({ checked, onChange, checkedIcon, uncheckedIcon }) => (
   <Switch
     checked={checked}
     onChange={onChange}
     handleDiameter={28}
     offColor={colors.gray4}
     onColor={colors.primary}
-    offHandleColor={colors.black}
+    offHandleColor={colors.white}
     onHandleColor={colors.white}
-    height={40}
-    width={80}
+    height={36}
+    width={68}
     uncheckedIcon={uncheckedIcon}
     checkedIcon={checkedIcon}
   />
 )
+
+export default CustomSwitch

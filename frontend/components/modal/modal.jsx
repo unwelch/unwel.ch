@@ -22,7 +22,7 @@ const Root = styled.div`
 `
 
 const ModalWrapper = styled.div`
-  padding: 16px;
+  padding: ${p => p.padding * 8}px;
   margin: 16px;
   background: ${colors.background};
 
@@ -50,9 +50,9 @@ const ChildrenWrapper = styled.div`
   justify-content: center;
 `
 
-const Modal = ({ children, onClose, isOpen }) => (
+const Modal = ({ children, onClose, isOpen, padding = 2 }) => (
   <Root onClick={onClose} isOpen={isOpen}>
-    <ModalWrapper isOpen={isOpen}>
+    <ModalWrapper isOpen={isOpen} padding={padding}>
       <ChildrenWrapper isOpen={isOpen}>{children}</ChildrenWrapper>
     </ModalWrapper>
   </Root>

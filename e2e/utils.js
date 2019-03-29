@@ -14,5 +14,5 @@ export const clearLocalStorage = ClientFunction(() =>
   window.localStorage.clear()
 )
 
-export const dataQaSelector = dataQa => `[data-qa="${dataQa}"]`
-export const dataQaExists = dataQa => Selector(dataQaSelector(dataQa)).exists
+export const dataQaSelector = dataQa => Selector(`[data-qa="${dataQa}"]`)
+export const dataQaExists = dataQa => dataQaSelector(dataQa).exists

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { graphql, Query } from 'react-apollo'
+import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import { compose } from 'ramda'
 import { connect } from 'react-redux'
@@ -13,12 +13,15 @@ import GlobeIcon from 'react-feather/dist/icons/globe'
 import DefaultContainer from 'components/default-container'
 import BetInput from 'components/bet-input'
 import Spacer from 'components/spacer'
+import Spread from 'components/spread'
 import Avatar from 'components/avatar'
 import Switch from 'components/switch'
 import Text from 'components/text'
 import Distribute from 'components/distribute'
 import Split from 'components/split'
 import { colors } from 'components/variables'
+
+import TargetButton from './target-button'
 
 import { saveTempBet } from '../services'
 import { showAnnounce } from '../../announce/actions'
@@ -40,23 +43,34 @@ export const USER_QUERY = gql`
   }
 `
 
-const Visibility = styled(Spacer).attrs({
-  top: 4
-})`
-  cursor: pointer;
+export const QUERY = gql`
+  query {
+    currentUser {
+      id
+      name
+      isAnonymous
+      avatar
+    }
+  }
 `
 
 class NewBet extends Component {
-  state = {
-    isPrivate: false
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      targetUserId: queryString.parse(window.location.search).targetUserId
+    }
+
+    this.handleBetConfirm = this.handleBetConfirm.bind(this)
   }
 
   componentDidMount () {
     trackEvent(events.pageLoaded, { page: 'newBet' })
   }
 
-  getTargetUserId () {
-    return queryString.parse(window.location.search).targetUserId
+  handleFriendSelect = friendUserId => {
+    this.setState({ targetUserId: friendUserId })
   }
 
   handleBetConfirm = async bet => {
@@ -66,12 +80,12 @@ class NewBet extends Component {
       return
     }
 
-    this.props.showSaveAccountPopup()
+    // this.props.showSaveAccountPopup()
     this.props.showAnnounce('announce.new-bet-created')
     const result = await this.props.addBet(
       bet.statement,
       bet.quantity,
-      this.getTargetUserId(),
+      this.state.targetUserId,
       this.state.isPrivate
     )
     await this.props.goToPage(`/bet/${result.data.addBet.id}`)
@@ -83,39 +97,10 @@ class NewBet extends Component {
     })
   }
 
-  renderVersus (targetUserId) {
-    return (
-      <Query query={USER_QUERY} variables={{ userId: targetUserId }}>
-        {({ loading, error, data }) => {
-          if (loading) return null
-          if (error) return null
-          const user = data.user
-
-          return (
-            <Distribute align='center' position='end' space={1}>
-              <div>
-                <Text inline jsize='size0'>
-                  versus{' '}
-                </Text>
-                <Text
-                  inline
-                  size="size0"
-                  fontWeight="black"
-                  data-qa="target-name">
-                  {user.name}
-                </Text>
-              </div>
-              <Avatar size={4} user={user} />
-            </Distribute>
-          )
-        }}
-      </Query>
-    )
-  }
-
   render () {
-    const targetUserId = this.getTargetUserId()
+    const targetUserId = this.state.targetUserId
 
+    console.log(targetUserId)
     return (
       <TranslatorConsumer>
         {t => (
@@ -126,8 +111,10 @@ class NewBet extends Component {
                 middle={t('new-bet-phrase.preposition')}
                 onConfirm={this.handleBetConfirm}
               />
-              <Visibility>
-                <Distribute space={2} align='center'>
+            </Spacer>
+            <Spacer top={4}>
+              <Spread>
+                <Distribute space={1} align='center'>
                   <Switch
                     onChange={this.handleVisibilityChange}
                     checked={!this.state.isPrivate}
@@ -158,17 +145,24 @@ class NewBet extends Component {
                       </div>
                     }
                   />
-                  <Text size='size1' onClick={this.handleVisibilityChange}>
+                  <Text size='size0' onClick={this.handleVisibilityChange}>
                     {this.state.isPrivate
                       ? t('bet.visibility.private')
                       : t('bet.visibility.public')}
                   </Text>
                 </Distribute>
-              </Visibility>
+
+                <TargetButton
+                  onFriendSelect={this.handleFriendSelect}
+                  targetUserId={targetUserId}
+                  currentUserId={
+                    this.props.data &&
+                    this.props.data.currentUser &&
+                    this.props.data.currentUser.id
+                  }
+                />
+              </Spread>
             </Spacer>
-            {targetUserId && (
-              <Spacer top={3}>{this.renderVersus(targetUserId)}</Spacer>
-            )}
           </DefaultContainer>
         )}
       </TranslatorConsumer>
@@ -199,6 +193,13 @@ export default compose(
         }
       ]
     })
+  }),
+  graphql(QUERY, {
+    options: () => {
+      return {
+        fetchPolicy: 'cache-and-network'
+      }
+    }
   }),
   connect(
     null,
