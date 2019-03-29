@@ -40,13 +40,13 @@ const Router = () => (
       <Switch>
         <Route
           exact
-          path='/notifications'
+          path="/notifications"
           component={() => <AsyncNotifications />}
         />
-        <Route exact path='/bets' component={() => <AsyncBetList />} />
-        <Route exact path='/bets/new' component={() => <AsyncNewBet />} />
+        <Route exact path="/bets" component={() => <AsyncBetList />} />
+        <Route exact path="/bets/new" component={() => <AsyncNewBet />} />
         <Route
-          path='/bet/:id'
+          path="/bet/:id"
           component={props => (
             <AsyncBetPage
               betId={props.match.params.id}
@@ -55,13 +55,13 @@ const Router = () => (
           )}
         />
         <Route
-          path='/profiles/:id'
+          path="/profiles/:id"
           component={props => <AsyncProfile userId={props.match.params.id} />}
         />
-        <Route path='/settings' component={() => <AsyncSettings />} />
-        <Route path='/login' component={() => <AsyncLoginPage />} />
+        <Route path="/settings" component={() => <AsyncSettings />} />
+        <Route path="/login" component={() => <AsyncLoginPage />} />
         <Route
-          path='/save-account'
+          path="/save-account"
           component={() => <AsyncSaveAccountPage />}
         />
         <Route component={() => <NotFoundPage />} />

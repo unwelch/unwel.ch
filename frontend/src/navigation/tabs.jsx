@@ -107,16 +107,15 @@ const Navigation = ({
         <Nav>
           <List>
             <ListItem
-              to='/bets'
+              to="/bets"
               selected={window.location.href.includes('bet')}
               onClick={onSelectLink}
-              vertical={verticalLabels}
-            >
+              vertical={verticalLabels}>
               <IconWrapper>
                 <ListIcon />
               </IconWrapper>
               <Label selected={window.location.href.includes('bet')}>
-                <Text size='size0' fontWeight='regular'>
+                <Text size="size0" fontWeight="regular">
                   Bets
                 </Text>
               </Label>
@@ -125,23 +124,21 @@ const Navigation = ({
               to={`/profiles/${currentUser.id}`}
               selected={window.location.href.includes('profile')}
               onClick={onSelectLink}
-              vertical={verticalLabels}
-            >
+              vertical={verticalLabels}>
               <IconWrapper>
                 <UserIcon />
               </IconWrapper>
               <Label selected={window.location.href.includes('profile')}>
-                <Text size='size0' fontWeight='regular'>
+                <Text size="size0" fontWeight="regular">
                   Profile
                 </Text>
               </Label>
             </ListItem>
             <ListItem
-              to='/notifications'
+              to="/notifications"
               selected={window.location.href.includes('notifications')}
               onClick={onSelectLink}
-              vertical={verticalLabels}
-            >
+              vertical={verticalLabels}>
               <IconWrapper>
                 <BellIcon />
                 {unViewedNotifications > 0 && (
@@ -151,7 +148,7 @@ const Navigation = ({
                 )}
               </IconWrapper>
               <Label selected={window.location.href.includes('notifications')}>
-                <Text size='size0' fontWeight='regular'>
+                <Text size="size0" fontWeight="regular">
                   Notifications
                 </Text>
               </Label>

@@ -23,7 +23,7 @@ const QUERY = gql`
 `
 
 class BetStatusIcon extends Component {
-  getText (betStatus) {
+  getText(betStatus) {
     switch (betStatus) {
       case betStatuses.WAITING_FOR_OPONENT:
         return 'Waiting for an opponent'
@@ -44,7 +44,7 @@ class BetStatusIcon extends Component {
     console.error('Unkown bet state')
   }
 
-  render () {
+  render() {
     const { loading, bet, currentUser } = this.props.data
 
     // let icon = ''

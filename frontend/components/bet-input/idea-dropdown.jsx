@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 
 import Text from '../text'
-import Distribute from '../distribute'
 
 const Root = styled.div`
   transition: all 0.3s ease;

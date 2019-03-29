@@ -30,7 +30,7 @@ const Target = styled.div`
 `
 
 class WaypointAnimate extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -56,7 +56,7 @@ class WaypointAnimate extends Component {
     this.setState({ isVisible: true })
   }
 
-  render () {
+  render() {
     const {
       children,
       direction,
@@ -68,13 +68,11 @@ class WaypointAnimate extends Component {
       <Waypoint
         onEnter={this.handleEnter}
         topOffset={topOffset}
-        bottomOffset={bottomOffset}
-      >
+        bottomOffset={bottomOffset}>
         <Target
           isVisible={this.state.isVisible}
           direction={direction}
-          distance={distance}
-        >
+          distance={distance}>
           {children}
         </Target>
       </Waypoint>

@@ -58,7 +58,7 @@ const haveDaysPassed = (lastPopupShownDate, today) => {
 }
 
 class SaveAccountPopup extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.handleCloseModal = this.handleCloseModal.bind(this)
@@ -69,21 +69,21 @@ class SaveAccountPopup extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     if (checkIfShouldAppear()) {
       this.props.showSaveAccountPopup()
     }
   }
 
-  handleCloseModal () {
+  handleCloseModal() {
     this.setState({ alreadyShown: true })
   }
 
-  saveAccountHandler () {
+  saveAccountHandler() {
     this.props.goToPage('/save-account')
   }
 
-  render () {
+  render() {
     const { data, showPopup } = this.props
     const { currentUser } = data
 
@@ -102,15 +102,14 @@ class SaveAccountPopup extends Component {
         {t => (
           <Modal
             isOpen={showPopup && !this.state.alreadyShown}
-            onClose={this.handleCloseModal}
-          >
-            <Text size='size1'>{t('save-account-message')}</Text>
+            onClose={this.handleCloseModal}>
+            <Text size="size1">{t('save-account-message')}</Text>
             <Spacer top={4} />
-            <Button type='level2' fullWidth onClick={this.saveAccountHandler}>
+            <Button type="level2" fullWidth onClick={this.saveAccountHandler}>
               {t('create-account')}
             </Button>
             <Spacer top={1} />
-            <Button size='small' type='inverted' fullWidth>
+            <Button size="small" type="inverted" fullWidth>
               Cancel
             </Button>
           </Modal>

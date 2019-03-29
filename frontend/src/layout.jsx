@@ -37,7 +37,7 @@ const Root = styled.div`
 `
 
 class Layout extends Component {
-  render () {
+  render() {
     const { location, globalWidth } = this.props
 
     const { pathname } = location

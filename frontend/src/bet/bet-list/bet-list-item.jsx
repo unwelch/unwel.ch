@@ -19,25 +19,25 @@ export const getStatusText = (betStatus, opponent, t) => {
   switch (betStatus) {
     case betStatuses.WAITING_FOR_OPONENT:
       return (
-        <Text size='size0' dimmed shortLineHeight>
+        <Text size="size0" dimmed shortLineHeight>
           {t('bet-status.waiting-for-opponent')}
         </Text>
       )
     case betStatuses.AVAILABLE_BET:
       return (
-        <Text size='size0' dimmed shortLineHeight>
+        <Text size="size0" dimmed shortLineHeight>
           {t('bet-status.available-bet')}
         </Text>
       )
     case betStatuses.WAITING_FOR_USER_RESPONSE:
       return (
-        <Text size='size0' dimmed shortLineHeight>
+        <Text size="size0" dimmed shortLineHeight>
           {t('bet-status.waiting-for-user-response')}
         </Text>
       )
     case betStatuses.WAITING_FOR_OPONENT_RESPONSE:
       return (
-        <Text size='size0' dimmed shortLineHeight>
+        <Text size="size0" dimmed shortLineHeight>
           {t('bet-status.waiting-for-opponent-response', {
             opponent: opponent.name
           })}
@@ -46,33 +46,30 @@ export const getStatusText = (betStatus, opponent, t) => {
     case betStatuses.LOST:
       return (
         <Text
-          size='size0'
+          size="size0"
           color={colors.body}
-          fontWeight='black'
-          shortLineHeight
-        >
+          fontWeight="black"
+          shortLineHeight>
           {t('bet-status.lost')}
         </Text>
       )
     case betStatuses.WON:
       return (
         <Text
-          size='size0'
+          size="size0"
           color={colors.primary}
-          fontWeight='black'
-          shortLineHeight
-        >
+          fontWeight="black"
+          shortLineHeight>
           {t('bet-status.won')}
         </Text>
       )
     case betStatuses.DISPUTED:
       return (
         <Text
-          size='size0'
+          size="size0"
           color={colors.error}
-          fontWeight='black'
-          shortLineHeight
-        >
+          fontWeight="black"
+          shortLineHeight>
           {t('bet-status.dispute')}
         </Text>
       )
@@ -107,14 +104,14 @@ const FooterElementWrapper = styled.div`
 `
 
 class BetListItem extends Component {
-  renderPlaceholder () {
+  renderPlaceholder() {
     return (
       <Spacer bottom={4}>
         <Spacer top={2}>
           <Placeholder fullWidth height={2} />
         </Spacer>
         <Spacer top={2}>
-          <Distribute align='center' space={3 / 2}>
+          <Distribute align="center" space={3 / 2}>
             <Avatar size={3} />
             <Placeholder width={10} height={1} />
           </Distribute>
@@ -123,7 +120,7 @@ class BetListItem extends Component {
     )
   }
 
-  render () {
+  render() {
     const { currentUser, bet, placeholder } = this.props
 
     if (placeholder) return this.renderPlaceholder()
@@ -135,9 +132,9 @@ class BetListItem extends Component {
     return (
       <TranslatorConsumer>
         {t => (
-          <Root onClick={this.props.onClick} data-qa='bet-list-item'>
+          <Root onClick={this.props.onClick} data-qa="bet-list-item">
             <Main>
-              <BetText data-qa='bet-list-item-text'>
+              <BetText data-qa="bet-list-item-text">
                 {getIntroText(
                   currentUser,
                   bet.user,
@@ -158,13 +155,13 @@ class BetListItem extends Component {
             <Spacer top={1} />
             <Footer>
               <FooterElementWrapper>
-                <Text size='size0' dimmed shortLineHeight>
+                <Text size="size0" dimmed shortLineHeight>
                   {getStatusText(getBetStatus(bet, currentUser), otherUser, t)}
                 </Text>
               </FooterElementWrapper>
               <Spacer left={2} />
               <FooterElementWrapper>
-                <Text size='size0' dimmed shortLineHeight textAlign='right'>
+                <Text size="size0" dimmed shortLineHeight textAlign="right">
                   {timeAgo(new Date(bet.createdAt))}
                 </Text>
               </FooterElementWrapper>

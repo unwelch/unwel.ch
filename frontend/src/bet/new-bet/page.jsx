@@ -3,23 +3,18 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import { compose } from 'ramda'
 import { connect } from 'react-redux'
-import styled from 'styled-components'
 import { bindActionCreators } from 'redux'
 import queryString from 'query-string'
 import LockIcon from 'react-feather/dist/icons/lock'
-import UnLockIcon from 'react-feather/dist/icons/unlock'
 import GlobeIcon from 'react-feather/dist/icons/globe'
 
 import DefaultContainer from 'components/default-container'
 import BetInput from 'components/bet-input'
 import Spacer from 'components/spacer'
 import Spread from 'components/spread'
-import Avatar from 'components/avatar'
 import Switch from 'components/switch'
 import Text from 'components/text'
 import Distribute from 'components/distribute'
-import Split from 'components/split'
-import { colors } from 'components/variables'
 
 import TargetButton from './target-button'
 
@@ -55,7 +50,7 @@ export const QUERY = gql`
 `
 
 class NewBet extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -65,7 +60,7 @@ class NewBet extends Component {
     this.handleBetConfirm = this.handleBetConfirm.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     trackEvent(events.pageLoaded, { page: 'newBet' })
   }
 
@@ -97,7 +92,7 @@ class NewBet extends Component {
     })
   }
 
-  render () {
+  render() {
     const targetUserId = this.state.targetUserId
 
     console.log(targetUserId)
@@ -114,7 +109,7 @@ class NewBet extends Component {
             </Spacer>
             <Spacer top={4}>
               <Spread>
-                <Distribute space={1} align='center'>
+                <Distribute space={1} align="center">
                   <Switch
                     onChange={this.handleVisibilityChange}
                     checked={!this.state.isPrivate}
@@ -126,9 +121,8 @@ class NewBet extends Component {
                           alignItems: 'center',
                           height: '100%',
                           paddingRight: 2
-                        }}
-                      >
-                        <GlobeIcon color='white' />
+                        }}>
+                        <GlobeIcon color="white" />
                       </div>
                     }
                     uncheckedIcon={
@@ -139,13 +133,12 @@ class NewBet extends Component {
                           alignItems: 'center',
                           height: '100%',
                           paddingRight: 2
-                        }}
-                      >
-                        <LockIcon color='white' />
+                        }}>
+                        <LockIcon color="white" />
                       </div>
                     }
                   />
-                  <Text size='size0' onClick={this.handleVisibilityChange}>
+                  <Text size="size0" onClick={this.handleVisibilityChange}>
                     {this.state.isPrivate
                       ? t('bet.visibility.private')
                       : t('bet.visibility.public')}

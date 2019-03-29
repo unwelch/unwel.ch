@@ -53,34 +53,36 @@ class Header extends Component {
     window.location.reload()
   }
 
-  render () {
+  render() {
     const { isLoggedIn, location } = this.props
 
     const { pathname } = location
 
-    const showBackArrow = !(pathname === '/' ||
+    const showBackArrow = !(
+      pathname === '/' ||
       pathname.includes('profile') ||
       pathname === '/bets' ||
-      pathname === '/notifications')
+      pathname === '/notifications'
+    )
 
     return (
       <Root>
         <DefaultContainer>
-          <Spread align='center'>
+          <Spread align="center">
             <LogoWrapper
-              onClick={showBackArrow ? this.props.history.goBack : _ => _}
-            >
+              onClick={showBackArrow ? this.props.history.goBack : _ => _}>
               <BackArrowWrapper visible={showBackArrow}>
                 <ArrowLeftIcon />
               </BackArrowWrapper>
               <Logo />
             </LogoWrapper>
 
-            <Distribute space={2} align='center'>
-              {isLoggedIn &&
-                <Button type='level2' size='small' onClick={this.newBetHandler}>
+            <Distribute space={2} align="center">
+              {isLoggedIn && (
+                <Button type="level2" size="small" onClick={this.newBetHandler}>
                   New bet
-                </Button>}
+                </Button>
+              )}
             </Distribute>
           </Spread>
         </DefaultContainer>
@@ -99,5 +101,8 @@ const mapStateToProps = state => {
 export default compose(
   withRouter,
   withNavigate,
-  connect(mapStateToProps, null)
+  connect(
+    mapStateToProps,
+    null
+  )
 )(Header)

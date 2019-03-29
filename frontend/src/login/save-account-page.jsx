@@ -52,7 +52,7 @@ const SaveAccount = ({ token, data: { currentUser, loading } }) => {
   return (
     <DefaultContainer>
       <Spacer top={4}>
-        <Text size='size4' fontWeight='regular'>
+        <Text size="size4" fontWeight="regular">
           Save your account and bets.
         </Text>
       </Spacer>

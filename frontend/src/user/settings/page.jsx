@@ -47,7 +47,7 @@ const Split = styled.div`
 const Root = styled(DefaultContainer)``
 
 class Settings extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -60,7 +60,7 @@ class Settings extends Component {
     this.handleNotificationsChange = this.handleNotificationsChange.bind(this)
   }
 
-  componentWillUpdate (nextProps, nextState) {
+  componentWillUpdate(nextProps, nextState) {
     if (!nextProps.data.loading && nextState.name === null) {
       this.setState({
         name: nextProps.data.currentUser.name
@@ -68,7 +68,7 @@ class Settings extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     trackEvent('pageLoaded', { page: 'settings' })
 
     if (!this.props.data.loading && this.state.name === null) {
@@ -78,22 +78,22 @@ class Settings extends Component {
     }
   }
 
-  handleLogOut () {
+  handleLogOut() {
     window.localStorage.clear()
     window.location.href = '/'
   }
 
-  handleChangeName (event) {
+  handleChangeName(event) {
     this.setState({
       name: event.target.value
     })
   }
 
-  handleNameInputBlur () {
+  handleNameInputBlur() {
     this.props.changeName(this.state.name)
   }
 
-  handleNotificationsChange (enabled) {
+  handleNotificationsChange(enabled) {
     if (enabled) {
       setupPush(this.props.token)
         .then(() => this.props.enablePushNotifications())
@@ -107,11 +107,11 @@ class Settings extends Component {
     }
   }
 
-  handleInstall () {
+  handleInstall() {
     promptInstall()
   }
 
-  render () {
+  render() {
     const { currentUser, loading } = this.props.data
 
     if (loading) {
@@ -123,26 +123,26 @@ class Settings extends Component {
     return (
       <Root>
         <Spacer inner top={3} />
-        <Text size='size3' fontWeight='regular'>
+        <Text size="size3" fontWeight="regular">
           Settings
         </Text>
         <Split />
-        <Distribute space={2} align='center'>
-          <Text size='size2' fontWeight='regular'>
+        <Distribute space={2} align="center">
+          <Text size="size2" fontWeight="regular">
             Name
           </Text>
           <Input
             value={this.state.name ? this.state.name : ''}
             onChange={this.handleChangeName}
             onBlur={this.handleNameInputBlur}
-            size='size2'
+            size="size2"
           />
         </Distribute>
         <Split />
         {isPushSupported() && window.Notification.permission !== 'denied' && (
           <Fragment>
-            <Distribute space={2} align='center'>
-              <Text size='size2' fontWeight='regular'>
+            <Distribute space={2} align="center">
+              <Text size="size2" fontWeight="regular">
                 Notifications
               </Text>
               <Switch
@@ -161,7 +161,7 @@ class Settings extends Component {
         )}
         {!isAnonymous && (
           <Fragment>
-            <Button type='warning' onClick={this.handleLogOut}>
+            <Button type="warning" onClick={this.handleLogOut}>
               Log out
             </Button>
             <Split />

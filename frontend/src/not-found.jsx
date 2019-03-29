@@ -14,17 +14,17 @@ const Root = styled.div`
 `
 
 class NotFound extends Component {
-  componentDidMount () {
+  componentDidMount() {
     trackEvent(events.pageLoaded, { page: 'notFound' })
   }
 
-  render () {
+  render() {
     return (
       <Root>
-        <Text size='size6' fontWeight='black'>
+        <Text size="size6" fontWeight="black">
           404
         </Text>
-        <Text size='size2' fontWeight='regular'>
+        <Text size="size2" fontWeight="regular">
           Not found
         </Text>
       </Root>

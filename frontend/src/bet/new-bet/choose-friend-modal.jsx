@@ -49,7 +49,7 @@ const FriendWrapper = styled.div`
 `
 
 class ChooseFriendModal extends Component {
-  render () {
+  render() {
     const { userId, onFriendSelect, isOpen, onClose } = this.props
 
     return (
@@ -66,18 +66,17 @@ class ChooseFriendModal extends Component {
                   <Root>
                     <FriendList>
                       <FriendWrapper onClick={() => onFriendSelect(null)}>
-                        <Text size='size2' fontWeight='bold'>
+                        <Text size="size2" fontWeight="bold">
                           {t('anyone')}
                         </Text>
                       </FriendWrapper>
                       {user.friends.map(friend => (
                         <FriendWrapper
                           onClick={() => onFriendSelect(friend.id)}
-                          key={friend.id}
-                        >
+                          key={friend.id}>
                           <Avatar size={4} user={friend} />
                           <Spacer left={2}>
-                            <Text size='size2' fontWeight='bold'>
+                            <Text size="size2" fontWeight="bold">
                               {friend.name}
                             </Text>
                           </Spacer>
