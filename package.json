@@ -30,7 +30,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "concurrently": "^3.5.1",
-    "eslint-config-gerard": "^0.0.1",
+    "eslint-config-gerard": "^0.0.2",
     "husky": "^1.1.2",
     "lint-staged": "^7.3.0",
     "node-fetch": "^2.3.0",

@@ -4,9 +4,10 @@ import generateDefaults from './../db/defaults'
 
 const tableName = 'bets'
 const primaryKeys = ['id']
+const orders = [{ column: 'created_at', direction: false }]
 
 export default {
-  ...generateDefaults(tableName, primaryKeys),
+  ...generateDefaults(tableName, primaryKeys, orders),
   getByUserOrUser2: async id => {
     return query(
       squel

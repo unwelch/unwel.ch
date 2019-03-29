@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import ListIcon from 'react-feather/dist/icons/list'
 import UserIcon from 'react-feather/dist/icons/user'
 import BellIcon from 'react-feather/dist/icons/bell'
+import GlobeIcon from 'react-feather/dist/icons/globe'
 
 import DefaultContainer from 'components/default-container'
 import Text from 'components/text'
@@ -56,12 +57,12 @@ const List = styled.div`
 `
 
 const ListItem = styled(({ vertical, ...rest }) => <Link {...rest} />)`
-  flex: 1;
+  flex: 1 0 0;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 48px;
-  padding: 0 12px;
+  padding-top: 2px;
 
   color: ${p => (p.selected ? colors.primary : colors.body)};
 
@@ -103,9 +104,23 @@ const Navigation = ({
 
   return (
     <Root>
-      <DefaultContainer>
+      <DefaultContainer notPadded>
         <Nav>
           <List>
+            <ListItem
+              to="/feed"
+              selected={window.location.href.includes('feed')}
+              onClick={onSelectLink}
+              vertical={verticalLabels}>
+              <IconWrapper>
+                <GlobeIcon />
+              </IconWrapper>
+              <Label selected={window.location.href.includes('feed')}>
+                <Text size="size0" fontWeight="regular">
+                  Feed
+                </Text>
+              </Label>
+            </ListItem>
             <ListItem
               to="/bets"
               selected={window.location.href.includes('bet')}

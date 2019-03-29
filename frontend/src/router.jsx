@@ -30,6 +30,10 @@ const AsyncSaveAccountPage = lazy(() =>
 const AsyncBetList = lazy(() =>
   import(/* webpackChunkName: "bet-list" */ './bet/bet-list/page')
 )
+
+const AsyncBetFeedList = lazy(() =>
+  import(/* webpackChunkName: "bet-feed" */ './bet/bet-feed/page')
+)
 const AsyncNewBet = lazy(() =>
   import(/* webpackChunkName: "new-bet" */ './bet/new-bet/page')
 )
@@ -43,6 +47,7 @@ const Router = () => (
           path="/notifications"
           component={() => <AsyncNotifications />}
         />
+        <Route exact path="/feed" component={() => <AsyncBetFeedList />} />
         <Route exact path="/bets" component={() => <AsyncBetList />} />
         <Route exact path="/bets/new" component={() => <AsyncNewBet />} />
         <Route

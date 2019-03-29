@@ -1704,10 +1704,10 @@ escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
-eslint-config-gerard@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-gerard/-/eslint-config-gerard-0.0.1.tgz#f8ff3c262c85438f4a5d0c0eea2a751eecbb245a"
-  integrity sha512-Lk94VZ0vrqyixYszrVYm63QPBZ/wbxLXV6Re79SyeQ//qF4E+3PFW2xiAPaBCap79aGGGS2vP7HaMs/lG1z14Q==
+eslint-config-gerard@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-gerard/-/eslint-config-gerard-0.0.2.tgz#3a3cf8fede898efda16806bbbc57b8827f670cb6"
+  integrity sha512-RPnldsfYga0PGwTrCOPWCZH1q77pVN3nY1Hx7/7UGMbC+jZ8Zvh3STcyWer201qcb/WLcA1VI6LvZ9GWx2P1QQ==
   dependencies:
     babel-eslint "^10.0.1"
     eslint "^5.12.0"

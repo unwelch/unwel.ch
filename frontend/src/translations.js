@@ -2,19 +2,17 @@ import React from 'react'
 
 const translations = {
   en: {
-    'bet-list.title': 'List of bets',
+    'bet-list.title': 'Your bets',
     'bet.visibility.private': 'Private',
     'bet.visibility.public': 'Public',
     'bet-status.waiting-for-opponent': 'Nobody accepted this bet yet',
     'bet-status.waiting-for-target-opponent':
       'Waiting for {{userName}} to accept',
     'bet-status.waiting-for-you': 'Waiting for you to accept',
-    'bet-status.available-bet': 'Availabe',
+    'bet-status.available-bet': 'Available',
     'bet-status.accepted-by-you': 'You accepted this bet',
     'bet-status.accepted-by-user': '{{user}} accepted this bet',
     'bet-status.waiting-for-user-response': 'Waiting for result',
-    'bet-status.waiting-for-opponent-response':
-      'Waiting for {{opponent}} to decide who won',
     'bet-status.won': 'Won',
     'bet-status.lost': 'Lost',
     'bet-status.dispute': 'Dispute',

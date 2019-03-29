@@ -142,6 +142,9 @@ class Actions extends Component {
             {t('bet-status.dispute.long')}
           </Text>
         )
+
+      case betStatuses.THIRD_PARTY_BET:
+        return <div />
     }
   }
 }
