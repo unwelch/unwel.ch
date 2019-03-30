@@ -256,6 +256,13 @@ const betsQuery = {
   }
 }
 
+const betsFeedQuery = {
+  type: new GraphQLList(BetType),
+  resolve: () => {
+    return db.getBy('isPrivate', false)
+  }
+}
+
 const betQuery = {
   type: BetType,
   args: {
@@ -278,5 +285,6 @@ const betQuery = {
 
 export const BetQuery = {
   bets: betsQuery,
-  bet: betQuery
+  bet: betQuery,
+  betsFeed: betsFeedQuery
 }

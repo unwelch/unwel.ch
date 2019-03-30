@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 import styled from 'styled-components'
 
@@ -38,9 +38,7 @@ export const getStatusText = (betStatus, opponent, t) => {
     case betStatuses.WAITING_FOR_OPONENT_RESPONSE:
       return (
         <Text size="size0" dimmed shortLineHeight>
-          {t('bet-status.waiting-for-opponent-response', {
-            opponent: opponent.name
-          })}
+          {t('bet-status.waiting-for-user-response')}
         </Text>
       )
     case betStatuses.LOST:
@@ -72,6 +70,15 @@ export const getStatusText = (betStatus, opponent, t) => {
           shortLineHeight>
           {t('bet-status.dispute')}
         </Text>
+      )
+    case betStatuses.THIRD_PARTY_BET:
+      return (
+        <Text
+          size="size0"
+          color={colors.error}
+          fontWeight="black"
+          shortLineHeight
+        />
       )
   }
 
@@ -120,6 +127,23 @@ class BetListItem extends Component {
     )
   }
 
+  renderAvatars(betStatus, bet, otherUser) {
+    if (betStatus === betStatuses.THIRD_PARTY_BET) {
+      return (
+        <Fragment>
+          <Avatar size={4} user={bet.user} />
+          <Spacer left={1} />
+          <Avatar size={4} user={bet.user2} />
+        </Fragment>
+      )
+    }
+
+    if (otherUser) {
+      return <Avatar size={4} user={otherUser} />
+    }
+    return <Avatar size={4} unknown />
+  }
+
   render() {
     const { currentUser, bet, placeholder } = this.props
 
@@ -128,6 +152,8 @@ class BetListItem extends Component {
     const otherUser = [bet.user, bet.user2]
       .filter(x => !!x)
       .filter(user => user.id !== currentUser.id)[0]
+
+    const betStatus = getBetStatus(bet, currentUser)
 
     return (
       <TranslatorConsumer>
@@ -146,17 +172,13 @@ class BetListItem extends Component {
                 )}
               </BetText>
               <Spacer left={1} />
-              {otherUser ? (
-                <Avatar size={4} user={otherUser} />
-              ) : (
-                <Avatar size={4} unknown />
-              )}
+              {this.renderAvatars(betStatus, bet, otherUser)}
             </Main>
             <Spacer top={1} />
             <Footer>
               <FooterElementWrapper>
                 <Text size="size0" dimmed shortLineHeight>
-                  {getStatusText(getBetStatus(bet, currentUser), otherUser, t)}
+                  {getStatusText(betStatus, otherUser, t)}
                 </Text>
               </FooterElementWrapper>
               <Spacer left={2} />

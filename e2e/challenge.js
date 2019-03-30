@@ -41,7 +41,9 @@ test('Challenge a user by going to profile', async t => {
 
   await t.click(dataQaSelector('challenge-button'))
 
-  await t.expect(dataQaSelector('target-name').withExactText(acceptorName)).ok()
+  await t
+    .expect(dataQaSelector('target-name').withExactText(acceptorName).exists)
+    .ok()
 
   await fillNewBet(t, 'you suck', 'a cold b33r')
 
@@ -72,7 +74,9 @@ test('Challenge a user by selecting it in the modal', async t => {
   await t.click(Selector('div').withExactText(acceptorName))
 
   await t.expect(dataQaExists('target-anonymous')).notOk()
-  await t.expect(dataQaSelector('target-name').withExactText(acceptorName)).ok()
+  await t
+    .expect(dataQaSelector('target-name').withExactText(acceptorName).exists)
+    .ok()
 
   await fillNewBet(t, 'you suck', 'a cold b33r')
 

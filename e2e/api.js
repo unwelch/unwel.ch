@@ -2,7 +2,12 @@ import fetch from 'node-fetch'
 
 const HOST = 'http://localhost:3000'
 
-export const createBet = async (token, quantity, statement) => {
+export const createBet = async (
+  token,
+  quantity,
+  statement,
+  isPrivate = false
+) => {
   const resp = await fetch(`${HOST}/graphql`, {
     headers: {
       Accept: 'application/json',
@@ -12,10 +17,10 @@ export const createBet = async (token, quantity, statement) => {
     method: 'POST',
     body: JSON.stringify({
       operationName: 'addBetMutation',
-      variables: { statement, quantity },
+      variables: { statement, quantity, isPrivate },
       query: `
-      mutation addBetMutation($quantity: String!, $statement: String!) {
-        addBet(quantity: $quantity, statement: $statement) {
+      mutation addBetMutation($quantity: String!, $statement: String!, $isPrivate: Boolean!) {
+        addBet(quantity: $quantity, statement: $statement, isPrivate: $isPrivate) {
           id
         }
       }`

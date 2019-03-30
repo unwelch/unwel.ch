@@ -1,18 +1,46 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
 import { compose } from 'ramda'
 
 import DefaultContainer from 'components/default-container'
-import Text from 'components/text'
 import Spacer from 'components/spacer'
 
-import * as queries from './queries'
 import { trackEvent, events } from '../../tracking'
-import { TranslatorConsumer } from '../../translations'
 import withNavigate from '../../navigation/withNavigate'
 import withIsLoggedIn from '../../user/auth/withIsLoggedIn'
-import BetList from './bet-list'
+import BetList from '../bet-list/bet-list'
+
+export const BET_FEED = gql`
+  query {
+    currentUser {
+      id
+      name
+      avatar
+    }
+    betsFeed {
+      id
+      quantity
+      user {
+        id
+        avatar
+        name
+      }
+      user2 {
+        id
+        avatar
+        name
+      }
+      statement {
+        statement
+      }
+      userResponse
+      user2Response
+      createdAt
+    }
+  }
+`
 
 const Root = styled.div`
   min-height: 100%;
@@ -27,23 +55,14 @@ class BetListPage extends Component {
   }
 
   render() {
-    const { bets, currentUser, loading } = this.props.data
+    const { betsFeed, currentUser, loading } = this.props.data
 
     return (
       <Root>
         <DefaultContainer>
-          <Spacer inner top={3} />
-          <TranslatorConsumer>
-            {t => (
-              <Text size="size3" fontWeight="bold">
-                {t('bet-list.title')}
-              </Text>
-            )}
-          </TranslatorConsumer>
-          <Spacer top={3} />
           <BetList
             placeholders={loading}
-            bets={bets}
+            bets={betsFeed}
             onBetClick={betId => this.props.goToPage(`/bet/${betId}`)}
             currentUser={currentUser}
           />
@@ -55,7 +74,7 @@ class BetListPage extends Component {
 }
 
 export default compose(
-  graphql(queries.BET_LIST, {
+  graphql(BET_FEED, {
     options: () => ({
       fetchPolicy: 'cache-and-network'
     })

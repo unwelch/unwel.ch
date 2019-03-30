@@ -1,7 +1,7 @@
 import { squel, queryOne, query, defaultSquelConstructorParams } from '.'
 import { keysToUnderscore, toUnderscore } from './helpers'
 
-export default (tableName, primaryKeys) => {
+export default (tableName, primaryKeys, orders = []) => {
   primaryKeys = primaryKeys.map(toUnderscore)
 
   return {
@@ -62,15 +62,21 @@ export default (tableName, primaryKeys) => {
         sql.where(`${toUnderscore(column)} = ?`, value)
       }
 
+      orders.forEach(order => {
+        sql.order(order.column, order.direction)
+      })
+
       return query(sql.toString())
     },
 
     getAll: async () => {
-      const sql = squel
-        .select(defaultSquelConstructorParams)
-        .from(tableName)
-        .toString()
-      return query(sql)
+      const sql = squel.select(defaultSquelConstructorParams).from(tableName)
+
+      orders.forEach(order => {
+        sql.order(order.column, order.direction)
+      })
+
+      return query(sql.toString())
     },
 
     delete: async (...keys) => {
