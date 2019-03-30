@@ -14,6 +14,8 @@ import DefaultContainer from 'components/default-container'
 import Text from 'components/text'
 import { colors } from 'components/variables'
 
+import { isFeatureEnabled } from '../features'
+
 const QUERY = gql`
   query {
     currentUser {
@@ -107,20 +109,22 @@ const Navigation = ({
       <DefaultContainer notPadded>
         <Nav>
           <List>
-            <ListItem
-              to="/feed"
-              selected={window.location.href.includes('feed')}
-              onClick={onSelectLink}
-              vertical={verticalLabels}>
-              <IconWrapper>
-                <GlobeIcon />
-              </IconWrapper>
-              <Label selected={window.location.href.includes('feed')}>
-                <Text size="size0" fontWeight="regular">
-                  Feed
-                </Text>
-              </Label>
-            </ListItem>
+            {isFeatureEnabled('feed') && (
+              <ListItem
+                to="/feed"
+                selected={window.location.href.includes('feed')}
+                onClick={onSelectLink}
+                vertical={verticalLabels}>
+                <IconWrapper>
+                  <GlobeIcon />
+                </IconWrapper>
+                <Label selected={window.location.href.includes('feed')}>
+                  <Text size="size0" fontWeight="regular">
+                    Feed
+                  </Text>
+                </Label>
+              </ListItem>
+            )}
             <ListItem
               to="/bets"
               selected={window.location.href.includes('bet')}
