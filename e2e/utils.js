@@ -16,3 +16,8 @@ export const clearLocalStorage = ClientFunction(() =>
 
 export const dataQaSelector = dataQa => Selector(`[data-qa="${dataQa}"]`)
 export const dataQaExists = dataQa => dataQaSelector(dataQa).exists
+
+export const randomString = () =>
+  Math.random()
+    .toString(36)
+    .substr(2, 5)
