@@ -17,5 +17,16 @@ export default {
         .order('created_at', false)
         .toString()
     )
+  },
+  getPublicLimit: async limit => {
+    return query(
+      squel
+        .select(defaultSquelConstructorParams)
+        .from(tableName)
+        .where('is_private = ?', false)
+        .order('created_at', false)
+        .limit(limit)
+        .toString()
+    )
   }
 }
