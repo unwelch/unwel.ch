@@ -109,7 +109,7 @@ const Navigation = ({
       <DefaultContainer notPadded>
         <Nav>
           <List>
-            {isFeatureEnabled('feed') && (
+            {isFeatureEnabled(currentUser.id, 'feed') && (
               <ListItem
                 to="/feed"
                 selected={window.location.href.includes('feed')}

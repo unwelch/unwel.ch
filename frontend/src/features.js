@@ -4,5 +4,14 @@ const features = {
     userId === '6125183a-8607-4602-9ad7-52a256de058b'
 }
 
-export const isFeatureEnabled = (userId, feature) =>
-  process.env.NODE_ENV !== 'production' || features[feature](userId)
+export const isFeatureEnabled = (userId, feature) => {
+  if (process.env.NODE_ENV !== 'production') {
+    return true
+  }
+
+  const featureChecker = features[feature]
+
+  if (!featureChecker) return true
+
+  return featureChecker(userId)
+}
