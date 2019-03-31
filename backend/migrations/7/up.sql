@@ -1,4 +1,4 @@
-UPDATE migrations SET version = 6;
+UPDATE migrations SET version = 7;
 
 CREATE TABLE pools (
     id          UUID        PRIMARY KEY DEFAULT uuid_generate_v4(),
