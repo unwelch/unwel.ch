@@ -259,7 +259,7 @@ const betsQuery = {
 const betsFeedQuery = {
   type: new GraphQLList(BetType),
   resolve: () => {
-    return db.getBy('isPrivate', false)
+    return db.getPublicLimit(50)
   }
 }
 
