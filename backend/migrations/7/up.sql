@@ -6,6 +6,7 @@ CREATE TABLE pools (
     statement   TEXT        NOT NULL,
     quantity    TEXT        NOT NULL,
     closed      BOOL        NOT NULL    DEFAULT FALSE,
+    is_private  BOOL        NOT NULL    DEFAULT FALSE,
     created_at  TIMESTAMP   NOT NULL    DEFAULT CURRENT_TIMESTAMP,
     updated_at  TIMESTAMP
 );
@@ -19,7 +20,8 @@ CREATE TABLE pool_bets (
     user_id     UUID        NOT NULL,
     guess       TEXT        NOT NULL,
     created_at  TIMESTAMP   NOT NULL    DEFAULT CURRENT_TIMESTAMP,
-    updated_at  TIMESTAMP
+    updated_at  TIMESTAMP,
+    UNIQUE (pool_id, user_id)
 );
 
 ALTER TABLE pool_bets
