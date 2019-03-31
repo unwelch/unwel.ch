@@ -10,6 +10,9 @@ CREATE TABLE pools (
     updated_at  TIMESTAMP
 );
 
+ALTER TABLE pools
+  ADD CONSTRAINT user_id_fk FOREIGN KEY (user_id) REFERENCES users (id);
+
 CREATE TABLE pool_bets (
     id          UUID        PRIMARY KEY DEFAULT uuid_generate_v4(),
     pool_id     UUID        NOT NULL,
@@ -18,3 +21,7 @@ CREATE TABLE pool_bets (
     created_at  TIMESTAMP   NOT NULL    DEFAULT CURRENT_TIMESTAMP,
     updated_at  TIMESTAMP
 );
+
+ALTER TABLE pool_bets
+  ADD CONSTRAINT user_id_fk FOREIGN KEY (user_id) REFERENCES users (id),
+  ADD CONSTRAINT pool_id_fk FOREIGN KEY (pool_id) REFERENCES pools (id);
