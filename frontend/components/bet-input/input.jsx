@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import NativeInput from '../input'
-import IdeaDropdown from './idea-dropdown'
+// import IdeaDropdown from './idea-dropdown'
 
 const Input = ({
   fontWeight,
@@ -8,32 +8,11 @@ const Input = ({
   fullWidth,
   value,
   placeholder,
-  ideas,
-  ideaColumns,
   dataQa,
   onChange
 }) => {
-  const [showDropdown, setShowDropdown] = useState(false)
-
-  const handleInputFocus = () => {
-    if (value === '') {
-      setShowDropdown(true)
-    }
-  }
-
-  const handleInputBlur = () => {
-    // TODO fix: this causes a state chenge after unmounting
-    setTimeout(() => setShowDropdown(false), 300)
-  }
-
   const handleInputChange = evt => {
     onChange(evt)
-    setShowDropdown(evt.target.value === '')
-  }
-
-  const handleIdeaClick = idea => {
-    setShowDropdown(false)
-    onChange({ target: { value: idea } })
   }
 
   return (
@@ -46,14 +25,6 @@ const Input = ({
         value={value}
         placeholder={placeholder}
         data-qa={dataQa}
-        onFocus={handleInputFocus}
-        onBlur={handleInputBlur}
-      />
-      <IdeaDropdown
-        visible={showDropdown}
-        ideas={ideas}
-        onIdeaClick={handleIdeaClick}
-        columns={ideaColumns}
       />
     </div>
   )
