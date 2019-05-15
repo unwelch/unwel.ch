@@ -7,17 +7,17 @@ import Input from './input'
 import Animate from '../animate'
 import Text from '../text'
 
-const quantityIdeas = [
-  { color: '#E9CA9F99', emoji: '☕️', content: 'one coffee' },
-  { color: '#FF878B99', emoji: '🍕', content: 'the last pizza slice' },
-  { color: '#A0BAFF99', emoji: '🍽', content: 'a dinner' },
-  { color: '#FDD57F99', emoji: '🍺', content: 'a beer' }
-]
+// const quantityIdeas = [
+//   { color: '#E9CA9F99', emoji: '☕️', content: 'one coffee' },
+//   { color: '#FF878B99', emoji: '🍕', content: 'the last pizza slice' },
+//   { color: '#A0BAFF99', emoji: '🍽', content: 'a dinner' },
+//   { color: '#FDD57F99', emoji: '🍺', content: 'a beer' }
+// ]
 
-const statementIdeas = [
-  { color: '#9FD2E999', emoji: '😎', content: 'it will be warmer next year' },
-  { color: '#FF878B99', emoji: '🏃‍', content: 'I will finish a marathon' }
-]
+// const statementIdeas = [
+//   { color: '#9FD2E999', emoji: '😎', content: 'it will be warmer next year' },
+//   { color: '#FF878B99', emoji: '🏃‍', content: 'I will finish a marathon' }
+// ]
 
 const fadeIn = keyframes`
   0% {
@@ -100,8 +100,6 @@ const Bet = ({
           value={quantity}
           placeholder={'1 coffee'}
           dataQa="bet-input-quantity"
-          ideas={quantityIdeas}
-          ideaColumns={1}
         />
       </AnimateWrapperQuantity>
       <Spacer top={2} />
@@ -121,8 +119,6 @@ const Bet = ({
           value={statement}
           placeholder={'something'}
           dataQa="bet-input-statement"
-          ideas={statementIdeas}
-          ideaColumns={1}
         />
       </AnimateWrapperStatement>
 
