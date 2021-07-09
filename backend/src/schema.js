@@ -3,6 +3,7 @@ import { GraphQLSchema, GraphQLObjectType } from 'graphql'
 import { NotificationQuery, NotificationMutation } from './notifications/schema'
 import { UserQuery, UserMutation } from './user/schema'
 import { BetQuery, BetMutation } from './bet/schema'
+import { PoolQuery, PoolMutation } from './pool/schema'
 
 export default new GraphQLSchema({
   mutation: new GraphQLObjectType({
@@ -12,7 +13,8 @@ export default new GraphQLSchema({
     fields: () => ({
       ...BetMutation,
       ...UserMutation,
-      ...NotificationMutation
+      ...NotificationMutation,
+      ...PoolMutation
     })
   }),
   query: new GraphQLObjectType({
@@ -22,7 +24,8 @@ export default new GraphQLSchema({
     fields: () => ({
       ...UserQuery,
       ...BetQuery,
-      ...NotificationQuery
+      ...NotificationQuery,
+      ...PoolQuery
     })
   })
 })
